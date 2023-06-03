@@ -101,7 +101,7 @@ public abstract class EntityDAO<T> implements IEntityDAO<T> {
             .replace("]", ")");
     }
 
-    private int prepareStatement(PreparedStatement ps, Map<String, Object> entityMap)
+    private int prepareStatementOperations(PreparedStatement ps, Map<String, Object> entityMap)
         throws SQLException {
         int idx = 1;
         for (String key : entityMap.keySet()) {
@@ -129,7 +129,7 @@ public abstract class EntityDAO<T> implements IEntityDAO<T> {
             "INSERT INTO " + getTableName() + " " + formatKeySetString(entityCols) + " VALUES ("
                 + "(?), ".repeat(entityCols.size() - 1) + "(?))";
         try (PreparedStatement ps = connection.prepareStatement(query)) {
-            prepareStatement(ps, entityMap);
+            prepareStatementOperations(ps, entityMap);
             ps.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -160,7 +160,7 @@ public abstract class EntityDAO<T> implements IEntityDAO<T> {
         Connection connection = connectionPool.getConnection();
         String query = queryBuilder(entity);
         try (PreparedStatement ps = connection.prepareStatement(query)) {
-            int idx = prepareStatement(ps, entityMap);
+            int idx = prepareStatementOperations(ps, entityMap);
             ps.setInt(idx, (Integer) entityMap.get("id"));
             ps.execute();
         } catch (SQLException e) {
