@@ -1,4 +1,4 @@
-package org.laba.utils;
+package com.laba.utils;
 
 import java.io.IOException;
 import java.io.InputStream;

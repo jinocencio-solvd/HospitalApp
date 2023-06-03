@@ -1,4 +1,4 @@
-package org.laba.utils;
+package com.laba.utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -16,20 +16,6 @@ public class ConnectionPool {
     private final int maxPoolSize = 5;
     private final List<Connection> connectionPool = new ArrayList<>(maxPoolSize);;
     private final List<Connection> usedConnections = new ArrayList<>();
-
-
-//    private ConnectionPool(String url, String username, String password, int initialPoolSize,
-//        int maxPoolSize) {
-//        this.url = url;
-//        this.username = username;
-//        this.password = password;
-//        this.maxPoolSize = maxPoolSize;
-//
-//        connectionPool = new ArrayList<>(maxPoolSize);
-//        for (int i = 0; i < initialPoolSize; i++) {
-//            connectionPool.add(createConnection());
-//        }
-//    }
 
     public static synchronized ConnectionPool getInstance() {
         if (instance == null) {
