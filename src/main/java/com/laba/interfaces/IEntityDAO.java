@@ -6,11 +6,12 @@ public interface IEntityDAO<T> {
 
     List<T> getAll();
 
-//    T getById(int id);
+    T getById(int id);
 
-//    void save(T entity);
-//
-//    void update(T entity);
-//
-//    void deleteById(int id);
+    void deleteById(int id);
+
+    void save(T entity);
+
+    void update(T entity);
+
 }

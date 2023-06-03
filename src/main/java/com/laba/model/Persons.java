@@ -3,14 +3,24 @@ package com.laba.model;
 import java.sql.Date;
 
 public class Persons {
+    private Integer id;
     private String firstName;
     private String lastName;
     private Date dob;
 
-    public Persons(String firstName, String lastName, Date dob) {
+    public Persons(Integer id, String firstName, String lastName, Date dob) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.dob = dob;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -40,7 +50,8 @@ public class Persons {
     @Override
     public String toString() {
         return "Persons{" +
-            "firstName='" + firstName + '\'' +
+            "id=" + id +
+            ", firstName='" + firstName + '\'' +
             ", lastName='" + lastName + '\'' +
             ", dob=" + dob +
             '}';
