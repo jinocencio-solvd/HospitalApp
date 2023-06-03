@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -111,6 +112,8 @@ public abstract class EntityDAO<T> implements IEntityDAO<T> {
                 ps.setInt(idx, (Integer) colValue);
             } else if (colValue instanceof Date) {
                 ps.setDate(idx, (Date) colValue);
+            } else if (colValue instanceof Time) {
+                ps.setTime(idx, (Time) colValue);
             }
             idx++;
         }

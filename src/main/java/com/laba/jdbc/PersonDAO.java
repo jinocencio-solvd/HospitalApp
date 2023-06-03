@@ -23,7 +23,7 @@ public class PersonDAO extends EntityDAO<Person> implements IPersonDAO {
 
     @Override
     protected Person createModelFromMap(Map<String, String> columnMap) {
-        Integer id = Integer.valueOf(columnMap.get("id"));
+        Integer id = Integer.parseInt(columnMap.get("id"));
         String firstName = columnMap.get("first_name");
         String lastName = columnMap.get("last_name");
         Date dob = Date.valueOf(columnMap.get("dob"));

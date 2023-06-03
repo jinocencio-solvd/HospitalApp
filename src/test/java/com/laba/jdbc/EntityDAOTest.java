@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
 public class EntityDAOTest {
 
     private static PersonDAO personDAO;
-    private static final boolean isSingleThreaded = false;
+    private static final boolean isSingleThreaded = true;
     @BeforeMethod
     public void setUp() {
         personDAO = new PersonDAO();
