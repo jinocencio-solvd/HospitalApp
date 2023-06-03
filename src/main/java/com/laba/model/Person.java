@@ -1,15 +1,22 @@
 package com.laba.model;
 
 import java.sql.Date;
+import java.util.Objects;
 
-public class Persons {
-    private Integer id;
+public class Person {
+    private int id;
     private String firstName;
     private String lastName;
     private Date dob;
 
-    public Persons(Integer id, String firstName, String lastName, Date dob) {
+    public Person(Integer id, String firstName, String lastName, Date dob) {
         this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dob = dob;
+    }
+
+    public Person(String firstName, String lastName, Date dob) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dob = dob;
@@ -49,11 +56,29 @@ public class Persons {
 
     @Override
     public String toString() {
-        return "Persons{" +
+        return "Person{" +
             "id=" + id +
             ", firstName='" + firstName + '\'' +
             ", lastName='" + lastName + '\'' +
             ", dob=" + dob +
             '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Person)) {
+            return false;
+        }
+        Person person = (Person) o;
+        return getFirstName().equals(person.getFirstName()) && getLastName().equals(
+            person.getLastName()) && getDob().equals(person.getDob());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getFirstName(), getLastName(), getDob());
     }
 }

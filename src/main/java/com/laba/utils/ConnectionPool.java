@@ -13,7 +13,7 @@ public class ConnectionPool {
     private final String username = DBConfig.USER;
     private final String password = DBConfig.PASSWORD;
 
-    private final int maxPoolSize = 5;
+    private final int maxPoolSize = 15;
     private final List<Connection> connectionPool = new ArrayList<>(maxPoolSize);;
     private final List<Connection> usedConnections = new ArrayList<>();
 
