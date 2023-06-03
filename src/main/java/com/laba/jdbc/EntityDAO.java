@@ -130,6 +130,10 @@ public abstract class EntityDAO<T> implements IEntityDAO<T> {
             ps.execute();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                connectionPool.releaseConnection(connection);
+            }
         }
     }
 
@@ -158,6 +162,10 @@ public abstract class EntityDAO<T> implements IEntityDAO<T> {
             ps.execute();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                connectionPool.releaseConnection(connection);
+            }
         }
     }
 }

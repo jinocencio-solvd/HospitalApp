@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
 public class EntityDAOTest {
 
     private static PersonDAO personDAO;
-
+    private static final boolean isSingleThreaded = false;
     @BeforeMethod
     public void setUp() {
         personDAO = new PersonDAO();
@@ -24,7 +24,7 @@ public class EntityDAOTest {
         getAllPerson.forEach((p) -> personDAO.deleteById(p.getId()));
     }
 
-    @Test
+    @Test(singleThreaded = isSingleThreaded)
     public void testSave() {
         Person p1 = new Person("p1First", "p1Last", Date.valueOf("2001-01-01"));
         Person p2 = new Person("p2First", "p1Last", Date.valueOf("2001-01-01"));
@@ -35,7 +35,7 @@ public class EntityDAOTest {
         assertNotEquals(p2, retrievedPerson1);
     }
 
-    @Test
+    @Test(singleThreaded = isSingleThreaded)
     public void testGetAll() {
         Person p1 = new Person("p1First", "p1Last", Date.valueOf("2001-01-01"));
         Person p2 = new Person("p2First", "p2Last", Date.valueOf("2002-02-02"));
@@ -47,7 +47,7 @@ public class EntityDAOTest {
         assertEquals(3, getAllPerson.size());
     }
 
-    @Test
+    @Test(singleThreaded = isSingleThreaded)
     public void testGetById() {
         Person p1 = new Person("p1First", "p1Last", Date.valueOf("2001-01-01"));
         personDAO.save(p1);
@@ -56,7 +56,7 @@ public class EntityDAOTest {
         assertEquals(p1, personDAO.getById(id));
     }
 
-    @Test
+    @Test(singleThreaded = isSingleThreaded)
     public void testDeleteById() {
         Person p1 = new Person("p1First", "p1Last", Date.valueOf("2001-01-01"));
         Person p2 = new Person("p2First", "p2Last", Date.valueOf("2002-02-02"));
@@ -71,7 +71,7 @@ public class EntityDAOTest {
         assertEquals(1, personDAO.getAll().size());
     }
 
-    @Test
+    @Test(singleThreaded = isSingleThreaded)
     public void testUpdate() {
         Person p1 = new Person("p1First", "p1Last", Date.valueOf("2001-01-01"));
         personDAO.save(p1);
