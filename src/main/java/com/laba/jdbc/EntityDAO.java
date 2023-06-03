@@ -4,27 +4,47 @@ import com.laba.interfaces.IEntityDAO;
 import com.laba.utils.ConnectionPool;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public abstract class EntityDAO<T> implements IEntityDAO<T> {
 
     protected abstract String getTableName();
 
-    private final Connection connection = ConnectionPool.getInstance().getConnection();
+    protected abstract T createModelFromMap(Map<String, String> columnMap);
+
+    private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     @Override
     public List<T> getAll() {
+        Connection connection = connectionPool.getConnection();
+        List<T> entityList = new ArrayList<>();
+        Map<String, String> columnMap = new HashMap<>();
         try {
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery("SELECT * FROM " + getTableName());
-            System.out.println(rs);
-
+            ResultSetMetaData metaData = rs.getMetaData();
+            int columnCount = metaData.getColumnCount();
+            while (rs.next()) {
+                for (int i = 1; i <= columnCount; i++) {
+                    String columnName = metaData.getColumnName(i);
+                    columnMap.put(columnName, rs.getString(columnName));
+                }
+                entityList.add(createModelFromMap(columnMap));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                connectionPool.releaseConnection(connection);
+            }
         }
-        return null;
+        return entityList;
     }
 
 //    @Override
