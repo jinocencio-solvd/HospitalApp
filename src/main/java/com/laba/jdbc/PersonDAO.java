@@ -13,6 +13,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class PersonDAO extends EntityDAO<Person> implements IPersonDAO {
+
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     @Override
@@ -40,14 +41,16 @@ public class PersonDAO extends EntityDAO<Person> implements IPersonDAO {
     }
 
     @Override
-    public Person getByLastNameAndDob(String lastName, Date dob) {
+    public Person getByFirstLastNameAndDob(String firstName, String lastName, Date dob) {
         Person person = null;
         Map<String, String> columnMap = new LinkedHashMap<>();
         Connection connection = connectionPool.getConnection();
-        String query = "SELECT * FROM " + getTableName() + " WHERE last_name = ? AND dob = ?;";
+        String query = "SELECT * FROM " + getTableName()
+            + " WHERE first_name = ? AND last_name = ? AND dob = ?;";
         try (PreparedStatement ps = connection.prepareStatement(query)) {
-            ps.setString(1, lastName);
-            ps.setDate(2, dob);
+            ps.setString(1, firstName);
+            ps.setString(2, lastName);
+            ps.setDate(3, dob);
             ResultSet rs = ps.executeQuery();
             ResultSetMetaData metaData = rs.getMetaData();
             int columnCount = metaData.getColumnCount();
