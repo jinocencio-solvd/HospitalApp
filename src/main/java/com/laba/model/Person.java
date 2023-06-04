@@ -9,6 +9,9 @@ public class Person {
     private String lastName;
     private Date dob;
 
+    public Person() {
+    }
+
     public Person(Integer id, String firstName, String lastName, Date dob) {
         this.id = id;
         this.firstName = firstName;

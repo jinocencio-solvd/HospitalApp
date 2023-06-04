@@ -18,13 +18,4 @@ public class MedicationDAO extends EntityDAO<Medication> {
         int medicationTypeId = Integer.parseInt(columnMap.get("medication_type_id"));
         return new Medication(id, medicationName, medicationTypeId);
     }
-
-    @Override
-    protected Map<String, Object> mapEntityToModelGetters(Medication entity) {
-        Map<String, Object> getters = new LinkedHashMap<>();
-        getters.put("id", entity.getId ());
-        getters.put("medication_name", entity.getMedicationName ());
-        getters.put("medication_type_id", entity.getMedicationTypeId ());
-        return getters;
-    }
 }

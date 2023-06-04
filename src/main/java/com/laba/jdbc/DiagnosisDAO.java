@@ -18,13 +18,4 @@ public class DiagnosisDAO extends EntityDAO<Diagnosis> {
         String description = columnMap.get("description");
         return new Diagnosis(id, diagnosisCode, description);
     }
-
-    @Override
-    protected Map<String, Object> mapEntityToModelGetters(Diagnosis entity) {
-        Map<String, Object> getters = new LinkedHashMap<>();
-        getters.put("id",entity.getId() );
-        getters.put("diagnosis_code",entity.getDiagnosis_code() );
-        getters.put("description",entity.getDescription() );
-        return getters;
-    }
 }

@@ -19,14 +19,4 @@ public class ClinicianDAO extends EntityDAO<Clinician> {
         int specializationId = Integer.parseInt(columnMap.get("specialization_id"));
         return new Clinician(id, staffId, professionId, specializationId);
     }
-
-    @Override
-    protected Map<String, Object> mapEntityToModelGetters(Clinician entity) {
-        Map<String, Object> getters = new LinkedHashMap<>();
-        getters.put("id", entity.getId());
-        getters.put("staff_id", entity.getStaffId());
-        getters.put("profession_id", entity.getProfessionId());
-        getters.put("specialization_id;", entity.getSpecializationId());
-        return getters;
-    }
 }

@@ -17,12 +17,4 @@ public class DepartmentDAO extends EntityDAO<Department> {
         String departmentName = columnMap.get("department_name");
         return new Department(id, departmentName);
     }
-
-    @Override
-    protected Map<String, Object> mapEntityToModelGetters(Department entity) {
-        Map<String, Object> getters = new LinkedHashMap<>();
-        getters.put("id", entity.getId());
-        getters.put("department_name", entity.getDepartmentName());
-        return getters;
-    }
 }

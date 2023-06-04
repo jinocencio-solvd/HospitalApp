@@ -3,6 +3,7 @@ package com.laba.jdbc;
 import static org.testng.Assert.*;
 
 import com.laba.model.Person;
+import java.lang.reflect.Constructor;
 import java.sql.Date;
 import java.util.List;
 import org.testng.annotations.AfterMethod;
@@ -82,5 +83,18 @@ public class EntityDAOTest {
         Person updatedRetrievedPerson1 = personDAO.getAll().get(0);
         assertEquals(retrievedPerson1, updatedRetrievedPerson1);
         assertNotEquals(updatedRetrievedPerson1, p1);
+    }
+
+    @Test(singleThreaded = isSingleThreaded)
+    public void testGetWildTypeConstructor() throws NoSuchMethodException {
+        Constructor<?> expected = Person.class.getConstructor();
+        Constructor<?> p = personDAO.getWildTypeConstructor();
+        assertEquals(expected,p);
+    }
+
+    @Test(singleThreaded = isSingleThreaded)
+    public void testMapColumnNamesToModelGetters1(){
+        Person p = new Person(22,"first", "last", Date.valueOf("1990-09-21"));
+        personDAO.mapColumnNamesToModelGetters(p);
     }
 }

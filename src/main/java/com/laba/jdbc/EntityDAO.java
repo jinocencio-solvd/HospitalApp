@@ -2,6 +2,13 @@ package com.laba.jdbc;
 
 import com.laba.interfaces.IEntityDAO;
 import com.laba.utils.ConnectionPool;
+import com.laba.utils.StringUtil;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -11,9 +18,11 @@ import java.sql.SQLException;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import org.apache.commons.text.CaseUtils;
 
 public abstract class EntityDAO<T> implements IEntityDAO<T> {
 
@@ -21,7 +30,7 @@ public abstract class EntityDAO<T> implements IEntityDAO<T> {
 
     protected abstract T createModelFromMap(Map<String, String> columnMap);
 
-    protected abstract Map<String, Object> mapEntityToModelGetters(T entity);
+//    protected abstract Map<String, Object> mapEntityToModelGetters(T entity);
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
@@ -95,12 +104,6 @@ public abstract class EntityDAO<T> implements IEntityDAO<T> {
         }
     }
 
-    private String formatKeySetString(Set<String> keySet) {
-        return keySet.toString()
-            .replace("[", "(")
-            .replace("]", ")");
-    }
-
     private int prepareStatementOperations(PreparedStatement ps, Map<String, Object> entityMap)
         throws SQLException {
         int idx = 1;
@@ -122,11 +125,12 @@ public abstract class EntityDAO<T> implements IEntityDAO<T> {
 
     @Override
     public void save(T entity) {
-        Map<String, Object> entityMap = mapEntityToModelGetters(entity);
+        Map<String, Object> entityMap = mapColumnNamesToModelGetters(entity);
         Set<String> entityCols = entityMap.keySet();
         Connection connection = connectionPool.getConnection();
         String query =
-            "INSERT INTO " + getTableName() + " " + formatKeySetString(entityCols) + " VALUES ("
+            "INSERT INTO " + getTableName() + " " + StringUtil.formatKeySetString(entityCols)
+                + " VALUES ("
                 + "(?), ".repeat(entityCols.size() - 1) + "(?))";
         try (PreparedStatement ps = connection.prepareStatement(query)) {
             prepareStatementOperations(ps, entityMap);
@@ -141,7 +145,7 @@ public abstract class EntityDAO<T> implements IEntityDAO<T> {
     }
 
     private String queryBuilder(T entity) {
-        Map<String, Object> entityMap = mapEntityToModelGetters(entity);
+        Map<String, Object> entityMap = mapColumnNamesToModelGetters(entity);
 
         StringBuilder queryBuilder = new StringBuilder();
         queryBuilder.append("UPDATE ").append(getTableName()).append(" SET ");
@@ -156,7 +160,7 @@ public abstract class EntityDAO<T> implements IEntityDAO<T> {
 
     @Override
     public void update(T entity) {
-        Map<String, Object> entityMap = mapEntityToModelGetters(entity);
+        Map<String, Object> entityMap = mapColumnNamesToModelGetters(entity);
         Connection connection = connectionPool.getConnection();
         String query = queryBuilder(entity);
         try (PreparedStatement ps = connection.prepareStatement(query)) {
@@ -171,4 +175,48 @@ public abstract class EntityDAO<T> implements IEntityDAO<T> {
             }
         }
     }
+
+    protected Constructor<?> getWildTypeConstructor() {
+        Type genericSuper = getClass().getGenericSuperclass();
+        Type t = ((ParameterizedType) genericSuper).getActualTypeArguments()[0];
+        Constructor<?> c = null;
+        try {
+            c = Class.forName(t.getTypeName()).getConstructor();
+        } catch (ClassNotFoundException | NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        return c;
+    }
+
+
+    protected Map<String, Object> mapColumnNamesToModelGetters(T entity) {
+        Map<String, Object> getters = new LinkedHashMap<>();
+        Class<?> model = entity.getClass();
+        Field[] modelFields = model.getDeclaredFields();
+        for (Field field : modelFields) {
+            String fieldName = field.getName();
+            String columnName = StringUtil.camelToSnakeCase(fieldName);
+            String getterMethodName = StringUtil.getGetterOrSetterString("get", columnName);
+            try {
+                Method getMethod = model.getMethod(getterMethodName);
+                getters.put(columnName, getMethod.invoke(entity));
+            } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+                e.printStackTrace();
+            }
+        }
+        return getters;
+    }
+
+    protected T createModelFromMap1(Map<String, String> columnMap) {
+        //            Object model = entity.getClass().getConstructor().newInstance();
+        // create null model
+        // for each column
+        // use if cases to parse through col types
+        // call model setters and set to model params
+        // concat set to CamelCase name of col
+        // return model
+        return null;
+    }
+
+
 }

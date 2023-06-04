@@ -31,16 +31,6 @@ public class PersonDAO extends EntityDAO<Person> implements IPersonDAO {
     }
 
     @Override
-    protected Map<String, Object> mapEntityToModelGetters(Person entity) {
-        Map<String, Object> getters = new LinkedHashMap<>();
-        getters.put("id", entity.getId());
-        getters.put("first_name", entity.getFirstName());
-        getters.put("last_name", entity.getLastName());
-        getters.put("dob", entity.getDob());
-        return getters;
-    }
-
-    @Override
     public Person getByFirstLastNameAndDob(String firstName, String lastName, Date dob) {
         Person person = null;
         Map<String, String> columnMap = new LinkedHashMap<>();
