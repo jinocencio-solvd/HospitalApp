@@ -5,7 +5,9 @@ import static org.testng.Assert.*;
 import com.laba.model.Person;
 import java.lang.reflect.Constructor;
 import java.sql.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -95,6 +97,25 @@ public class EntityDAOTest {
     @Test(singleThreaded = isSingleThreaded)
     public void testMapColumnNamesToModelGetters1(){
         Person p = new Person(22,"first", "last", Date.valueOf("1990-09-21"));
-        personDAO.mapColumnNamesToModelGetters(p);
+        String expected = "{id=22, first_name=first, last_name=last, dob=1990-09-21}";
+        assertEquals(personDAO.mapColumnNamesToModelGetters(p).toString(), expected);
+    }
+
+    @Test(singleThreaded = isSingleThreaded)
+    public void testCreateModelFromMap1(){
+        Map<String, String> columnMap = new HashMap<>();
+        Person p = new Person(22,"first", "last", Date.valueOf("1990-09-21"));
+        columnMap.put("id", p.getId().toString());
+        columnMap.put("first_name", p.getFirstName());
+        columnMap.put("last_name", p.getLastName());
+        columnMap.put("dob", p.getDob().toString());
+
+        int id = Integer.parseInt(columnMap.get("id"));
+        String firstName = columnMap.get("first_name");
+        String lastName = columnMap.get("last_name");
+        Date dob = Date.valueOf(columnMap.get("dob"));
+        Person p1 = new Person(id, firstName, lastName, dob);
+        assertEquals(p, p1);
+        assertEquals(personDAO.createModelFromMap(columnMap), p);
     }
 }

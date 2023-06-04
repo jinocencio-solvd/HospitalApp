@@ -22,15 +22,10 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import org.apache.commons.text.CaseUtils;
 
 public abstract class EntityDAO<T> implements IEntityDAO<T> {
 
     protected abstract String getTableName();
-
-    protected abstract T createModelFromMap(Map<String, String> columnMap);
-
-//    protected abstract Map<String, Object> mapEntityToModelGetters(T entity);
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
@@ -188,7 +183,6 @@ public abstract class EntityDAO<T> implements IEntityDAO<T> {
         return c;
     }
 
-
     protected Map<String, Object> mapColumnNamesToModelGetters(T entity) {
         Map<String, Object> getters = new LinkedHashMap<>();
         Class<?> model = entity.getClass();
@@ -207,16 +201,44 @@ public abstract class EntityDAO<T> implements IEntityDAO<T> {
         return getters;
     }
 
-    protected T createModelFromMap1(Map<String, String> columnMap) {
-        //            Object model = entity.getClass().getConstructor().newInstance();
-        // create null model
-        // for each column
-        // use if cases to parse through col types
-        // call model setters and set to model params
-        // concat set to CamelCase name of col
-        // return model
-        return null;
+    protected T createModelFromMap(Map<String, String> columnMap) {
+        T instance = null;
+        try {
+            Class<?> model = ((Class<?>) ((ParameterizedType) getClass()
+                .getGenericSuperclass()).getActualTypeArguments()[0]);
+            Constructor<?> constructor = model.getDeclaredConstructor();
+            constructor.setAccessible(true);
+            instance = (T) constructor.newInstance();
+
+            Field[] modelFields = model.getDeclaredFields();
+            for (Field field : modelFields) {
+                String fieldName = field.getName();
+                String columnName = StringUtil.camelToSnakeCase(fieldName);
+                String setterMethodName = StringUtil.getGetterOrSetterString("set", columnName);
+                try {
+                    Method setMethod = model.getDeclaredMethod(setterMethodName, field.getType());
+                    setMethod.setAccessible(true);
+                    invokeMethod(instance, setMethod, field.getType(), columnMap.get(columnName));
+                } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        return instance;
     }
 
-
+    private void invokeMethod(T instance, Method method, Class<?> type, String value)
+        throws InvocationTargetException, IllegalAccessException {
+        if(type == String.class){
+            method.invoke(instance, value);
+        }else if(type == int.class){
+            method.invoke(instance, Integer.parseInt(value));
+        }else if(type == Date.class){
+            method.invoke(instance,Date.valueOf(value));
+        }else if(type == Time.class){
+            method.invoke(instance, Time.valueOf(value));
+        }
+    }
 }
