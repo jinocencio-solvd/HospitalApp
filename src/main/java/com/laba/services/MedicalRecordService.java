@@ -7,7 +7,7 @@ import com.laba.models.MedicalRecord;
 import java.util.List;
 
 public class MedicalRecordService implements IEntityService<MedicalRecord> {
-    private final MedicalRecordDAO medicalRecordDAO = DAOFactory.getDAO("medical records");
+    private final MedicalRecordDAO medicalRecordDAO = DAOFactory.getJDBCDAO("medical records");
 
     @Override
     public List<MedicalRecord> getAll() {

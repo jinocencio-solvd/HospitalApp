@@ -7,7 +7,7 @@ import com.laba.models.Medication;
 import java.util.List;
 
 public class MedicationService implements IEntityService<Medication> {
-    private final MedicationDAO medicationDAO = DAOFactory.getDAO("medication");;
+    private final MedicationDAO medicationDAO = DAOFactory.getJDBCDAO("medication");;
 
     @Override
     public List<Medication> getAll() {

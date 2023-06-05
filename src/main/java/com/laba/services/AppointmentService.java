@@ -7,7 +7,7 @@ import com.laba.models.Appointment;
 import java.util.List;
 
 public class AppointmentService implements IEntityService<Appointment> {
-    private final AppointmentDAO appointmentDAO = DAOFactory.getDAO("appointment");
+    private final AppointmentDAO appointmentDAO = DAOFactory.getJDBCDAO("appointment");
 
     @Override
     public List<Appointment> getAll() {

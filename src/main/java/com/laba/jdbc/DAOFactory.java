@@ -1,7 +1,7 @@
 package com.laba.jdbc;
 
 public class DAOFactory {
-    public static <T extends EntityDAO<?>> T getDAO(String type){
+    public static <T extends EntityDAO<?>> T getJDBCDAO(String type){
         switch(type){
             case "appointment":
                 return (T) new AppointmentDAO();

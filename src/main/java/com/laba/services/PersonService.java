@@ -7,7 +7,7 @@ import com.laba.models.Person;
 import java.util.List;
 
 public class PersonService implements IEntityService<Person> {
-    private final PersonDAO personDAO = DAOFactory.getDAO("person");
+    private final PersonDAO personDAO = DAOFactory.getJDBCDAO("person");
 
     @Override
     public List<Person> getAll() {
