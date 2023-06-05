@@ -6,7 +6,7 @@ public class MedicationDAO extends EntityDAO<Medication> {
 
     @Override
     protected String getTableName() {
-        return "medication";
+        return "medications";
     }
 
 }

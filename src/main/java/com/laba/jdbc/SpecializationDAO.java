@@ -6,6 +6,6 @@ public class SpecializationDAO extends EntityDAO<Specialization>{
 
     @Override
     protected String getTableName() {
-        return "specialization";
+        return "specializations";
     }
 }
