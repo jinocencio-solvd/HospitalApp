@@ -1,6 +1,6 @@
 package com.laba.interfaces;
 
-import com.laba.model.Person;
+import com.laba.models.Person;
 import java.sql.Date;
 
 public interface IPersonDAO {
