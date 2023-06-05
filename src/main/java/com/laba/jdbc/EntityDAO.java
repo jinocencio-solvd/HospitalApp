@@ -209,19 +209,14 @@ public abstract class EntityDAO<T> implements IEntityDAO<T> {
             Constructor<?> constructor = model.getDeclaredConstructor();
             constructor.setAccessible(true);
             instance = (T) constructor.newInstance();
-
             Field[] modelFields = model.getDeclaredFields();
             for (Field field : modelFields) {
                 String fieldName = field.getName();
                 String columnName = StringUtil.camelToSnakeCase(fieldName);
                 String setterMethodName = StringUtil.getGetterOrSetterString("set", columnName);
-                try {
-                    Method setMethod = model.getDeclaredMethod(setterMethodName, field.getType());
-                    setMethod.setAccessible(true);
-                    invokeMethod(instance, setMethod, field.getType(), columnMap.get(columnName));
-                } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-                    e.printStackTrace();
-                }
+                Method setMethod = model.getDeclaredMethod(setterMethodName, field.getType());
+                setMethod.setAccessible(true);
+                invokeMethod(instance, setMethod, field.getType(), columnMap.get(columnName));
             }
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
             e.printStackTrace();
@@ -233,7 +228,7 @@ public abstract class EntityDAO<T> implements IEntityDAO<T> {
         throws InvocationTargetException, IllegalAccessException {
         if(type == String.class){
             method.invoke(instance, value);
-        }else if(type == int.class){
+        }else if(type == Integer.class || type == int.class){
             method.invoke(instance, Integer.parseInt(value));
         }else if(type == Date.class){
             method.invoke(instance,Date.valueOf(value));

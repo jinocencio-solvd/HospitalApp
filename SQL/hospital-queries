@@ -14,13 +14,13 @@ FROM appointments a
 ;
 
 
-# 3.Retrieve only persons who are staff
+# 3.Retrieve only persons who are Staff
 SELECT s.id AS staff_id, first_name, last_name
 FROM persons
          INNER JOIN staff s ON persons.id = s.person_id
 ;
 
-# 4.Retrieve all persons and associate if any with staff
+# 4.Retrieve all persons and associate if any with Staff
 SELECT s.id AS staff_id, first_name, last_name
 FROM persons
          LEFT JOIN staff s ON persons.id = s.person_id
