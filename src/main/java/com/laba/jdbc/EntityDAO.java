@@ -34,7 +34,8 @@ public abstract class EntityDAO<T> implements IEntityDAO<T> {
         Connection connection = connectionPool.getConnection();
         List<T> entityList = new ArrayList<>();
         String query = "SELECT * FROM " + getTableName();
-        try (PreparedStatement ps = connection.prepareStatement(query)) {
+        try (PreparedStatement ps = connection.prepareStatement(query);
+        ) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 entityList.add(getEntity(rs));
