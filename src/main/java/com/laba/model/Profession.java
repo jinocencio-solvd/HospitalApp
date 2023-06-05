@@ -52,7 +52,7 @@ public class Profession {
 
     @Override
     public String toString() {
-        return "Profession{" +
+        return "ProfessionDAO{" +
             "id=" + id +
             ", profession='" + profession + '\'' +
             '}';
