@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
 public class PersonServiceTest {
 
     private static PersonService personService;
-    private static final boolean isSingleThreaded = true;
+    private static final boolean isSingleThreaded = false;
 
     @BeforeMethod
     public void setUp() {

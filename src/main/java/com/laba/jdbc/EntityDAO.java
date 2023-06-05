@@ -29,23 +29,41 @@ public abstract class EntityDAO<T> implements IEntityDAO<T> {
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
+    private void setAutoCommit(Boolean autoCommit, Connection connection) {
+        try {
+            connection.setAutoCommit(autoCommit);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void rollbackConnection(Connection connection) {
+        try {
+            connection.rollback();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public List<T> getAll() {
-        Connection connection = connectionPool.getConnection();
         List<T> entityList = new ArrayList<>();
         String query = "SELECT * FROM " + getTableName();
-        try (PreparedStatement ps = connection.prepareStatement(query);
-        ) {
+
+        Connection connection = connectionPool.getConnection();
+        setAutoCommit(false, connection);
+        try (PreparedStatement ps = connection.prepareStatement(query);) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 entityList.add(getEntity(rs));
             }
+            connection.commit();
         } catch (SQLException e) {
+            rollbackConnection(connection);
             e.printStackTrace();
         } finally {
-            if (connection != null) {
-                connectionPool.releaseConnection(connection);
-            }
+            setAutoCommit(true, connection);
+            connectionPool.releaseConnection(connection);
         }
         return entityList;
     }
@@ -66,37 +84,44 @@ public abstract class EntityDAO<T> implements IEntityDAO<T> {
     @Override
     public T getById(int id) {
         T entity = null;
-        Connection connection = connectionPool.getConnection();
         String query = "SELECT * FROM " + getTableName() + " WHERE id = ?;";
+
+        Connection connection = connectionPool.getConnection();
+        setAutoCommit(false, connection);
         try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 entity = getEntity(rs);
             }
+            connection.commit();
         } catch (SQLException e) {
+            rollbackConnection(connection);
             e.printStackTrace();
         } finally {
-            if (connection != null) {
-                connectionPool.releaseConnection(connection);
-            }
+            setAutoCommit(true, connection);
+            connectionPool.releaseConnection(connection);
         }
         return entity;
     }
 
     @Override
     public void deleteById(int id) {
-        Connection connection = connectionPool.getConnection();
         String query = "DELETE FROM " + getTableName() + " WHERE id = ?;";
+
+        Connection connection = connectionPool.getConnection();
+        setAutoCommit(false, connection);
         try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setInt(1, id);
             ps.execute();
+            connection.commit();
         } catch (SQLException e) {
+            rollbackConnection(connection);
             e.printStackTrace();
         } finally {
-            if (connection != null) {
-                connectionPool.releaseConnection(connection);
-            }
+            setAutoCommit(true, connection);
+            connectionPool.releaseConnection(connection);
+
         }
     }
 
@@ -123,20 +148,23 @@ public abstract class EntityDAO<T> implements IEntityDAO<T> {
     public void save(T entity) {
         Map<String, Object> entityMap = mapColumnNamesToModelGetters(entity);
         Set<String> entityCols = entityMap.keySet();
-        Connection connection = connectionPool.getConnection();
         String query =
             "INSERT INTO " + getTableName() + " " + StringUtil.formatKeySetString(entityCols)
                 + " VALUES ("
                 + "(?), ".repeat(entityCols.size() - 1) + "(?))";
+
+        Connection connection = connectionPool.getConnection();
+        setAutoCommit(false, connection);
         try (PreparedStatement ps = connection.prepareStatement(query)) {
             prepareStatementOperations(ps, entityMap);
             ps.execute();
+            connection.commit();
         } catch (SQLException e) {
+            rollbackConnection(connection);
             e.printStackTrace();
         } finally {
-            if (connection != null) {
-                connectionPool.releaseConnection(connection);
-            }
+            setAutoCommit(true, connection);
+            connectionPool.releaseConnection(connection);
         }
     }
 
@@ -156,19 +184,21 @@ public abstract class EntityDAO<T> implements IEntityDAO<T> {
 
     @Override
     public void update(T entity) {
-        Map<String, Object> entityMap = mapColumnNamesToModelGetters(entity);
-        Connection connection = connectionPool.getConnection();
         String query = queryBuilder(entity);
+        Map<String, Object> entityMap = mapColumnNamesToModelGetters(entity);
+
+        Connection connection = connectionPool.getConnection();
+        setAutoCommit(false, connection);
         try (PreparedStatement ps = connection.prepareStatement(query)) {
             int idx = prepareStatementOperations(ps, entityMap);
             ps.setInt(idx, (Integer) entityMap.get("id"));
             ps.execute();
+            connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            if (connection != null) {
-                connectionPool.releaseConnection(connection);
-            }
+            setAutoCommit(true, connection);
+            connectionPool.releaseConnection(connection);
         }
     }
 
