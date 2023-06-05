@@ -6,6 +6,11 @@ public class Treatment {
     private int id;
     private String treatmentName;
 
+    public Treatment() {
+        // Default Constructor
+    }
+
+
     public Treatment(int id, String treatmentName) {
         this.id = id;
         this.treatmentName = treatmentName;

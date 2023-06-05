@@ -13,6 +13,10 @@ public class Appointment {
     private Date date;
     private Time time;
 
+    public Appointment() {
+        // Default Constructor
+    }
+
     public Appointment(int id, int patientId, int clinicianId, int roomId, Date date,
         Time time) {
         this.id = id;

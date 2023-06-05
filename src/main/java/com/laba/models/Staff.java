@@ -7,6 +7,11 @@ public class Staff {
     private int id;
     private int personId;
 
+    public Staff() {
+        // Default Constructor
+    }
+
+
     public Staff(int id, int personId) {
         this.id = id;
         this.personId = personId;

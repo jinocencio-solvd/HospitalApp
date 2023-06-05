@@ -1,16 +1,21 @@
 package com.laba.models;
 
 public class Patient {
-    private int id;
-    private int person_id;
 
-    public Patient(int id, int person_id) {
-        this.id = id;
-        this.person_id = person_id;
+    private int id;
+    private int personId;
+
+    public Patient() {
+        // Default Constructor
     }
 
-    public Patient(int person_id) {
-        this.person_id = person_id;
+    public Patient(int id, int personId) {
+        this.id = id;
+        this.personId = personId;
+    }
+
+    public Patient(int personId) {
+        this.personId = personId;
     }
 
     public int getId() {
@@ -21,12 +26,12 @@ public class Patient {
         this.id = id;
     }
 
-    public int getPerson_id() {
-        return person_id;
+    public int getPersonId() {
+        return personId;
     }
 
-    public void setPerson_id(int person_id) {
-        this.person_id = person_id;
+    public void setPersonId(int personId) {
+        this.personId = personId;
     }
 
 }

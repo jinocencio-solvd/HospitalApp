@@ -4,13 +4,16 @@ import java.sql.Date;
 import java.util.Objects;
 
 public class Person {
+
     private int id;
     private String firstName;
     private String lastName;
     private Date dob;
 
     public Person() {
+        // Default Constructor
     }
+
 
     public Person(int id, String firstName, String lastName, Date dob) {
         this.id = id;

@@ -9,6 +9,10 @@ public class Clinician {
     private int professionId;
     private int specializationId;
 
+    public Clinician() {
+        // Default Constructor
+    }
+
     public Clinician(int staffId, int professionId, int specializationId) {
         this.staffId = staffId;
         this.professionId = professionId;

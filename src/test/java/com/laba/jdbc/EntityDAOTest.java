@@ -16,6 +16,7 @@ public class EntityDAOTest {
 
     private static PersonDAO personDAO;
     private static final boolean isSingleThreaded = true;
+
     @BeforeMethod
     public void setUp() {
         personDAO = new PersonDAO();
@@ -91,20 +92,20 @@ public class EntityDAOTest {
     public void testGetWildTypeConstructor() throws NoSuchMethodException {
         Constructor<?> expected = Person.class.getConstructor();
         Constructor<?> p = personDAO.getWildTypeConstructor();
-        assertEquals(expected,p);
+        assertEquals(expected, p);
     }
 
     @Test(singleThreaded = isSingleThreaded)
-    public void testMapColumnNamesToModelGetters1(){
-        Person p = new Person(22,"first", "last", Date.valueOf("1990-09-21"));
+    public void testMapColumnNamesToModelGetters1() {
+        Person p = new Person(22, "first", "last", Date.valueOf("1990-09-21"));
         String expected = "{id=22, first_name=first, last_name=last, dob=1990-09-21}";
         assertEquals(personDAO.mapColumnNamesToModelGetters(p).toString(), expected);
     }
 
     @Test(singleThreaded = isSingleThreaded)
-    public void testCreateModelFromMap1(){
+    public void testCreateModelFromMap1() {
         Map<String, String> columnMap = new HashMap<>();
-        Person p = new Person(22,"first", "last", Date.valueOf("1990-09-21"));
+        Person p = new Person(22, "first", "last", Date.valueOf("1990-09-21"));
         columnMap.put("id", p.getId().toString());
         columnMap.put("first_name", p.getFirstName());
         columnMap.put("last_name", p.getLastName());

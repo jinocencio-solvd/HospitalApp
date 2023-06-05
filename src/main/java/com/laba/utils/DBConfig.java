@@ -11,7 +11,7 @@ public class DBConfig {
     static {
         properties = new Properties();
         try (InputStream inputStream = DBConfig.class.getResourceAsStream(
-            "/DBConfig.properties")) {
+            "/dbconfig.properties")) {
             properties.load(inputStream);
         } catch (IOException e) {
             e.printStackTrace();

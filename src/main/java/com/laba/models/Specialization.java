@@ -7,6 +7,11 @@ public class Specialization {
     private int id;
     private String specialization;
 
+    public Specialization() {
+        // Default Constructor
+    }
+
+
     public Specialization(int id, String specialization) {
         this.id = id;
         this.specialization = specialization;

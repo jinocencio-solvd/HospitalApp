@@ -7,6 +7,11 @@ public class Profession {
     private int id;
     private String profession;
 
+    public Profession() {
+        // Default Constructor
+    }
+
+
     public Profession(int id, String profession) {
         this.id = id;
         this.profession = profession;

@@ -3,10 +3,16 @@ package com.laba.models;
 import java.util.Objects;
 
 public class MedicalRecord {
+
     private int id;
     private int appointmentId;
     private int diagnosisId;
     private int treatmentId;
+
+    public MedicalRecord() {
+        // Default Constructor
+    }
+
 
     public MedicalRecord(int appointmentId, int diagnosisId, int treatmentId) {
         this.appointmentId = appointmentId;

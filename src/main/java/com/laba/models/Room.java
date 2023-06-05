@@ -3,9 +3,15 @@ package com.laba.models;
 import java.util.Objects;
 
 public class Room {
+
     private int id;
     private String roomNumber;
     private int departmentId;
+
+    public Room() {
+        // Default Constructor
+    }
+
 
     public Room(int id, String roomNumber, int departmentId) {
         this.id = id;

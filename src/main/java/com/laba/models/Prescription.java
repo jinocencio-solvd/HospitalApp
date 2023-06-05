@@ -12,6 +12,11 @@ public class Prescription {
     private Date startDate;
     private Date expirationDate;
 
+    public Prescription() {
+        // Default Constructor
+    }
+
+
     public Prescription(int prescriptionId, int treatmentId, int medicationId, String dosage,
         Date startDate, Date expirationDate) {
         this.prescriptionId = prescriptionId;

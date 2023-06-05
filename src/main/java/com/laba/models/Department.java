@@ -7,6 +7,10 @@ public class Department {
     private int id;
     private String departmentName;
 
+    public Department() {
+        // Default Constructor
+    }
+
     public Department(int id, String departmentName) {
         this.id = id;
         this.departmentName = departmentName;

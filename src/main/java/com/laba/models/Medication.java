@@ -8,6 +8,11 @@ public class Medication {
     private String medicationName;
     private int medicationTypeId;
 
+    public Medication() {
+        // Default Constructor
+    }
+
+
     public Medication(int id, String medicationName, int medicationTypeId) {
         this.id = id;
         this.medicationName = medicationName;

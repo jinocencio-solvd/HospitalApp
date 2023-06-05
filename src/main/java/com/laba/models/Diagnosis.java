@@ -5,17 +5,22 @@ import java.util.Objects;
 public class Diagnosis {
 
     private int id;
-    private String diagnosis_code;
+    private String diagnosisCode;
     private String description;
 
-    public Diagnosis(int id, String diagnosis_code, String description) {
+    public Diagnosis() {
+        // Default Constructor
+    }
+
+
+    public Diagnosis(int id, String diagnosisCode, String description) {
         this.id = id;
-        this.diagnosis_code = diagnosis_code;
+        this.diagnosisCode = diagnosisCode;
         this.description = description;
     }
 
-    public Diagnosis(String diagnosis_code, String description) {
-        this.diagnosis_code = diagnosis_code;
+    public Diagnosis(String diagnosisCode, String description) {
+        this.diagnosisCode = diagnosisCode;
         this.description = description;
     }
 
@@ -27,12 +32,12 @@ public class Diagnosis {
         this.id = id;
     }
 
-    public String getDiagnosis_code() {
-        return diagnosis_code;
+    public String getDiagnosisCode() {
+        return diagnosisCode;
     }
 
-    public void setDiagnosis_code(String diagnosis_code) {
-        this.diagnosis_code = diagnosis_code;
+    public void setDiagnosisCode(String diagnosisCode) {
+        this.diagnosisCode = diagnosisCode;
     }
 
     public String getDescription() {
@@ -52,21 +57,21 @@ public class Diagnosis {
             return false;
         }
         Diagnosis diagnosis = (Diagnosis) o;
-        return getId() == diagnosis.getId() && Objects.equals(getDiagnosis_code(),
-            diagnosis.getDiagnosis_code()) && Objects.equals(getDescription(),
+        return getId() == diagnosis.getId() && Objects.equals(getDiagnosisCode(),
+            diagnosis.getDiagnosisCode()) && Objects.equals(getDescription(),
             diagnosis.getDescription());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getDiagnosis_code(), getDescription());
+        return Objects.hash(getId(), getDiagnosisCode(), getDescription());
     }
 
     @Override
     public String toString() {
         return "Diagnosis{" +
             "id=" + id +
-            ", diagnosis_code='" + diagnosis_code + '\'' +
+            ", diagnosis_code='" + diagnosisCode + '\'' +
             ", description='" + description + '\'' +
             '}';
     }
