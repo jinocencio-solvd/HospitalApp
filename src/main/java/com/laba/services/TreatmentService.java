@@ -1,12 +1,13 @@
 package com.laba.services;
 
 import com.laba.interfaces.IEntityService;
+import com.laba.jdbc.DAOFactory;
 import com.laba.jdbc.TreatmentDAO;
 import com.laba.models.Treatment;
 import java.util.List;
 
 public class TreatmentService implements IEntityService<Treatment> {
-    private final TreatmentDAO treatmentDAO = new TreatmentDAO();
+    private final TreatmentDAO treatmentDAO = DAOFactory.getDAO("treatment");
 
     @Override
     public List<Treatment> getAll() {

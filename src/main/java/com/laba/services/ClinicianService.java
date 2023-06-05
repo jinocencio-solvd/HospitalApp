@@ -2,11 +2,12 @@ package com.laba.services;
 
 import com.laba.interfaces.IEntityService;
 import com.laba.jdbc.ClinicianDAO;
+import com.laba.jdbc.DAOFactory;
 import com.laba.models.Clinician;
 import java.util.List;
 
 public class ClinicianService implements IEntityService<Clinician> {
-    private final ClinicianDAO clinicianDAO = new ClinicianDAO();
+    private final ClinicianDAO clinicianDAO = DAOFactory.getDAO("clinician");
 
     @Override
     public List<Clinician> getAll() {

@@ -1,12 +1,13 @@
 package com.laba.services;
 
 import com.laba.interfaces.IEntityService;
+import com.laba.jdbc.DAOFactory;
 import com.laba.jdbc.SpecializationDAO;
 import com.laba.models.Specialization;
 import java.util.List;
 
 public class SpecializationService implements IEntityService<Specialization> {
-    private final SpecializationDAO specializationDAO = new SpecializationDAO();
+    private final SpecializationDAO specializationDAO = DAOFactory.getDAO("specialization");
 
     @Override
     public List<Specialization> getAll() {

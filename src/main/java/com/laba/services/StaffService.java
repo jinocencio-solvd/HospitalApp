@@ -1,12 +1,13 @@
 package com.laba.services;
 
 import com.laba.interfaces.IEntityService;
+import com.laba.jdbc.DAOFactory;
 import com.laba.jdbc.StaffDAO;
 import com.laba.models.Staff;
 import java.util.List;
 
 public class StaffService implements IEntityService<Staff> {
-    private final StaffDAO staffDAO = new StaffDAO();
+    private final StaffDAO staffDAO = DAOFactory.getDAO("staff");
 
     @Override
     public List<Staff> getAll() {

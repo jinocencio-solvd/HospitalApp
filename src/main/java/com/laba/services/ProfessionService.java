@@ -1,12 +1,13 @@
 package com.laba.services;
 
 import com.laba.interfaces.IEntityService;
+import com.laba.jdbc.DAOFactory;
 import com.laba.jdbc.ProfessionDAO;
 import com.laba.models.Profession;
 import java.util.List;
 
 public class ProfessionService implements IEntityService<Profession> {
-    private final ProfessionDAO professionDAO = new ProfessionDAO();
+    private final ProfessionDAO professionDAO = DAOFactory.getDAO("profession");
 
     @Override
     public List<Profession> getAll() {

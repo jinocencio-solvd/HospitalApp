@@ -1,12 +1,13 @@
 package com.laba.services;
 
 import com.laba.interfaces.IEntityService;
+import com.laba.jdbc.DAOFactory;
 import com.laba.jdbc.RoomDAO;
 import com.laba.models.Room;
 import java.util.List;
 
 public class RoomService implements IEntityService<Room> {
-    private final RoomDAO roomDAO = new RoomDAO();
+    private final RoomDAO roomDAO = DAOFactory.getDAO("room");
 
     @Override
     public List<Room> getAll() {

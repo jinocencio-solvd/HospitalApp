@@ -2,11 +2,12 @@ package com.laba.services;
 
 import com.laba.interfaces.IEntityService;
 import com.laba.jdbc.AppointmentDAO;
+import com.laba.jdbc.DAOFactory;
 import com.laba.models.Appointment;
 import java.util.List;
 
 public class AppointmentService implements IEntityService<Appointment> {
-    private final AppointmentDAO appointmentDAO = new AppointmentDAO();
+    private final AppointmentDAO appointmentDAO = DAOFactory.getDAO("appointment");
 
     @Override
     public List<Appointment> getAll() {
