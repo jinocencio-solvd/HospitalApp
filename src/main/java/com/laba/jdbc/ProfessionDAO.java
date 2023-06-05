@@ -1,6 +1,6 @@
 package com.laba.jdbc;
 
-import com.laba.model.Profession;
+import com.laba.models.Profession;
 
 public class ProfessionDAO extends EntityDAO<Profession>{
 

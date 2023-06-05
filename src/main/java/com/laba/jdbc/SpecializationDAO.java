@@ -1,6 +1,6 @@
 package com.laba.jdbc;
 
-import com.laba.model.Specialization;
+import com.laba.models.Specialization;
 
 public class SpecializationDAO extends EntityDAO<Specialization>{
 

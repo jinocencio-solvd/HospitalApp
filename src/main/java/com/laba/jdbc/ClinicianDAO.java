@@ -1,6 +1,6 @@
 package com.laba.jdbc;
 
-import com.laba.model.Clinician;
+import com.laba.models.Clinician;
 
 public class ClinicianDAO extends EntityDAO<Clinician> {
 

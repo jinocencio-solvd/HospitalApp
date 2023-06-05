@@ -1,6 +1,6 @@
 package com.laba.jdbc;
 
-import com.laba.model.Appointment;
+import com.laba.models.Appointment;
 
 public class AppointmentsDAO extends EntityDAO<Appointment> {
 

@@ -1,6 +1,4 @@
-package com.laba.model;
-
-import java.sql.Date;
+package com.laba.models;
 
 public class Patient {
     private int id;

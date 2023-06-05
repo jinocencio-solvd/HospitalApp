@@ -226,13 +226,13 @@ public abstract class EntityDAO<T> implements IEntityDAO<T> {
 
     private void invokeMethod(T instance, Method method, Class<?> type, String value)
         throws InvocationTargetException, IllegalAccessException {
-        if(type == String.class){
+        if (type == String.class) {
             method.invoke(instance, value);
-        }else if(type == Integer.class || type == int.class){
+        } else if (type == Integer.class || type == int.class) {
             method.invoke(instance, Integer.parseInt(value));
-        }else if(type == Date.class){
-            method.invoke(instance,Date.valueOf(value));
-        }else if(type == Time.class){
+        } else if (type == Date.class) {
+            method.invoke(instance, Date.valueOf(value));
+        } else if (type == Time.class) {
             method.invoke(instance, Time.valueOf(value));
         }
     }

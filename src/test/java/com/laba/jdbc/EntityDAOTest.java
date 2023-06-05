@@ -2,7 +2,7 @@ package com.laba.jdbc;
 
 import static org.testng.Assert.*;
 
-import com.laba.model.Person;
+import com.laba.models.Person;
 import java.lang.reflect.Constructor;
 import java.sql.Date;
 import java.util.HashMap;

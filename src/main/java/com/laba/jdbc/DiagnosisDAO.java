@@ -1,6 +1,6 @@
 package com.laba.jdbc;
 
-import com.laba.model.Diagnosis;
+import com.laba.models.Diagnosis;
 
 public class DiagnosisDAO extends EntityDAO<Diagnosis> {
 

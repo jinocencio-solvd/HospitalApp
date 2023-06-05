@@ -1,6 +1,6 @@
 package com.laba.jdbc;
 
-import com.laba.model.Prescription;
+import com.laba.models.Prescription;
 
 public class PrescriptionDAO extends EntityDAO<Prescription>{
 

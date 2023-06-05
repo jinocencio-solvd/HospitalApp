@@ -1,6 +1,6 @@
 package com.laba.jdbc;
 
-import com.laba.model.MedicalRecord;
+import com.laba.models.MedicalRecord;
 
 public class MedicalRecordDAO extends EntityDAO<MedicalRecord> {
 

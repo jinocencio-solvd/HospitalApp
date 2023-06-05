@@ -1,6 +1,6 @@
 package com.laba.jdbc;
 
-import com.laba.model.Staff;
+import com.laba.models.Staff;
 
 public class StaffDAO extends EntityDAO<Staff>{
 

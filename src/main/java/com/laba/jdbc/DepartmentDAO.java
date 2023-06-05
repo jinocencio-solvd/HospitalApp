@@ -1,6 +1,6 @@
 package com.laba.jdbc;
 
-import com.laba.model.Department;
+import com.laba.models.Department;
 
 public class DepartmentDAO extends EntityDAO<Department> {
 

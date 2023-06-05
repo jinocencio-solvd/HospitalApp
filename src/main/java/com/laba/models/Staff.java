@@ -1,4 +1,4 @@
-package com.laba.model;
+package com.laba.models;
 
 import java.util.Objects;
 

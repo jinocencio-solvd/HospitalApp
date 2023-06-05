@@ -1,6 +1,6 @@
 package com.laba.jdbc;
 
-import com.laba.model.Room;
+import com.laba.models.Room;
 
 public class RoomDAO extends EntityDAO<Room>{
 

@@ -1,7 +1,7 @@
 package com.laba.jdbc;
 
 import com.laba.interfaces.IPersonDAO;
-import com.laba.model.Person;
+import com.laba.models.Person;
 import com.laba.utils.ConnectionPool;
 import java.sql.Connection;
 import java.sql.Date;
