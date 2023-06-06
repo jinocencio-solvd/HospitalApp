@@ -147,6 +147,7 @@ public abstract class EntityDAO<T> implements IEntityDAO<T> {
     @Override
     public void save(T entity) {
         Map<String, Object> entityMap = mapColumnNamesToModelGetters(entity);
+        entityMap.remove("id");
         Set<String> entityCols = entityMap.keySet();
         String query =
             "INSERT INTO " + getTableName() + " " + StringUtil.formatKeySetString(entityCols)
@@ -262,9 +263,22 @@ public abstract class EntityDAO<T> implements IEntityDAO<T> {
         } else if (type == Integer.class || type == int.class) {
             method.invoke(instance, Integer.parseInt(value));
         } else if (type == Date.class) {
-            method.invoke(instance, Date.valueOf(value));
+            if(isUnixTimestamp(value)){
+                method.invoke(instance, new Date(Long.parseLong(value)));
+            }else{
+                method.invoke(instance, Date.valueOf(value));
+            }
         } else if (type == Time.class) {
             method.invoke(instance, Time.valueOf(value));
+        }
+    }
+    private static boolean isUnixTimestamp(String input) {
+        try {
+            long timestamp = Long.parseLong(input);
+            // Assuming UNIX timestamp is in seconds, you may need to adjust if in milliseconds
+            return timestamp >= 0;
+        } catch (NumberFormatException e) {
+            return false;
         }
     }
 }
