@@ -15,19 +15,19 @@ public class DBConfig {
         properties = new Properties();
 
         String propertiesFile = AppConfig.ENVIRONMENT;
-        LOG.info("Environment: " + AppConfig.ENVIRONMENT);
+        LOG.warn("Environment: " + AppConfig.ENVIRONMENT);
         switch (propertiesFile) {
             case "GH_WORKFLOW":
                 propertiesFile = AppConfig.configFileSqlite;
-                LOG.info("Database: SQLITE");
+                LOG.warn("Database: SQLITE");
                 break;
             case "DEVELOPMENT":
                 propertiesFile = AppConfig.configFileMysql;
-                LOG.info("Database: MYSQL");
+                LOG.warn("Database: MYSQL");
                 break;
             default:
                 propertiesFile = AppConfig.configFileMysql;
-                LOG.info("Default Database: MYSQL");
+                LOG.warn("Default Database: MYSQL");
         }
 
         try (InputStream inputStream = DBConfig.class.getResourceAsStream(propertiesFile)) {
