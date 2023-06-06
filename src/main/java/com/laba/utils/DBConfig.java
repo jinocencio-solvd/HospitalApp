@@ -3,15 +3,34 @@ package com.laba.utils;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class DBConfig {
 
     private static final Properties properties;
+    private static final Logger LOG = LogManager.getLogger(ConnectionPool.class);
 
     static {
         properties = new Properties();
-        try (InputStream inputStream = DBConfig.class.getResourceAsStream(
-            "/dbconfig.properties")) {
+
+        String propertiesFile = AppConfig.ENVIRONMENT;
+        LOG.info("Environment: " + AppConfig.ENVIRONMENT);
+        switch (propertiesFile) {
+            case "GITHUB":
+                propertiesFile = "/sqliteconfig.properties";
+                LOG.info("Database: SQLITE");
+                break;
+            case "DEVELOPMENT":
+                propertiesFile = "/mysqlconfig.properties";
+                LOG.info("Database: MYSQL");
+                break;
+            default:
+                propertiesFile = "/mysqlconfig.properties";
+                LOG.info("Default Database: MYSQL");
+        }
+
+        try (InputStream inputStream = DBConfig.class.getResourceAsStream(propertiesFile)) {
             properties.load(inputStream);
         } catch (IOException e) {
             e.printStackTrace();
