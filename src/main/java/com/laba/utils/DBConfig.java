@@ -17,16 +17,16 @@ public class DBConfig {
         String propertiesFile = AppConfig.ENVIRONMENT;
         LOG.info("Environment: " + AppConfig.ENVIRONMENT);
         switch (propertiesFile) {
-            case "GITHUB":
-                propertiesFile = "/sqliteconfig.properties";
+            case "GH_WORKFLOW":
+                propertiesFile = AppConfig.configFileSqlite;
                 LOG.info("Database: SQLITE");
                 break;
             case "DEVELOPMENT":
-                propertiesFile = "/mysqlconfig.properties";
+                propertiesFile = AppConfig.configFileMysql;
                 LOG.info("Database: MYSQL");
                 break;
             default:
-                propertiesFile = "/mysqlconfig.properties";
+                propertiesFile = AppConfig.configFileMysql;
                 LOG.info("Default Database: MYSQL");
         }
 

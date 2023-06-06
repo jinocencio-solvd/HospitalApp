@@ -10,8 +10,8 @@ public class AppConfig {
 
     static {
         properties = new Properties();
-        try (InputStream inputStream = DBConfig.class.getResourceAsStream(
-            "/appconfig.properties")) {
+        String configFileApp = "/appconfig.properties";
+        try (InputStream inputStream = DBConfig.class.getResourceAsStream(configFileApp)) {
             properties.load(inputStream);
         } catch (IOException e) {
             e.printStackTrace();
@@ -19,4 +19,7 @@ public class AppConfig {
     }
 
     public static final String ENVIRONMENT = properties.getProperty("ENVIRONMENT");
+    public static final String configFileSqlite = properties.getProperty("CONFIG_FILE_SQLITE");
+    public static final String configFileMysql = properties.getProperty("CONFIG_FILE_MYSQL");
+
 }
