@@ -8,17 +8,16 @@ Data Access Objects (DAOs).
 
 #### Continuous Integration (CI)
 
-This project deploys automatic testing by using the `Surefire Plugin` for Maven to run unit tests and
-GitHub Actions to automatically build and test the Java Maven package. Every time code changes are
-pushed to the repository or a pull request is made, GitHub Actions is triggered to run tests and
-ensure that the code is working as expected. Successful builds and tests are indicated with a green
-checkmark :white_check_mark: next to the commit ID while failed builds or tests are indicated with a
-red X :x:.
+This project deploys automatic testing by using the `Surefire Plugin` for Maven to run unit tests
+and GitHub Actions to automatically build and test the Java Maven package. Every time code changes
+are pushed to the repository or a pull request is made, GitHub Actions is triggered to run tests and
+ensure that the code is working as expected. Successful builds and tests are indicated next to the
+commit ID with a :white_check_mark: while failed builds or tests are marked :x:.
 
-The maven.yml file in the `.github/workflows` directory of this repository contains the configuration
-for GitHub Actions to run the tests.
+The maven.yml file in the `.github/workflows` directory of this repository contains the
+configuration for GitHub Actions to run the tests.
 
-The tests are composed of class unit tests using TestNG and are located in src/test/java/. By
+The tests are composed of class unit tests using TestNG and are located in `src/test/java/`. By
 employing automatic testing, we can catch issues early in the development process and ensure that
 our code is always working as expected. This helps to maintain the quality of the code and make sure
 that the project is stable and reliable.
