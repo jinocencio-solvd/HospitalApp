@@ -1,0 +1,212 @@
+-- 5 statements with left, right, inner, outer joins.
+# 1.Retrieve all persons who are patients and their associated appointments
+SELECT first_name, last_name, a.appointment_date, a.appointment_time
+FROM persons
+         JOIN patients p ON persons.id = p.person_id
+         LEFT OUTER JOIN appointments a ON p.id = a.patient_id
+;
+
+# 2.Retrieve all appointments and associate (if any) with persons who are patients
+SELECT p.first_name, p.last_name, a.appointment_date, a.appointment_time
+FROM appointments a
+         JOIN patients pat ON pat.id = a.patient_id
+         RIGHT OUTER JOIN persons p ON pat.person_id = p.id
+;
+
+
+# 3.Retrieve only persons who are Staff
+SELECT s.id AS staff_id, first_name, last_name
+FROM persons
+         INNER JOIN staff s ON persons.id = s.person_id
+;
+
+# 4.Retrieve all persons and associate if any with Staff
+SELECT s.id AS staff_id, first_name, last_name
+FROM persons
+         LEFT JOIN staff s ON persons.id = s.person_id
+;
+
+# 5.Retrieve clinicians and the departments in which they held an appointment in
+SELECT DISTINCT p.first_name, p.last_name, department_name
+FROM departments
+         JOIN rooms r ON departments.id = r.department_id
+         JOIN appointments a ON r.id = a.room_id
+         JOIN clinicians c ON c.id = a.clinician_id
+         JOIN staff s ON c.staff_id = s.id
+         JOIN persons p ON p.id = s.person_id;
+;
+
+# 6. (extra) Retrieve all clinicians and list their profession
+SELECT p2.first_name, p2.last_name, p.profession
+FROM clinicians c
+         JOIN professions p ON p.id = c.profession_id
+         JOIN staff s ON c.staff_id = s.id
+         JOIN persons p2 ON s.person_id = p2.id
+;
+
+# 7. (extra) Retrieve all persons name and age
+SELECT first_name, last_name, YEAR(CURDATE()) - YEAR(dob) AS age
+FROM persons
+;
+
+-- 7 statements with aggregate functions and group by and without having.
+# 1. Retrieve number of appointments made in each room
+SELECT d.department_name, r.room_number, COUNT(a.room_id) AS "# of Appointments"
+FROM appointments a
+         JOIN rooms r ON r.id = a.room_id
+         JOIN departments d ON r.department_id = d.id
+GROUP BY a.room_id
+;
+
+# 2. Retrieve number of appointments made by department
+SELECT d.department_name, COUNT(a.room_id) AS "# of Appointments"
+FROM appointments a
+         JOIN rooms r ON r.id = a.room_id
+         JOIN departments d ON r.department_id = d.id
+GROUP BY d.department_name
+;
+
+# 3. Retrieve number of appointments completed by clinician
+SELECT p.first_name, p.last_name, COUNT(a.patient_id)
+FROM clinicians
+         JOIN staff s ON clinicians.staff_id = s.id
+         JOIN persons p ON s.person_id = p.id
+         JOIN appointments a ON clinicians.id = a.clinician_id
+GROUP BY clinician_id
+;
+
+#4. Count number of appointments by patient
+SELECT patient_id, COUNT(id) AS appointment_count
+FROM appointments
+GROUP BY patient_id
+;
+
+#5. Count number of records made by treatment type
+SELECT t.treatment_name, COUNT(treatment_id)
+FROM medical_records
+         JOIN treatments t ON t.id = medical_records.treatment_id
+GROUP BY treatment_id
+;
+
+#6. Get average age of patients by clinician
+SELECT p2.first_name,
+       p2.last_name,
+       AVG(YEAR(CURDATE()) - YEAR(p.dob)) AS average_patient_age
+FROM clinicians c
+         INNER JOIN staff s ON c.staff_id = s.id
+         INNER JOIN appointments a ON s.id = a.clinician_id
+         INNER JOIN patients pt ON a.patient_id = pt.id
+         INNER JOIN persons p ON pt.person_id = p.id
+         INNER JOIN persons p2 ON s.person_id = p2.id
+GROUP BY c.id
+;
+
+#7. Get average age of patients by department
+SELECT department_name, AVG(YEAR(CURDATE()) - YEAR(p2.dob)) AS average_patient_age
+FROM departments
+         JOIN rooms r ON departments.id = r.department_id
+         JOIN appointments a ON r.id = a.room_id
+         JOIN patients p ON a.patient_id = p.id
+         JOIN persons p2 ON p.person_id = p2.id
+GROUP BY department_name
+;
+
+-- 7 statements with aggregate functions and group by and with having.
+
+# 1. Retrieve rooms that have had more than 3 appointments
+SELECT d.department_name, r.room_number, COUNT(a.room_id) AS "# of Appointments"
+FROM appointments a
+         JOIN rooms r ON r.id = a.room_id
+         JOIN departments d ON r.department_id = d.id
+GROUP BY a.room_id
+HAVING COUNT(a.room_id) >= 3
+;
+
+# 2. Retrieve departments with less than or equal to 3 appointments
+SELECT d.department_name, COUNT(a.room_id) AS "# of Appointments"
+FROM appointments a
+         JOIN rooms r ON r.id = a.room_id
+         JOIN departments d ON r.department_id = d.id
+GROUP BY d.department_name
+HAVING COUNT(d.department_name) <= 3
+;
+
+# 3. Retrieve number of appointments completed by clinician with average age greater than 55
+SELECT p.first_name, p.last_name, COUNT(a.patient_id)
+FROM clinicians
+         JOIN staff s ON clinicians.staff_id = s.id
+         JOIN persons p ON s.person_id = p.id
+         JOIN appointments a ON clinicians.id = a.clinician_id
+GROUP BY clinician_id
+HAVING AVG(YEAR(CURDATE()) - YEAR(p.dob)) > 55
+;
+
+#4. Get clinician with average age of patients less than 50
+SELECT p2.first_name,
+       p2.last_name,
+       AVG(YEAR(CURDATE()) - YEAR(p.dob)) AS average_patient_age
+FROM clinicians c
+         INNER JOIN staff s ON c.staff_id = s.id
+         INNER JOIN appointments a ON s.id = a.clinician_id
+         INNER JOIN patients pt ON a.patient_id = pt.id
+         INNER JOIN persons p ON pt.person_id = p.id
+         INNER JOIN persons p2 ON s.person_id = p2.id
+GROUP BY c.id
+HAVING average_patient_age < 50;
+;
+
+#5. Get sum of appointments less than 5 from query # 2. (Retrieve number of appointments made in each room by department)
+SELECT dept_room_group.department_name, SUM(dept_room_group.`# of Appointments`)
+FROM (
+         SELECT d.department_name, r.room_number, COUNT(a.room_id) AS "# of Appointments"
+         FROM appointments a
+                  JOIN rooms r ON r.id = a.room_id
+                  JOIN departments d ON r.department_id = d.id
+         GROUP BY a.room_id
+     ) AS dept_room_group
+GROUP BY dept_room_group.department_name
+HAVING SUM(dept_room_group.`# of Appointments`) < 5
+;
+
+#6. Retrieve clinicians with at least 5 appointments
+SELECT first_name, SUM(a.clinician_id) AS num_appt
+FROM persons
+         JOIN staff s ON persons.id = s.person_id
+         JOIN clinicians c ON s.id = c.staff_id
+         JOIN appointments a ON c.id = a.clinician_id
+GROUP BY a.clinician_id
+HAVING num_appt > 5;
+;
+
+#7 Retrieve departments that have held appointments with more than 3 clinicians
+SELECT d.department_name, COUNT(d.department_name)
+FROM clinicians
+         JOIN appointments a ON clinicians.id = a.clinician_id
+         JOIN rooms r ON r.id = a.room_id
+         JOIN departments d ON d.id = r.department_id
+         JOIN staff s ON clinicians.staff_id = s.id
+         JOIN persons p ON s.person_id = p.id
+GROUP BY department_name
+HAVING COUNT(clinician_id) > 3
+;
+
+# 1 Large Join Table
+SELECT distinct *
+FROM appointments
+         JOIN rooms r ON r.id = appointments.room_id
+         JOIN departments d ON d.id = r.department_id
+         JOIN clinicians c ON c.id = appointments.clinician_id
+         JOIN staff s ON c.staff_id = s.id
+         JOIN persons p_staff ON s.person_id = p_staff.id
+         JOIN patients p ON appointments.patient_id = p.id
+         JOIN persons p_patients ON p.person_id = p_patients.id
+         LEFT JOIN medical_records mr ON appointments.id = mr.appointment_id
+         LEFT JOIN diagnosis d2 ON d2.id = mr.diagnosis_id
+         LEFT JOIN treatments t ON mr.treatment_id = t.id
+         LEFT JOIN prescriptions p2 ON t.id = p2.treatment_id
+         LEFT JOIN medications m ON p2.medication_id = m.id
+;
+
+
+
+
