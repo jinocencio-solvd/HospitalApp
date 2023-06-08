@@ -5,7 +5,7 @@ import org.apache.commons.text.CaseUtils;
 
 public class StringUtil {
 
-    private static String snakeCaseToCamelCase(String snakeStr){
+    private static String snakeCaseToCamelCase(String snakeStr) {
         return CaseUtils.toCamelCase(snakeStr, true, '_');
     }
 
@@ -19,7 +19,7 @@ public class StringUtil {
             .replace("]", ")");
     }
 
-    public static String camelToSnakeCase(String camelStr){
+    public static String camelToSnakeCase(String camelStr) {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < camelStr.length(); i++) {
             char currentChar = camelStr.charAt(i);

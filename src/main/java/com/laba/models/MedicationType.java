@@ -3,6 +3,7 @@ package com.laba.models;
 import java.util.Objects;
 
 public class MedicationType {
+
     private int id;
     private String medicationType;
 

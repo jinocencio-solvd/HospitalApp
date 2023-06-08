@@ -51,18 +51,15 @@ public abstract class EntityDAO<T> implements IEntityDAO<T> {
         String query = "SELECT * FROM " + getTableName();
 
         Connection connection = connectionPool.getConnection();
-        setAutoCommit(false, connection);
         try (PreparedStatement ps = connection.prepareStatement(query);) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 entityList.add(getEntity(rs));
             }
-            connection.commit();
         } catch (SQLException e) {
             rollbackConnection(connection);
             e.printStackTrace();
         } finally {
-            setAutoCommit(true, connection);
             connectionPool.releaseConnection(connection);
         }
         return entityList;
@@ -87,19 +84,15 @@ public abstract class EntityDAO<T> implements IEntityDAO<T> {
         String query = "SELECT * FROM " + getTableName() + " WHERE id = ?;";
 
         Connection connection = connectionPool.getConnection();
-        setAutoCommit(false, connection);
         try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 entity = getEntity(rs);
             }
-            connection.commit();
         } catch (SQLException e) {
-            rollbackConnection(connection);
             e.printStackTrace();
         } finally {
-            setAutoCommit(true, connection);
             connectionPool.releaseConnection(connection);
         }
         return entity;
@@ -168,7 +161,7 @@ public abstract class EntityDAO<T> implements IEntityDAO<T> {
         }
     }
 
-    private String queryBuilder(T entity) {
+    private String queryUpdateBuilder(T entity) {
         Map<String, Object> entityMap = mapColumnNamesToModelGetters(entity);
 
         StringBuilder queryBuilder = new StringBuilder();
@@ -184,7 +177,7 @@ public abstract class EntityDAO<T> implements IEntityDAO<T> {
 
     @Override
     public void update(T entity) {
-        String query = queryBuilder(entity);
+        String query = queryUpdateBuilder(entity);
         Map<String, Object> entityMap = mapColumnNamesToModelGetters(entity);
 
         Connection connection = connectionPool.getConnection();

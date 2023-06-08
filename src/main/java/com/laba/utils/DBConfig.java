@@ -24,7 +24,7 @@ public class DBConfig {
     public static int port = Integer.parseInt(properties.getProperty("PORT"));
     public static String databaseName = properties.getProperty("DBNAME");
     public static final String URL =
-            protocol + ":" + driver + "://" + hostname + ":" + port + "/" + databaseName;
+        protocol + ":" + driver + "://" + hostname + ":" + port + "/" + databaseName;
     public static final String USER = properties.getProperty("USER");
     public static final String PASSWORD = properties.getProperty("PASSWORD");
 }

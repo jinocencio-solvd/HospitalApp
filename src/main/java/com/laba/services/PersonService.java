@@ -4,10 +4,16 @@ import com.laba.interfaces.IEntityService;
 import com.laba.jdbc.DAOFactory;
 import com.laba.jdbc.PersonDAO;
 import com.laba.models.Person;
+import java.sql.Date;
 import java.util.List;
 
 public class PersonService implements IEntityService<Person> {
+
     private final PersonDAO personDAO = DAOFactory.getJDBCDAO("person");
+
+    public Person getByFirstLastNameAndDob(String firstName, String lastName, Date dob) {
+        return personDAO.getByFirstLastNameAndDob(firstName, lastName, dob);
+    }
 
     @Override
     public List<Person> getAll() {
@@ -33,4 +39,5 @@ public class PersonService implements IEntityService<Person> {
     public void update(Person entity) {
         personDAO.update(entity);
     }
+
 }

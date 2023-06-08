@@ -7,6 +7,7 @@ import com.laba.models.Specialization;
 import java.util.List;
 
 public class SpecializationService implements IEntityService<Specialization> {
+
     private final SpecializationDAO specializationDAO = DAOFactory.getJDBCDAO("specialization");
 
     @Override

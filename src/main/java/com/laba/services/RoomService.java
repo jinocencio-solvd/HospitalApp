@@ -7,6 +7,7 @@ import com.laba.models.Room;
 import java.util.List;
 
 public class RoomService implements IEntityService<Room> {
+
     private final RoomDAO roomDAO = DAOFactory.getJDBCDAO("room");
 
     @Override

@@ -7,6 +7,7 @@ import com.laba.models.Department;
 import java.util.List;
 
 public class DepartmentService implements IEntityService<Department> {
+
     private final DepartmentDAO departmentDAO = DAOFactory.getJDBCDAO("department");
 
     @Override

@@ -11,6 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class ConnectionPool {
+
     private static final Logger LOG = LogManager.getLogger(ConnectionPool.class);
     private static ConnectionPool instance;
     private final String url = DBConfig.URL;
@@ -18,12 +19,11 @@ public class ConnectionPool {
     private final String password = DBConfig.PASSWORD;
 
     private final int maxPoolSize = 5;
-    private final Queue<Connection> connectionPool = new ArrayDeque<>(maxPoolSize);;
+    private final Queue<Connection> connectionPool = new ArrayDeque<>(maxPoolSize);
     private final List<Connection> usedConnections = new ArrayList<>();
 
-
     public ConnectionPool() {
-        for (int i=0; i < maxPoolSize; i++){
+        for (int i = 0; i < maxPoolSize; i++) {
             connectionPool.offer(createConnection());
         }
     }
