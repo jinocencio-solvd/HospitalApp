@@ -7,6 +7,7 @@ import com.laba.models.Prescription;
 import java.util.List;
 
 public class PrescriptionService implements IEntityService<Prescription> {
+
     private final PrescriptionDAO prescriptionDAO = DAOFactory.getJDBCDAO("prescription");
 
     @Override

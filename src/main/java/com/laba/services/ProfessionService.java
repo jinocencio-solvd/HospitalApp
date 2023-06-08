@@ -7,6 +7,7 @@ import com.laba.models.Profession;
 import java.util.List;
 
 public class ProfessionService implements IEntityService<Profession> {
+
     private final ProfessionDAO professionDAO = DAOFactory.getJDBCDAO("profession");
 
     @Override

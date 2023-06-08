@@ -7,6 +7,7 @@ import com.laba.models.Clinician;
 import java.util.List;
 
 public class ClinicianService implements IEntityService<Clinician> {
+
     private final ClinicianDAO clinicianDAO = DAOFactory.getJDBCDAO("clinician");
 
     @Override

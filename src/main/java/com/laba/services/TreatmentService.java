@@ -7,6 +7,7 @@ import com.laba.models.Treatment;
 import java.util.List;
 
 public class TreatmentService implements IEntityService<Treatment> {
+
     private final TreatmentDAO treatmentDAO = DAOFactory.getJDBCDAO("treatment");
 
     @Override
