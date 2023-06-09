@@ -81,7 +81,7 @@ public class XMLParser {
                         Element subElement = (Element) subElements.item(j);
                         String subElementName = subElement.getNodeName();
                         String subElementValue = subElement.getTextContent();
-                        LOG.info(subElementName + " - " + subElementValue );
+                        LOG.info(subElementName + " - " + subElementValue);
                     }
                 }
             }

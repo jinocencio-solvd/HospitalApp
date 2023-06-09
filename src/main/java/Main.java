@@ -23,7 +23,7 @@ public class Main {
         File xsdFile = new File(xsdFilePath);
 
         boolean isXmlValid = testXMLValidator(xmlFile, xsdFile);
-        if(isXmlValid){
+        if (isXmlValid) {
             testDomParserToLogger(xmlFile);
             testDomParserByElementToLogger(xmlFile, "medication");
             testDomParserByElementToLogger(xmlFile, "treatment");

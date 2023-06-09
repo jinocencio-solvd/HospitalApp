@@ -7,6 +7,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class XMLParserTest {
+
     private static String xmlFilePath;
 
     @BeforeMethod

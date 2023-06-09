@@ -25,7 +25,8 @@ public class XMLValidator {
             LOG.info(xmlFile.getName() + " validation successful");
             return true;
         } catch (IOException | SAXException e) {
-            LOG.warn(xmlFile.getName() + " does not comply with the XSD schema " + xsdFile.getName());
+            LOG.warn(
+                xmlFile.getName() + " does not comply with the XSD schema " + xsdFile.getName());
             return false;
         }
     }
