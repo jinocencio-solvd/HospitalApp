@@ -22,6 +22,26 @@ employing automatic testing, we can catch issues early in the development proces
 our code is always working as expected. This helps to maintain the quality of the code and make sure
 that the project is stable and reliable.
 
+## Iter-2
+
+### Task
+
+Requirements
+
+- Create one XML file and XSD schema for at least 5 classes from the below hierarchy.
+    - XML and XSD Schema were created for all current classes from the hierarchy and are located
+      within `src/main/resources/XML/`
+- Validate XML file using XSD schema and assigned parser.
+    - `/utils/XMLValidator.java` contains static method `isValidXML(File, File)` that returns true
+      if the xml file is validated against the xsd file. This operation is performed in `Main` and
+      in `src/test/.../utils/XMLValidatorTest.java`
+- Parse XML file using one of the parsers from the title.
+    - `/utils/XMLParser.java` contains static method `domParserToLogger(File)` that logs all
+      element's names and values contained in the given xml file
+      while `domParserByElementToLogger(File, String)` logs all element's name and values given an
+      element name. Both operations are tested in `Main` if the xsd file is validated against the
+      schema.
+
 ## Iter-1
 
 ### Task
