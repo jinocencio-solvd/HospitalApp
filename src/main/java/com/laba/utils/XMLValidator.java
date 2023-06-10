@@ -13,7 +13,7 @@ import org.xml.sax.SAXException;
 
 public class XMLValidator {
 
-    private static final Logger LOG = LogManager.getLogger(ConnectionPool.class);
+    private static final Logger LOG = LogManager.getLogger(XMLValidator.class);
 
     public static boolean isValidXML(File xmlFile, File xsdFile) {
         try {
