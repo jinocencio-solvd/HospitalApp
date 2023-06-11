@@ -3,27 +3,26 @@ package com.laba.models;
 import java.util.Objects;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlAttribute; 
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "room")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Room {
 
-
     @XmlAttribute(name = "id")
     private int id;
 
-    @XmlAttribute(name = "room_number")
+    @XmlElement(name = "room_number")
     private String roomNumber;
 
-    @XmlAttribute(name = "department_id")
+    @XmlElement(name = "department_id")
     private int departmentId;
 
     public Room() {
         // Default Constructor
     }
-
 
     public Room(int id, String roomNumber, int departmentId) {
         this.id = id;

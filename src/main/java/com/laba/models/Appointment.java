@@ -1,13 +1,15 @@
 package com.laba.models;
 
-import com.laba.utils.jaxb.DateAdapter;
-import com.laba.utils.jaxb.TimeAdapter;
+import com.laba.utils.xml.jaxb.DateAdapter;
+import com.laba.utils.xml.jaxb.TimeAdapter;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.Objects;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlAttribute; 
+import javax.xml.bind.annotation.XmlElement;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -18,20 +20,20 @@ public class Appointment {
     @XmlAttribute(name = "id")
     private int id;
 
-    @XmlAttribute(name = "patient_id")
+    @XmlElement(name = "patient_id")
     private int patientId;
 
-    @XmlAttribute(name = "clinician_id")
+    @XmlElement(name = "clinician_id")
     private int clinicianId;
 
-    @XmlAttribute(name = "room_id")
+    @XmlElement(name = "room_id")
     private int roomId;
 
-    @XmlAttribute(name = "date")
+    @XmlElement(name = "date")
     @XmlJavaTypeAdapter(DateAdapter.class)
     private Date date;
 
-    @XmlAttribute(name = "time")
+    @XmlElement(name = "time")
     @XmlJavaTypeAdapter(TimeAdapter.class)
     private Time time;
 

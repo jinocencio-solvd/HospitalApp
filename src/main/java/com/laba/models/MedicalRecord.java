@@ -3,7 +3,8 @@ package com.laba.models;
 import java.util.Objects;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlAttribute; 
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "medical_record")
@@ -14,19 +15,18 @@ public class MedicalRecord {
     @XmlAttribute(name = "id")
     private int id;
 
-    @XmlAttribute(name = "appointment_id")
+    @XmlElement(name = "appointment_id")
     private int appointmentId;
 
-    @XmlAttribute(name = "diagnosis_id")
+    @XmlElement(name = "diagnosis_id")
     private int diagnosisId;
 
-    @XmlAttribute(name = "treatment_id")
+    @XmlElement(name = "treatment_id")
     private int treatmentId;
 
     public MedicalRecord() {
         // Default Constructor
     }
-
 
     public MedicalRecord(int appointmentId, int diagnosisId, int treatmentId) {
         this.appointmentId = appointmentId;

@@ -3,7 +3,8 @@ package com.laba.models;
 import java.util.Objects;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlAttribute; 
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "department")
@@ -13,7 +14,7 @@ public class Department {
     @XmlAttribute(name = "id")
     private int id;
 
-    @XmlAttribute(name = "department_name")
+    @XmlElement(name = "department_name")
     private String departmentName;
 
     public Department() {
