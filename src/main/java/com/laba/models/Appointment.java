@@ -1,5 +1,7 @@
 package com.laba.models;
 
+import com.laba.utils.jaxb.DateAdapter;
+import com.laba.utils.jaxb.TimeAdapter;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.Objects;
@@ -7,6 +9,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 @XmlRootElement(name = "appointment")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -25,9 +28,11 @@ public class Appointment {
     private int roomId;
 
     @XmlAttribute(name = "date")
+    @XmlJavaTypeAdapter(DateAdapter.class)
     private Date date;
 
     @XmlAttribute(name = "time")
+    @XmlJavaTypeAdapter(TimeAdapter.class)
     private Time time;
 
     public Appointment() {

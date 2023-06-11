@@ -1,11 +1,13 @@
 package com.laba.models;
 
+import com.laba.utils.jaxb.DateAdapter;
 import java.sql.Date;
 import java.util.Objects;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 @XmlRootElement(name = "prescription")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -25,9 +27,11 @@ public class Prescription {
     private String dosage;
 
     @XmlAttribute(name = "prescription_start_date")
+    @XmlJavaTypeAdapter(DateAdapter.class)
     private Date startDate;
 
     @XmlAttribute(name = "prescription_expiration_date")
+    @XmlJavaTypeAdapter(DateAdapter.class)
     private Date expirationDate;
 
     public Prescription() {
