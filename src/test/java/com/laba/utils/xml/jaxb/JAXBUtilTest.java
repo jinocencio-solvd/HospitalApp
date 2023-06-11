@@ -1,6 +1,10 @@
 package com.laba.utils.xml.jaxb;
 
+import static com.laba.utils.AppConfig.xmlOutputDir;
+import static org.testng.Assert.assertEquals;
+
 import com.laba.models.Person;
+import java.io.File;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,5 +35,14 @@ public class JAXBUtilTest {
 
     @Test
     public void testUnmarshallMode() {
+        Person p1 = new Person("Michael", "Scott", Date.valueOf("2000-01-01"));
+        JAXBUtil.marshallOneXmlOut(p1);
+        String path = xmlOutputDir + "Person.xml";
+        File file = new File(path);
+        Person p1Unmarshalled = (Person) JAXBUtil.unmarshallOne(file, Person.class);
+        Object p1Unmarshalled2 = JAXBUtil.unmarshallOne(file, Person.class);
+
+        assertEquals(p1, p1Unmarshalled);
+        assertEquals(p1, p1Unmarshalled2);
     }
 }
