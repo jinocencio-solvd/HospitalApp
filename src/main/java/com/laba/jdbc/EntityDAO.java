@@ -256,15 +256,16 @@ public abstract class EntityDAO<T> implements IEntityDAO<T> {
         } else if (type == Integer.class || type == int.class) {
             method.invoke(instance, Integer.parseInt(value));
         } else if (type == Date.class) {
-            if(isUnixTimestamp(value)){
+            if (isUnixTimestamp(value)) {
                 method.invoke(instance, new Date(Long.parseLong(value)));
-            }else{
+            } else {
                 method.invoke(instance, Date.valueOf(value));
             }
         } else if (type == Time.class) {
             method.invoke(instance, Time.valueOf(value));
         }
     }
+
     private static boolean isUnixTimestamp(String input) {
         try {
             long timestamp = Long.parseLong(input);

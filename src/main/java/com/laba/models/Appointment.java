@@ -14,7 +14,7 @@ public class Appointment {
     private Time time;
 
     public Appointment() {
-        // Default Constructor
+        // Empty Constructor
     }
 
     public Appointment(int id, int patientId, int clinicianId, int roomId, Date date,

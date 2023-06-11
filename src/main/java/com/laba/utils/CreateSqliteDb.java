@@ -7,6 +7,7 @@ import java.sql.DriverManager;
 import java.sql.Statement;
 
 public class CreateSqliteDb {
+
     public static void main(String[] args) {
         try {
             // Establish a connection to the SQLite database
