@@ -3,14 +3,31 @@ package com.laba.models;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.Objects;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement(name = "appointment")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Appointment {
 
+    @XmlAttribute(name = "id")
     private int id;
+
+    @XmlAttribute(name = "patient_id")
     private int patientId;
+
+    @XmlAttribute(name = "clinician_id")
     private int clinicianId;
+
+    @XmlAttribute(name = "room_id")
     private int roomId;
+
+    @XmlAttribute(name = "date")
     private Date date;
+
+    @XmlAttribute(name = "time")
     private Time time;
 
     public Appointment() {

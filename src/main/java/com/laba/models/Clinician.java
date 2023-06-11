@@ -1,12 +1,25 @@
 package com.laba.models;
 
 import java.util.Objects;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement(name = "clinician")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Clinician {
 
+    @XmlAttribute(name = "id")
     private int id;
+
+    @XmlAttribute(name = "staff_id")
     private int staffId;
+
+    @XmlAttribute(name = "profession_id")
     private int professionId;
+
+    @XmlAttribute(name = "specialization_id")
     private int specializationId;
 
     public Clinician() {
