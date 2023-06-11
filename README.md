@@ -22,6 +22,22 @@ employing automatic testing, we can catch issues early in the development proces
 our code is always working as expected. This helps to maintain the quality of the code and make sure
 that the project is stable and reliable.
 
+## Iter-3
+
+### Task
+
+Requirements
+
+- Add JAXB annotations to the hierarchy. Date, List, and complex objects should be covered.
+    - JAXB annotations are included for each model in the `models`
+      package. `utils/xml/jaxb/DateAdapter.java` adapts `java.sql.Date`
+      and `utils/xml/jaxb/TimeAdapter.java` adapts `java.sql.time` types for JAXB annotations.
+- Parse XML using JAXB.
+    - `utils/xml/jaxb/JAXBUtil.java` implements `unmarshallOne(File file, Class<?> clazz)` to parse
+      thru an XML file and return appropriate objects. This is demonstrated in `Main`
+      with `marshallOneXmlOut()` and associated test
+      class `src/test/.../utils/xml/jaxb/JAXBUtilTest.java`.
+
 ## Iter-2
 
 ### Task
