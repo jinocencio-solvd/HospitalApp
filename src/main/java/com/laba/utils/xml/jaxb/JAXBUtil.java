@@ -7,6 +7,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -15,8 +18,12 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class JAXBUtil {
+
+    private static final Logger LOG = LogManager.getLogger(JAXBUtil.class);
 
     public static void marshallManyXmlOut(List<?> objList) {
         Class<?> objClass = objList.get(0).getClass();
@@ -47,14 +54,24 @@ public class JAXBUtil {
         }
     }
 
-    public static void marshallOneXmlOut(Object obj) {
+    private static boolean isDirectory(String pathDir) {
+        Path dir = Paths.get(pathDir);
+        return Files.isDirectory(dir);
+    }
+
+    public static void marshallOneXmlOut(Object obj, String outPutDir, String fileName) {
+        if (!fileName.endsWith(".xml")) {
+            fileName += ".xml";
+        }
+        if (!isDirectory(outPutDir)) {
+            LOG.error(outPutDir + " is not a directory.");
+        }
         try {
             Class<?> objClass = obj.getClass();
             JAXBContext context = JAXBContext.newInstance(objClass);
             Marshaller marshaller = context.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-            String path = xmlOutputDir + objClass.getSimpleName() + ".xml";
-            marshaller.marshal(obj, new File(path));
+            marshaller.marshal(obj, new File(outPutDir + fileName));
         } catch (JAXBException e) {
             e.printStackTrace();
         }
