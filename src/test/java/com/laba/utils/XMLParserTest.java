@@ -2,6 +2,7 @@ package com.laba.utils;
 
 import static org.testng.Assert.*;
 
+import com.laba.utils.xml.XMLParser;
 import java.io.File;
 import java.util.List;
 import java.util.Map;

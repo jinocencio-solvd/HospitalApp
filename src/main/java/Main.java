@@ -1,5 +1,5 @@
-import com.laba.utils.XMLParser;
-import com.laba.utils.XMLValidator;
+import com.laba.utils.xml.XMLParser;
+import com.laba.utils.xml.XMLValidator;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
