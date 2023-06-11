@@ -1,4 +1,4 @@
-package com.laba.utils.jaxb;
+package com.laba.utils.xml.jaxb;
 
 import static org.testng.AssertJUnit.assertEquals;
 
@@ -16,7 +16,7 @@ public class TimeAdapterTest {
     }
 
     @Test
-    public void testUnmarshal() throws Exception {
+    public void testUnmarshal() {
         String timeString = "12:34:00";
         Time testTime = timeAdapter.unmarshal(timeString);
         Time expected = Time.valueOf(timeString);
@@ -24,7 +24,7 @@ public class TimeAdapterTest {
     }
 
     @Test
-    public void testMarshal() throws Exception {
+    public void testMarshal() {
         String expectedString = "12:34:00";
         Time expected = Time.valueOf(expectedString);
         String testString = timeAdapter.marshal(expected);

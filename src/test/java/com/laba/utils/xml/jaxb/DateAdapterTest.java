@@ -1,4 +1,4 @@
-package com.laba.utils.jaxb;
+package com.laba.utils.xml.jaxb;
 
 import static org.testng.Assert.assertEquals;
 
