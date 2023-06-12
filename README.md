@@ -22,6 +22,16 @@ employing automatic testing, we can catch issues early in the development proces
 our code is always working as expected. This helps to maintain the quality of the code and make sure
 that the project is stable and reliable.
 
+## Iter-4
+
+### Task
+
+Requirements
+- Create one Json file for at least 5 classes from the hierarchy.
+- Add Jackson’s annotation to the hierarchy. Date, List, and complex objects should be covered.
+Parse JSON using Jackson.
+
+
 ## Iter-3
 
 ### Task
