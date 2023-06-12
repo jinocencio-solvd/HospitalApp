@@ -1,5 +1,6 @@
 package com.laba.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -11,12 +12,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Medication {
 
+    @JsonProperty("id")
     @XmlAttribute(name = "id")
     private int id;
 
+    @JsonProperty("medication_name")
     @XmlElement(name = "medication_name")
     private String medicationName;
 
+    @JsonProperty("medication_types_id")
     @XmlElement(name = "medication_types_id")
     private int medicationTypeId;
 

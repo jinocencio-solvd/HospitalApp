@@ -1,5 +1,6 @@
 package com.laba.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.laba.utils.xml.jaxb.DateAdapter;
 import java.sql.Date;
 import java.util.Objects;
@@ -15,15 +16,19 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 public class Person {
 
 
+    @JsonProperty("id")
     @XmlAttribute(name = "id")
     private int id;
 
+    @JsonProperty("first_name")
     @XmlElement(name = "first_name")
     private String firstName;
 
+    @JsonProperty("last_name")
     @XmlElement(name = "last_name")
     private String lastName;
 
+    @JsonProperty("dob")
     @XmlElement(name = "dob")
     @XmlJavaTypeAdapter(DateAdapter.class)
     private Date dob;

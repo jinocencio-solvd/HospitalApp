@@ -1,5 +1,6 @@
 package com.laba.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.laba.utils.xml.jaxb.DateAdapter;
 import java.sql.Date;
 import java.util.Objects;
@@ -18,19 +19,24 @@ public class Prescription {
     @XmlAttribute(name = "id")
     private int prescriptionId;
 
+    @JsonProperty("treatment_id")
     @XmlElement(name = "treatment_id")
     private int treatmentId;
 
+    @JsonProperty("medication_id")
     @XmlElement(name = "medication_id")
     private int medicationId;
 
+    @JsonProperty("dosage")
     @XmlElement(name = "dosage")
     private String dosage;
 
+    @JsonProperty("prescription_start_date")
     @XmlElement(name = "prescription_start_date")
     @XmlJavaTypeAdapter(DateAdapter.class)
     private Date startDate;
 
+    @JsonProperty("prescription_expiration_date")
     @XmlElement(name = "prescription_expiration_date")
     @XmlJavaTypeAdapter(DateAdapter.class)
     private Date expirationDate;

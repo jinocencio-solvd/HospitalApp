@@ -1,5 +1,6 @@
 package com.laba.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.laba.utils.xml.jaxb.DateAdapter;
 import com.laba.utils.xml.jaxb.TimeAdapter;
 import java.sql.Date;
@@ -16,22 +17,28 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Appointment {
 
+    @JsonProperty("id")
     @XmlAttribute(name = "id")
     private int id;
 
+    @JsonProperty("patient_id")
     @XmlElement(name = "patient_id")
     private int patientId;
 
+    @JsonProperty("clinician_id")
     @XmlElement(name = "clinician_id")
     private int clinicianId;
 
+    @JsonProperty("room_id")
     @XmlElement(name = "room_id")
     private int roomId;
 
+    @JsonProperty("date")
     @XmlElement(name = "date")
     @XmlJavaTypeAdapter(DateAdapter.class)
     private Date date;
 
+    @JsonProperty("time")
     @XmlElement(name = "time")
     @XmlJavaTypeAdapter(TimeAdapter.class)
     private Time time;
