@@ -29,7 +29,7 @@ that the project is stable and reliable.
 Requirements
 - Create one Json file for at least 5 classes from the hierarchy.
 - Add Jackson’s annotation to the hierarchy. Date, List, and complex objects should be covered.
-Parse JSON using Jackson.
+- Parse JSON using Jackson.
 
 
 ## Iter-3
