@@ -1,6 +1,9 @@
 package com.laba.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.laba.utils.json.DateAdapterJSON;
+import com.laba.utils.json.TimeAdapterJSON;
 import com.laba.utils.xml.jaxb.DateAdapter;
 import com.laba.utils.xml.jaxb.TimeAdapter;
 import java.sql.Date;
@@ -35,11 +38,13 @@ public class Appointment {
 
     @JsonProperty("date")
     @XmlElement(name = "date")
+    @JsonSerialize(using = DateAdapterJSON.class)
     @XmlJavaTypeAdapter(DateAdapter.class)
     private Date date;
 
     @JsonProperty("time")
     @XmlElement(name = "time")
+    @JsonSerialize(using = TimeAdapterJSON.class)
     @XmlJavaTypeAdapter(TimeAdapter.class)
     private Time time;
 

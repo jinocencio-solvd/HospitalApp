@@ -1,6 +1,8 @@
 package com.laba.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.laba.utils.json.DateAdapterJSON;
 import com.laba.utils.xml.jaxb.DateAdapter;
 import java.sql.Date;
 import java.util.Objects;
@@ -33,11 +35,14 @@ public class Prescription {
 
     @JsonProperty("prescription_start_date")
     @XmlElement(name = "prescription_start_date")
+
+    @JsonSerialize(using = DateAdapterJSON.class)
     @XmlJavaTypeAdapter(DateAdapter.class)
     private Date startDate;
 
     @JsonProperty("prescription_expiration_date")
     @XmlElement(name = "prescription_expiration_date")
+    @JsonSerialize(using = DateAdapterJSON.class)
     @XmlJavaTypeAdapter(DateAdapter.class)
     private Date expirationDate;
 

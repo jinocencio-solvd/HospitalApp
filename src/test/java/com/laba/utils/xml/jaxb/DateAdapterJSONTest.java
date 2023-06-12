@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class DateAdapterTest {
+public class DateAdapterJSONTest {
 
     DateAdapter dateAdapter;
 

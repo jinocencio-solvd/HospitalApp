@@ -1,6 +1,9 @@
 package com.laba.models;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.laba.utils.json.DateAdapterJSON;
 import com.laba.utils.xml.jaxb.DateAdapter;
 import java.sql.Date;
 import java.util.Objects;
@@ -30,13 +33,13 @@ public class Person {
 
     @JsonProperty("dob")
     @XmlElement(name = "dob")
+    @JsonSerialize(using = DateAdapterJSON.class)
     @XmlJavaTypeAdapter(DateAdapter.class)
     private Date dob;
 
     public Person() {
         // Default Constructor
     }
-
 
     public Person(int id, String firstName, String lastName, Date dob) {
         this.id = id;
@@ -75,6 +78,7 @@ public class Person {
         this.lastName = lastName;
     }
 
+    @JsonGetter("dob")
     public Date getDob() {
         return dob;
     }
