@@ -12,7 +12,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class MedicationType {
 
-
     @JsonProperty("id")
     @XmlAttribute(name = "id")
     private int id;

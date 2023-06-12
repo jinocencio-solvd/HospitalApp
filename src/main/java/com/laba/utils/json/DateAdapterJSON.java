@@ -35,7 +35,7 @@ public class DateAdapterJSON extends StdSerializer<Date> {
     @Override
     public void serialize(Date date, JsonGenerator jsonGenerator,
         SerializerProvider serializerProvider) throws IOException {
-        String formattedDate = new SimpleDateFormat("yyyy-MM-dd").format(date);
+        String formattedDate = formatter.format(date);
         jsonGenerator.writeString(formattedDate);
     }
 }

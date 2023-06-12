@@ -17,7 +17,6 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Prescription {
 
-
     @XmlAttribute(name = "id")
     private int prescriptionId;
 

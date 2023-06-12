@@ -9,10 +9,18 @@ import org.testng.annotations.Test;
 public class JacksonUtilTest {
 
     @Test
-    public void testToJson() {
+    public void testToJsonString() {
         Person p1 = new Person(1, "Michael1", "Scott", Date.valueOf("2000-01-01"));
         String result = JacksonUtil.toJsonString(p1);
         String expected = "{\r\n  \"id\" : 1,\r\n  \"first_name\" : \"Michael1\",\r\n  \"last_name\" : \"Scott\",\r\n  \"dob\" : \"2000-01-01\"\r\n}";
         assertEquals(result, expected);
+    }
+
+    @Test
+    public void testFromJsonString() {
+        Person p1 = new Person(1, "Michael1", "Scott", Date.valueOf("2000-01-01"));
+        String jsonString = JacksonUtil.toJsonString(p1);
+        Person actual = JacksonUtil.fromJsonString(jsonString, new Person());
+        assertEquals(actual, p1);
     }
 };
