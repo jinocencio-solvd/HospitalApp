@@ -7,6 +7,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -24,13 +26,15 @@ import org.apache.logging.log4j.Logger;
 public class JAXBUtil {
 
     private static final Logger LOG = LogManager.getLogger(JAXBUtil.class);
+    private static final Charset XML_CHARSET = StandardCharsets.UTF_8;
+    private static final String FILE_EXTENSION_XML = ".xml";
 
     public static void marshallManyXmlOut(List<?> objList) {
         Class<?> objClass = objList.get(0).getClass();
         try {
-            String path = xmlOutputDir + objClass.getSimpleName() + ".xml";
+            String path = xmlOutputDir + objClass.getSimpleName() + FILE_EXTENSION_XML;
             OutputStream outPath = new FileOutputStream(path);
-            String parentTagName = objClass.getSimpleName().toLowerCase() + "_parent";
+            String parentTagName = objClass.getSimpleName().toLowerCase() + "_container";
 
             JAXBContext context = JAXBContext.newInstance(objClass);
             Marshaller marshaller = context.createMarshaller();
@@ -39,9 +43,9 @@ public class JAXBUtil {
 
             XMLOutputFactory xof = XMLOutputFactory.newFactory();
             XMLStreamWriter xsw = new IndentingXMLStreamWriter(
-                xof.createXMLStreamWriter(outPath, "UTF-8"));
+                xof.createXMLStreamWriter(outPath, XML_CHARSET.name()));
 
-            xsw.writeStartDocument("UTF-8", "1.0");
+            xsw.writeStartDocument(XML_CHARSET.name(), "1.0");
             xsw.writeStartElement(parentTagName);
             for (Object obj : objList) {
                 marshaller.marshal(obj, xsw);
@@ -60,8 +64,8 @@ public class JAXBUtil {
     }
 
     public static void marshallOneXmlOut(Object obj, String outPutDir, String fileName) {
-        if (!fileName.endsWith(".xml")) {
-            fileName += ".xml";
+        if (!fileName.endsWith(FILE_EXTENSION_XML)) {
+            fileName += FILE_EXTENSION_XML;
         }
         if (!isDirectory(outPutDir)) {
             LOG.error(outPutDir + " is not a directory.");
