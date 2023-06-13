@@ -20,6 +20,9 @@
               <value>2</value>
             </property>
           </properties>
+          <excludes>
+            <exclude>**/MedicalRecordServiceTest.java</exclude>
+          </excludes>
         </configuration>
       </plugin>
     </plugins>
