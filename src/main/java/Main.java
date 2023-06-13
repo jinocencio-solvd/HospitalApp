@@ -75,5 +75,6 @@ public class Main {
         // --> out to export/patient_records/patient_medical_record_patientId_1.xml
         String demoFilePath = "export/patient_records/patient_medical_record_patientId_1.xml";
         HospitalUtils.getJsonPatientMedicalRecordsFromXml(patient, new File(demoFilePath));
+        // --> out to export/patient_medical_record_patientId_1.json
     }
 }

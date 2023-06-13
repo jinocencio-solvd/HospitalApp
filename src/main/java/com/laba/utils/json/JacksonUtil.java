@@ -34,9 +34,7 @@ public class JacksonUtil {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
-
 
     public static void toJsonFile(Object obj, String filename) {
         if (!filename.endsWith(FILE_EXTENSION_JSON)) {
