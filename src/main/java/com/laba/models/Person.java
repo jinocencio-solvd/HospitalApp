@@ -1,13 +1,31 @@
 package com.laba.models;
 
+import com.laba.utils.xml.jaxb.DateAdapter;
 import java.sql.Date;
 import java.util.Objects;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+@XmlRootElement(name = "person")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Person {
 
+
+    @XmlAttribute(name = "id")
     private int id;
+
+    @XmlElement(name = "first_name")
     private String firstName;
+
+    @XmlElement(name = "last_name")
     private String lastName;
+
+    @XmlElement(name = "dob")
+    @XmlJavaTypeAdapter(DateAdapter.class)
     private Date dob;
 
     public Person() {

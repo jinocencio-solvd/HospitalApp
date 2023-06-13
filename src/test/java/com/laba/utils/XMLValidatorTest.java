@@ -2,6 +2,7 @@ package com.laba.utils;
 
 import static org.testng.Assert.*;
 
+import com.laba.utils.xml.XMLValidator;
 import java.io.File;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;

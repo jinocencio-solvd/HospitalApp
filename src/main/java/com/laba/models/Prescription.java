@@ -1,15 +1,38 @@
 package com.laba.models;
 
+import com.laba.utils.xml.jaxb.DateAdapter;
 import java.sql.Date;
 import java.util.Objects;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+@XmlRootElement(name = "prescription")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Prescription {
 
+
+    @XmlAttribute(name = "id")
     private int prescriptionId;
+
+    @XmlElement(name = "treatment_id")
     private int treatmentId;
+
+    @XmlElement(name = "medication_id")
     private int medicationId;
+
+    @XmlElement(name = "dosage")
     private String dosage;
+
+    @XmlElement(name = "prescription_start_date")
+    @XmlJavaTypeAdapter(DateAdapter.class)
     private Date startDate;
+
+    @XmlElement(name = "prescription_expiration_date")
+    @XmlJavaTypeAdapter(DateAdapter.class)
     private Date expirationDate;
 
     public Prescription() {

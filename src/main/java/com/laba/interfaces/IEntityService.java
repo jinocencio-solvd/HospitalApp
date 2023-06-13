@@ -13,5 +13,5 @@ public interface IEntityService<T> {
     void save(T entity);
 
     void update(T entity);
-    
+
 }

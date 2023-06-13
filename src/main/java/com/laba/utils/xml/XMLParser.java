@@ -1,4 +1,4 @@
-package com.laba.utils;
+package com.laba.utils.xml;
 
 import java.io.File;
 import java.io.IOException;
@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,7 +21,7 @@ public class XMLParser {
 
     private static final Logger LOG = LogManager.getLogger(XMLParser.class);
 
-    private static Element getRootElement(File xmlFile) {
+    public static Element getRootElement(File xmlFile) {
         Element rootElement = null;
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();

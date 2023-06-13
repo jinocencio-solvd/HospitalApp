@@ -1,6 +1,11 @@
-import com.laba.utils.XMLParser;
-import com.laba.utils.XMLValidator;
+import static com.laba.utils.AppConfig.xmlOutputDir;
+
+import com.laba.models.Person;
+import com.laba.utils.xml.XMLParser;
+import com.laba.utils.xml.XMLValidator;
+import com.laba.utils.xml.jaxb.JAXBUtil;
 import java.io.File;
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 import org.apache.logging.log4j.LogManager;
@@ -35,11 +40,30 @@ public class Main {
         }
     }
 
+    public static void testJaxb() {
+        // call marshall method
+        Person p1 = new Person("Dwight", "Schrute", Date.valueOf("2000-01-01"));
+        JAXBUtil.marshallOneXmlOut(p1, xmlOutputDir, "Person.xml");
+
+        // call unmarshall method
+        String path = xmlOutputDir + "Person.xml";
+        File file = new File(path);
+        Person p1Unmarshalled = (Person) JAXBUtil.unmarshallOne(file, Person.class);
+        Object p1Unmarshalled2 = JAXBUtil.unmarshallOne(file, Person.class);
+
+        // test
+        if (p1.equals(p1Unmarshalled) && p1.equals(p1Unmarshalled2)) {
+            LOG.info("There's a new sheriff here in these offices and his name is me. -"
+                + p1Unmarshalled.getFirstName() + " " + p1.getLastName());
+        }
+    }
+
     public static void main(String[] args) {
         String xmlFilePath = "src/main/resources/XML/hospital.xml";
         String xsdFilePath = "src/main/resources/XML/hospitalschema.xsd";
         File xmlFile = new File(xmlFilePath);
         File xsdFile = new File(xsdFilePath);
         testXMLAndXSDParserValidator(xmlFile, xsdFile);
+        testJaxb();
     }
 }
