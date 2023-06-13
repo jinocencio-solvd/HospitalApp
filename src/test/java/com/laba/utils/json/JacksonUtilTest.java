@@ -17,6 +17,7 @@ public class JacksonUtilTest {
     @Test
     public void testDbMapToJson() {
         JacksonUtil.dbMapToJson("db");
+        assertTrue(new File("export/db.json").exists());
     }
 
     @Test

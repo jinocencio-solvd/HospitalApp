@@ -61,18 +61,6 @@ public class JacksonUtil {
         return jsonString;
     }
 
-    public static String toJsonString(Object obj, ObjectMapper objectMapper) {
-        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
-
-        String jsonString = "{}";
-        try {
-            jsonString = objectMapper.writeValueAsString(obj);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return jsonString;
-    }
-
     public static <T> T fromJsonString(String json, T template) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
