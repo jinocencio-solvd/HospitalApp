@@ -108,7 +108,7 @@ public class Person {
         }
         Person person = (Person) o;
         return getFirstName().equals(person.getFirstName()) && getLastName().equals(
-            person.getLastName()) && getDob().equals(person.getDob());
+            person.getLastName()) && getDob().toString().equals(person.getDob().toString());
     }
 
     @Override
