@@ -14,8 +14,8 @@ public class XMLValidatorTest {
 
     @BeforeMethod
     public void setUp() {
-        xmlFilePath = "src/main/resources/XML/hospital.xml";
-        xsdFilePath = "src/main/resources/XML/hospitalschema.xsd";
+        xmlFilePath = "src/main/resources/xml/hospital.xml";
+        xsdFilePath = "src/main/resources/xml/hospitalschema.xsd";
     }
 
     @Test

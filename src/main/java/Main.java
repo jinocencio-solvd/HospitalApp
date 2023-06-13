@@ -61,8 +61,8 @@ public class Main {
     }
 
     public static void iter3iter4Demo() {
-        String xmlFilePath = "src/main/resources/XML/hospital.xml";
-        String xsdFilePath = "src/main/resources/XML/hospitalschema.xsd";
+        String xmlFilePath = "src/main/resources/xml/hospital.xml";
+        String xsdFilePath = "src/main/resources/xml/hospitalschema.xsd";
         File xmlFile = new File(xmlFilePath);
         File xsdFile = new File(xsdFilePath);
         testXMLAndXSDParserValidator(xmlFile, xsdFile);
