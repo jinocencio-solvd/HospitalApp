@@ -8,9 +8,16 @@ import static org.testng.AssertJUnit.assertTrue;
 import com.laba.models.Person;
 import java.io.File;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 import org.testng.annotations.Test;
 
 public class JacksonUtilTest {
+
+    @Test
+    public void testDbMapToJson(){
+        JacksonUtil.dbMapToJson("db");
+    }
 
     @Test
     public void testToJsonString() {
@@ -38,8 +45,12 @@ public class JacksonUtilTest {
         }
 
         assertFalse(testFile.exists());
+        List<Person> pList = new ArrayList<>();
         Person p1 = new Person(1, "Michael1", "Scott", Date.valueOf("2000-01-01"));
-        JacksonUtil.toJsonFile(p1, filename);
+        Person p2 = new Person(2, "Michael2", "Scott", Date.valueOf("2000-01-01"));
+        pList.add(p1);
+        pList.add(p2);
+        JacksonUtil.toJsonFile(pList, filename);
         assertTrue(new File(outputDir + filename+".json").exists());
     }
 };
