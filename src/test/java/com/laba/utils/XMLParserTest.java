@@ -15,7 +15,7 @@ public class XMLParserTest {
 
     @BeforeMethod
     public void setUp() {
-        xmlFilePath = "src/main/resources/XML/hospital.xml";
+        xmlFilePath = "src/main/resources/xml/hospital.xml";
     }
 
     @Test
