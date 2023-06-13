@@ -1,16 +1,25 @@
 package com.laba.models;
 
 import java.util.Objects;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement(name = "specialization")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Specialization {
 
+    @XmlAttribute(name = "id")
     private int id;
+
+    @XmlElement(name = "specialization")
     private String specialization;
 
     public Specialization() {
         // Default Constructor
     }
-
 
     public Specialization(int id, String specialization) {
         this.id = id;

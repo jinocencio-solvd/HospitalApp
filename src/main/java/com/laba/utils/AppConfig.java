@@ -21,5 +21,6 @@ public class AppConfig {
     public static final String ENVIRONMENT = properties.getProperty("ENVIRONMENT");
     public static final String configFileSqlite = properties.getProperty("CONFIG_FILE_SQLITE");
     public static final String configFileMysql = properties.getProperty("CONFIG_FILE_MYSQL");
+    public static final String xmlOutputDir = properties.getProperty("XML_OUTPUT_DIR");
 
 }

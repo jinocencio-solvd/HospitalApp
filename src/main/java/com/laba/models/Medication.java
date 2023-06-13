@@ -1,17 +1,28 @@
 package com.laba.models;
 
 import java.util.Objects;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement(name = "medication")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Medication {
 
+    @XmlAttribute(name = "id")
     private int id;
+
+    @XmlElement(name = "medication_name")
     private String medicationName;
+
+    @XmlElement(name = "medication_types_id")
     private int medicationTypeId;
 
     public Medication() {
         // Default Constructor
     }
-
 
     public Medication(int id, String medicationName, int medicationTypeId) {
         this.id = id;

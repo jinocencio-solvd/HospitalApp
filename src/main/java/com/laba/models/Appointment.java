@@ -1,20 +1,43 @@
 package com.laba.models;
 
+import com.laba.utils.xml.jaxb.DateAdapter;
+import com.laba.utils.xml.jaxb.TimeAdapter;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.Objects;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+@XmlRootElement(name = "appointment")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Appointment {
 
+    @XmlAttribute(name = "id")
     private int id;
+
+    @XmlElement(name = "patient_id")
     private int patientId;
+
+    @XmlElement(name = "clinician_id")
     private int clinicianId;
+
+    @XmlElement(name = "room_id")
     private int roomId;
+
+    @XmlElement(name = "date")
+    @XmlJavaTypeAdapter(DateAdapter.class)
     private Date date;
+
+    @XmlElement(name = "time")
+    @XmlJavaTypeAdapter(TimeAdapter.class)
     private Time time;
 
     public Appointment() {
-        // Default Constructor
+        // Empty Constructor
     }
 
     public Appointment(int id, int patientId, int clinicianId, int roomId, Date date,
