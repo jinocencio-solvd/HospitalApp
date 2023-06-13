@@ -81,7 +81,7 @@ public class JAXBUtil {
         }
     }
 
-    public static Object unmarshallOne(File file, Class<?> clazz) {
+    public static Object unmarshallOne(Class<?> clazz, File file) {
         try {
             JAXBContext context = JAXBContext.newInstance(clazz);
             Unmarshaller marshaller = context.createUnmarshaller();

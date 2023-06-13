@@ -33,8 +33,8 @@ public class JAXBUtilTest {
         Person p1 = new Person("Michael", "Scott", Date.valueOf("2000-01-01"));
         JAXBUtil.marshallOneXmlOut(p1, xmlOutputDir, "Person.xml");
         File file = new File(xmlOutputDir + "Person.xml");
-        Person p1Unmarshalled = (Person) JAXBUtil.unmarshallOne(file, Person.class);
-        Object p1Unmarshalled2 = JAXBUtil.unmarshallOne(file, Person.class);
+        Person p1Unmarshalled = (Person) JAXBUtil.unmarshallOne(Person.class, file);
+        Object p1Unmarshalled2 = JAXBUtil.unmarshallOne(Person.class, file);
 
         assertEquals(p1, p1Unmarshalled);
         assertEquals(p1, p1Unmarshalled2);

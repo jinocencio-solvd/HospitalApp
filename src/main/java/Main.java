@@ -1,6 +1,8 @@
 import static com.laba.utils.AppConfig.xmlOutputDir;
 
+import com.laba.models.Patient;
 import com.laba.models.Person;
+import com.laba.utils.HospitalUtils;
 import com.laba.utils.xml.XMLParser;
 import com.laba.utils.xml.XMLValidator;
 import com.laba.utils.xml.jaxb.JAXBUtil;
@@ -48,8 +50,8 @@ public class Main {
         // call unmarshall method
         String path = xmlOutputDir + "Person.xml";
         File file = new File(path);
-        Person p1Unmarshalled = (Person) JAXBUtil.unmarshallOne(file, Person.class);
-        Object p1Unmarshalled2 = JAXBUtil.unmarshallOne(file, Person.class);
+        Person p1Unmarshalled = (Person) JAXBUtil.unmarshallOne(Person.class, file);
+        Object p1Unmarshalled2 = JAXBUtil.unmarshallOne(Person.class, file);
 
         // test
         if (p1.equals(p1Unmarshalled) && p1.equals(p1Unmarshalled2)) {
@@ -58,12 +60,20 @@ public class Main {
         }
     }
 
-    public static void main(String[] args) {
+    public static void iter3iter4Demo() {
         String xmlFilePath = "src/main/resources/XML/hospital.xml";
         String xsdFilePath = "src/main/resources/XML/hospitalschema.xsd";
         File xmlFile = new File(xmlFilePath);
         File xsdFile = new File(xsdFilePath);
         testXMLAndXSDParserValidator(xmlFile, xsdFile);
         testJaxb();
+    }
+
+    public static void main(String[] args) {
+        Patient patient = new Patient(1, 1);
+        HospitalUtils.getXmlPatientMedicalRecords(patient);
+        // --> out to export/patient_records/patient_medical_record_patientId_1.xml
+        String demoFilePath = "export/patient_records/patient_medical_record_patientId_1.xml";
+        HospitalUtils.getJsonPatientMedicalRecordsFromXml(patient, new File(demoFilePath));
     }
 }
