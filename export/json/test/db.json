@@ -1,0 +1,533 @@
+{
+  "hospital" : {
+    "rooms" : [ {
+      "department_id" : "1",
+      "room_number" : "101",
+      "id" : "1"
+    }, {
+      "department_id" : "1",
+      "room_number" : "102",
+      "id" : "2"
+    }, {
+      "department_id" : "1",
+      "room_number" : "103",
+      "id" : "3"
+    }, {
+      "department_id" : "2",
+      "room_number" : "201",
+      "id" : "4"
+    }, {
+      "department_id" : "2",
+      "room_number" : "202",
+      "id" : "5"
+    }, {
+      "department_id" : "2",
+      "room_number" : "203",
+      "id" : "6"
+    }, {
+      "department_id" : "3",
+      "room_number" : "301",
+      "id" : "7"
+    }, {
+      "department_id" : "3",
+      "room_number" : "302",
+      "id" : "8"
+    }, {
+      "department_id" : "3",
+      "room_number" : "303",
+      "id" : "9"
+    } ],
+    "appointments" : [ {
+      "room_id" : "1",
+      "appointment_time" : "09:00:00",
+      "patient_id" : "1",
+      "appointment_date" : "2023-06-01",
+      "id" : "1",
+      "clinician_id" : "1"
+    }, {
+      "room_id" : "3",
+      "appointment_time" : "09:00:00",
+      "patient_id" : "1",
+      "appointment_date" : "2023-06-03",
+      "id" : "2",
+      "clinician_id" : "1"
+    }, {
+      "room_id" : "1",
+      "appointment_time" : "09:00:00",
+      "patient_id" : "1",
+      "appointment_date" : "2023-06-05",
+      "id" : "3",
+      "clinician_id" : "1"
+    }, {
+      "room_id" : "2",
+      "appointment_time" : "09:00:00",
+      "patient_id" : "1",
+      "appointment_date" : "2023-06-09",
+      "id" : "4",
+      "clinician_id" : "1"
+    }, {
+      "room_id" : "2",
+      "appointment_time" : "10:30:00",
+      "patient_id" : "2",
+      "appointment_date" : "2023-06-02",
+      "id" : "5",
+      "clinician_id" : "2"
+    }, {
+      "room_id" : "3",
+      "appointment_time" : "11:00:00",
+      "patient_id" : "3",
+      "appointment_date" : "2023-06-03",
+      "id" : "6",
+      "clinician_id" : "3"
+    }, {
+      "room_id" : "4",
+      "appointment_time" : "13:30:00",
+      "patient_id" : "4",
+      "appointment_date" : "2023-06-04",
+      "id" : "7",
+      "clinician_id" : "4"
+    }, {
+      "room_id" : "5",
+      "appointment_time" : "10:00:00",
+      "patient_id" : "5",
+      "appointment_date" : "2023-06-05",
+      "id" : "8",
+      "clinician_id" : "5"
+    }, {
+      "room_id" : "6",
+      "appointment_time" : "09:30:00",
+      "patient_id" : "6",
+      "appointment_date" : "2023-06-06",
+      "id" : "9",
+      "clinician_id" : "6"
+    }, {
+      "room_id" : "7",
+      "appointment_time" : "12:00:00",
+      "patient_id" : "7",
+      "appointment_date" : "2023-06-07",
+      "id" : "10",
+      "clinician_id" : "7"
+    }, {
+      "room_id" : "8",
+      "appointment_time" : "11:30:00",
+      "patient_id" : "8",
+      "appointment_date" : "2023-06-08",
+      "id" : "11",
+      "clinician_id" : "1"
+    }, {
+      "room_id" : "9",
+      "appointment_time" : "14:00:00",
+      "patient_id" : "9",
+      "appointment_date" : "2023-06-09",
+      "id" : "12",
+      "clinician_id" : "2"
+    }, {
+      "room_id" : "1",
+      "appointment_time" : "08:30:00",
+      "patient_id" : "10",
+      "appointment_date" : "2023-06-10",
+      "id" : "13",
+      "clinician_id" : "3"
+    }, {
+      "room_id" : "2",
+      "appointment_time" : "10:00:00",
+      "patient_id" : "11",
+      "appointment_date" : "2023-06-11",
+      "id" : "14",
+      "clinician_id" : "4"
+    }, {
+      "room_id" : "3",
+      "appointment_time" : "12:30:00",
+      "patient_id" : "12",
+      "appointment_date" : "2023-06-12",
+      "id" : "15",
+      "clinician_id" : "5"
+    } ],
+    "specializations" : [ {
+      "specialization" : "Cardiology",
+      "id" : "1"
+    }, {
+      "specialization" : "Orthopedics",
+      "id" : "2"
+    }, {
+      "specialization" : "General Medicine",
+      "id" : "3"
+    }, {
+      "specialization" : "Infectious Diseases",
+      "id" : "4"
+    } ],
+    "medical_records" : [ {
+      "diagnosis_id" : "1",
+      "appointment_id" : "1",
+      "treatment_id" : "1",
+      "id" : "1"
+    }, {
+      "diagnosis_id" : "1",
+      "appointment_id" : "1",
+      "treatment_id" : "1",
+      "id" : "2"
+    }, {
+      "diagnosis_id" : "1",
+      "appointment_id" : "1",
+      "treatment_id" : "1",
+      "id" : "3"
+    }, {
+      "diagnosis_id" : "1",
+      "appointment_id" : "1",
+      "treatment_id" : "1",
+      "id" : "4"
+    }, {
+      "diagnosis_id" : "2",
+      "appointment_id" : "2",
+      "treatment_id" : "2",
+      "id" : "5"
+    }, {
+      "diagnosis_id" : "1",
+      "appointment_id" : "3",
+      "treatment_id" : "1",
+      "id" : "6"
+    }, {
+      "diagnosis_id" : "2",
+      "appointment_id" : "4",
+      "treatment_id" : "2",
+      "id" : "7"
+    }, {
+      "diagnosis_id" : "1",
+      "appointment_id" : "5",
+      "treatment_id" : "1",
+      "id" : "8"
+    }, {
+      "diagnosis_id" : "2",
+      "appointment_id" : "6",
+      "treatment_id" : "2",
+      "id" : "9"
+    }, {
+      "diagnosis_id" : "1",
+      "appointment_id" : "7",
+      "treatment_id" : "1",
+      "id" : "10"
+    }, {
+      "diagnosis_id" : "2",
+      "appointment_id" : "8",
+      "treatment_id" : "3",
+      "id" : "11"
+    }, {
+      "diagnosis_id" : "1",
+      "appointment_id" : "9",
+      "treatment_id" : "1",
+      "id" : "12"
+    }, {
+      "diagnosis_id" : "2",
+      "appointment_id" : "10",
+      "treatment_id" : "3",
+      "id" : "13"
+    } ],
+    "patients" : [ {
+      "id" : "1",
+      "person_id" : "1"
+    }, {
+      "id" : "2",
+      "person_id" : "2"
+    }, {
+      "id" : "3",
+      "person_id" : "3"
+    }, {
+      "id" : "4",
+      "person_id" : "4"
+    }, {
+      "id" : "5",
+      "person_id" : "5"
+    }, {
+      "id" : "6",
+      "person_id" : "6"
+    }, {
+      "id" : "7",
+      "person_id" : "7"
+    }, {
+      "id" : "8",
+      "person_id" : "8"
+    }, {
+      "id" : "9",
+      "person_id" : "9"
+    }, {
+      "id" : "10",
+      "person_id" : "10"
+    }, {
+      "id" : "11",
+      "person_id" : "11"
+    }, {
+      "id" : "12",
+      "person_id" : "12"
+    } ],
+    "professions" : [ {
+      "profession" : "Physician",
+      "id" : "1"
+    }, {
+      "profession" : "Nurse",
+      "id" : "2"
+    }, {
+      "profession" : "Therapist",
+      "id" : "3"
+    }, {
+      "profession" : "Administration",
+      "id" : "4"
+    } ],
+    "staff" : [ {
+      "staff" : "\n      7\n      19\n    ",
+      "id" : "7",
+      "person_id" : "19"
+    }, {
+      "id" : "1",
+      "person_id" : "13"
+    }, {
+      "id" : "2",
+      "person_id" : "14"
+    }, {
+      "id" : "3",
+      "person_id" : "15"
+    }, {
+      "id" : "4",
+      "person_id" : "16"
+    }, {
+      "id" : "5",
+      "person_id" : "17"
+    }, {
+      "id" : "6",
+      "person_id" : "18"
+    }, {
+      "id" : "7",
+      "person_id" : "19"
+    } ],
+    "diagnoses" : [ {
+      "diagnosis_code" : "D001",
+      "description" : "Non-Diagnosable",
+      "id" : "1"
+    }, {
+      "diagnosis_code" : "D001",
+      "description" : "Hypertension",
+      "id" : "2"
+    }, {
+      "diagnosis_code" : "D002",
+      "description" : "Fractured leg",
+      "id" : "3"
+    } ],
+    "treatments" : [ {
+      "treatment_name" : "No Treatment",
+      "id" : "1"
+    }, {
+      "treatment_name" : "Medication",
+      "id" : "2"
+    }, {
+      "treatment_name" : "Surgery",
+      "id" : "3"
+    }, {
+      "treatment_name" : "Lifestyle",
+      "id" : "4"
+    }, {
+      "treatment_name" : "Chemotherapy",
+      "id" : "5"
+    }, {
+      "treatment_name" : "Physical Therapy",
+      "id" : "6"
+    }, {
+      "treatment_name" : "Speech Therapy",
+      "id" : "7"
+    }, {
+      "treatment_name" : "Dietary",
+      "id" : "8"
+    }, {
+      "treatment_name" : "Dialysis",
+      "id" : "9"
+    }, {
+      "treatment_name" : "Rehabilitation",
+      "id" : "10"
+    } ],
+    "medication_types" : [ {
+      "id" : "1",
+      "medication_type" : "NSAIDs"
+    }, {
+      "id" : "2",
+      "medication_type" : "Antibiotics"
+    }, {
+      "id" : "3",
+      "medication_type" : "Analgesics"
+    }, {
+      "id" : "4",
+      "medication_type" : "Vaccines"
+    } ],
+    "persons" : [ {
+      "dob" : "1970-03-15",
+      "last_name" : "Scott",
+      "id" : "1",
+      "first_name" : "Michael"
+    }, {
+      "dob" : "1943-02-08",
+      "last_name" : "Bratton",
+      "id" : "2",
+      "first_name" : "Creed"
+    }, {
+      "dob" : "1968-06-15",
+      "last_name" : "Malone",
+      "id" : "3",
+      "first_name" : "Kevin"
+    }, {
+      "dob" : "1978-10-01",
+      "last_name" : "Halpert",
+      "id" : "4",
+      "first_name" : "Jim"
+    }, {
+      "dob" : "1979-03-25",
+      "last_name" : "Beesly",
+      "id" : "5",
+      "first_name" : "Pam"
+    }, {
+      "dob" : "1970-01-20",
+      "last_name" : "Schrute",
+      "id" : "6",
+      "first_name" : "Dwight"
+    }, {
+      "dob" : "1971-11-11",
+      "last_name" : "Martin",
+      "id" : "7",
+      "first_name" : "Angela"
+    }, {
+      "dob" : "1973-07-22",
+      "last_name" : "Bernard",
+      "id" : "8",
+      "first_name" : "Andy"
+    }, {
+      "dob" : "1958-02-19",
+      "last_name" : "Hudson",
+      "id" : "9",
+      "first_name" : "Stanley"
+    }, {
+      "dob" : "1965-08-15",
+      "last_name" : "Vance",
+      "id" : "10",
+      "first_name" : "Phyllis"
+    }, {
+      "dob" : "1972-09-15",
+      "last_name" : "Martinez",
+      "id" : "11",
+      "first_name" : "Oscar"
+    }, {
+      "dob" : "1980-02-05",
+      "last_name" : "Kapoor",
+      "id" : "12",
+      "first_name" : "Kelly"
+    }, {
+      "dob" : "1970-12-01",
+      "last_name" : "Ramoray",
+      "id" : "13",
+      "first_name" : "Drake"
+    }, {
+      "dob" : "1969-05-05",
+      "last_name" : "Green",
+      "id" : "14",
+      "first_name" : "Rachel"
+    }, {
+      "dob" : "1970-04-22",
+      "last_name" : "Geller",
+      "id" : "15",
+      "first_name" : "Monica"
+    }, {
+      "dob" : "1967-07-16",
+      "last_name" : "Buffay",
+      "id" : "16",
+      "first_name" : "Phoebe"
+    }, {
+      "dob" : "1968-12-29",
+      "last_name" : "Tribbiani",
+      "id" : "17",
+      "first_name" : "Joey"
+    }, {
+      "dob" : "1967-04-08",
+      "last_name" : "Bing",
+      "id" : "18",
+      "first_name" : "Chandler"
+    }, {
+      "dob" : "1966-10-18",
+      "last_name" : "Geller",
+      "id" : "19",
+      "first_name" : "Ross"
+    } ],
+    "medications" : [ {
+      "medication_types_id" : "1",
+      "medication_name" : "Aspirin",
+      "id" : "1"
+    }, {
+      "medication_types_id" : "1",
+      "medication_name" : "Ibuprofen",
+      "id" : "2"
+    }, {
+      "medication_types_id" : "2",
+      "medication_name" : "Amoxicillin",
+      "id" : "3"
+    }, {
+      "medication_types_id" : "4",
+      "medication_name" : "Influenza Vaccine",
+      "id" : "4"
+    } ],
+    "clinicians" : [ {
+      "specialization_id" : "1",
+      "profession_id" : "1",
+      "staff_id" : "1",
+      "id" : "1"
+    }, {
+      "specialization_id" : "2",
+      "profession_id" : "1",
+      "staff_id" : "2",
+      "id" : "2"
+    }, {
+      "specialization_id" : "3",
+      "profession_id" : "1",
+      "staff_id" : "3",
+      "id" : "3"
+    }, {
+      "specialization_id" : "4",
+      "profession_id" : "1",
+      "staff_id" : "4",
+      "id" : "4"
+    }, {
+      "specialization_id" : "1",
+      "profession_id" : "1",
+      "staff_id" : "5",
+      "id" : "5"
+    }, {
+      "specialization_id" : "2",
+      "profession_id" : "2",
+      "staff_id" : "6",
+      "id" : "6"
+    }, {
+      "specialization_id" : "3",
+      "profession_id" : "3",
+      "staff_id" : "7",
+      "id" : "7"
+    } ],
+    "departments" : [ {
+      "department_name" : "Cardiology",
+      "id" : "1"
+    }, {
+      "department_name" : "Orthopedics",
+      "id" : "2"
+    }, {
+      "department_name" : "Outpatient",
+      "id" : "3"
+    } ],
+    "prescriptions" : [ {
+      "dosage" : "1 tablet daily",
+      "prescription_expiration_date" : "2023-06-30",
+      "medication_id" : "1",
+      "treatment_id" : "1",
+      "id" : "1",
+      "prescription_start_date" : "2023-06-01"
+    }, {
+      "dosage" : "2 tablets twice a day",
+      "prescription_expiration_date" : "2023-06-30",
+      "medication_id" : "2",
+      "treatment_id" : "1",
+      "id" : "2",
+      "prescription_start_date" : "2023-06-01"
+    } ]
+  }
+}

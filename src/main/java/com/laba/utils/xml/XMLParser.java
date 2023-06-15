@@ -71,7 +71,9 @@ public class XMLParser {
                     LOG.trace(subElementName + " - " + subElementValue);
                     map.put(subElementName, subElementValue);
                 }
-                list.add(map);
+                if (!map.isEmpty()) {
+                    list.add(map);
+                }
             }
         }
         return list;

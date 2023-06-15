@@ -22,6 +22,28 @@ employing automatic testing, we can catch issues early in the development proces
 our code is always working as expected. This helps to maintain the quality of the code and make sure
 that the project is stable and reliable.
 
+## Iter-4
+
+### Task
+
+Requirements
+
+- Create one Json file for at least 5 classes from the hierarchy.
+    - `com/laba/utils/json/JacksonUtil.java` implements `dbMapToJson()` to create a Json file that
+      represents all classes in the hospital db. In the `main` method, a demo is provided that
+      generates a json representation of a patient with medical records which is exported to the
+      export folder.
+- Add Jackson’s annotation to the hierarchy. Date, List, and complex objects should be covered.
+    - Jackson annotations are included for each model in the `models`
+      package. `utils/json/DateAdapterJSON.java` adapts `java.sql.Date`
+      and `utils/json/TimeAdapterJSON.java` adapts `java.sql.time` types for Jackson
+      annotations. `Patient` has a field for a list of complex object `MedicalRecord`s and is
+      annotated.
+- Parse JSON using Jackson.
+    - `com/laba/utils/json/JacksonUtil.java` implements `fromJsonString()` which deserializes a Json
+      string into an object. This method is tested in  `testFromJsonString()` in the associated test
+      class.
+
 ## Iter-3
 
 ### Task

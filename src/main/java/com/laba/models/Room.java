@@ -1,5 +1,6 @@
 package com.laba.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -14,9 +15,11 @@ public class Room {
     @XmlAttribute(name = "id")
     private int id;
 
+    @JsonProperty("room_number")
     @XmlElement(name = "room_number")
     private String roomNumber;
 
+    @JsonProperty("department_id")
     @XmlElement(name = "department_id")
     private int departmentId;
 

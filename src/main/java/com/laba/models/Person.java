@@ -1,5 +1,10 @@
 package com.laba.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.laba.utils.json.DateAdapterJSON;
 import com.laba.utils.xml.jaxb.DateAdapter;
 import java.sql.Date;
 import java.util.Objects;
@@ -14,24 +19,28 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Person {
 
-
+    @JsonProperty("id")
     @XmlAttribute(name = "id")
     private int id;
 
+    @JsonProperty("first_name")
     @XmlElement(name = "first_name")
     private String firstName;
 
+    @JsonProperty("last_name")
     @XmlElement(name = "last_name")
     private String lastName;
 
+    @JsonProperty("dob")
     @XmlElement(name = "dob")
+    @JsonSerialize(using = DateAdapterJSON.class)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "PST")
     @XmlJavaTypeAdapter(DateAdapter.class)
     private Date dob;
 
     public Person() {
         // Default Constructor
     }
-
 
     public Person(int id, String firstName, String lastName, Date dob) {
         this.id = id;
@@ -70,6 +79,7 @@ public class Person {
         this.lastName = lastName;
     }
 
+    @JsonGetter("dob")
     public Date getDob() {
         return dob;
     }
@@ -98,7 +108,7 @@ public class Person {
         }
         Person person = (Person) o;
         return getFirstName().equals(person.getFirstName()) && getLastName().equals(
-            person.getLastName()) && getDob().equals(person.getDob());
+            person.getLastName()) && getDob().toString().equals(person.getDob().toString());
     }
 
     @Override
