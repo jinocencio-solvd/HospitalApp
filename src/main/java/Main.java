@@ -46,10 +46,9 @@ public class Main {
         JAXBUtil.marshallOneXmlOut(p1, "Person.xml");
 
         // call unmarshall method
-        String path = JAXBUtil.JAXB_OUT_DIR + "Person.xml";
-        File file = new File(path);
-        Person p1Unmarshalled = (Person) JAXBUtil.unmarshallOne(Person.class, file);
-        Object p1Unmarshalled2 = JAXBUtil.unmarshallOne(Person.class, file);
+        String filepath = JAXBUtil.JAXB_OUT_DIR + "Person.xml";
+        Person p1Unmarshalled = (Person) JAXBUtil.unmarshallOne(Person.class, filepath);
+        Object p1Unmarshalled2 = JAXBUtil.unmarshallOne(Person.class, filepath);
 
         // test
         if (p1.equals(p1Unmarshalled) && p1.equals(p1Unmarshalled2)) {
@@ -73,13 +72,12 @@ public class Main {
 
         Runnable dbToXmlOut = () -> {
             medicalRecordService.getXmlPatientMedicalRecords(patient);
-            // --> out to export/patient_records/patient_medical_record_patientId_1.xml
+            // --> out to export/xml/patient_records/medical_record_patientId_1.xml
         };
 
         Runnable xmlSerializeToJson = () -> {
-            String demoFilePath = "export/patient_records/patient_medical_record_patientId_1.xml";
-            medicalRecordService.getJsonPatientMedicalRecordsFromXml(patient,
-                new File(demoFilePath));
+            String demoFilePath = "export/xml/patient_records/medical_record_patientId_1.xml";
+            medicalRecordService.getJsonPatientMedicalRecordsFromXml(patient, demoFilePath);
             // --> out to export/patient_medical_record_patientId_1.json
         };
 

@@ -8,7 +8,6 @@ import com.laba.models.MedicalRecord;
 import com.laba.models.Patient;
 import com.laba.utils.json.JacksonUtil;
 import com.laba.utils.xml.jaxb.JAXBUtil;
-import java.io.File;
 import java.util.List;
 
 public class MedicalRecordService implements IMedicalRecordService {
@@ -49,14 +48,16 @@ public class MedicalRecordService implements IMedicalRecordService {
     public void getXmlPatientMedicalRecords(Patient p) {
         List<MedicalRecord> patientMedicalRecords = getMedicalRecordsForPatient(p);
         p.setMedicalRecords(patientMedicalRecords);
-        String filename = FILENAME_PREFIX + p.getId()+ FileType.XML.getExtension();
-        JAXBUtil.marshallOneXmlOut(p, filename);
+        String filepath =
+            MEDICAL_RECORDS_DIR + FILENAME_PREFIX + p.getId() + FileType.XML.getExtension();
+        JAXBUtil.marshallOneXmlOut(p, filepath);
     }
 
-    public void getJsonPatientMedicalRecordsFromXml(Patient p, File xmlFile) {
-        Patient patient = (Patient) JAXBUtil.unmarshallOne(p.getClass(), xmlFile);
-        String filepath = FILENAME_PREFIX + p.getId() + FileType.JSON.getExtension();
-        JacksonUtil.toJsonFile(patient, filepath);
+    public void getJsonPatientMedicalRecordsFromXml(Patient p, String filepath) {
+        Patient patient = (Patient) JAXBUtil.unmarshallOne(p.getClass(), filepath);
+        String filepathJson =
+            MEDICAL_RECORDS_DIR + FILENAME_PREFIX + p.getId() + FileType.JSON.getExtension();
+        JacksonUtil.toJsonFile(patient, filepathJson);
     }
 
     @Override

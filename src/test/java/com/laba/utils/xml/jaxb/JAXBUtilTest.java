@@ -3,7 +3,6 @@ package com.laba.utils.xml.jaxb;
 import static org.testng.Assert.assertEquals;
 
 import com.laba.models.Person;
-import java.io.File;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,9 +33,10 @@ public class JAXBUtilTest {
         Person p1 = new Person("Michael", "Scott", Date.valueOf("2000-01-01"));
         String testFile = TEST_XML_OUT_DIR + "testPerson2.xml";
         JAXBUtil.marshallOneXmlOut(p1, testFile);
-        File file = new File("export/xml/test/testPerson2.xml");
-        Person p1Unmarshalled = (Person) JAXBUtil.unmarshallOne(Person.class, file);
-        Object p1Unmarshalled2 = JAXBUtil.unmarshallOne(Person.class, file);
+        Person p1Unmarshalled = (Person) JAXBUtil.unmarshallOne(Person.class,
+            "export/xml/test/testPerson2.xml");
+        Object p1Unmarshalled2 = JAXBUtil.unmarshallOne(Person.class,
+            "export/xml/test/testPerson2.xml");
 
         assertEquals(p1, p1Unmarshalled);
         assertEquals(p1, p1Unmarshalled2);

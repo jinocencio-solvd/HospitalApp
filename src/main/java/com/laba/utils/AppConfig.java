@@ -22,7 +22,5 @@ public class AppConfig {
     public static final String configFileSqlite = properties.getProperty("CONFIG_FILE_SQLITE");
     public static final String configFileMysql = properties.getProperty("CONFIG_FILE_MYSQL");
     public static final String EXPORT_OUT_DIR = properties.getProperty("EXPORT_DIR");
-//    public static final String XML_OUT_DIR = properties.getProperty("EXPORT_DIR") + "/xml";
-//    public static final String JSON_OUT_DIR = properties.getProperty("EXPORT_DIR") + "/json";
 }
 

@@ -27,8 +27,8 @@ public class JAXBUtil {
     private static final Charset XML_CHARSET = StandardCharsets.UTF_8;
     public static final String JAXB_OUT_DIR = EXPORT_OUT_DIR + "/xml/";
 
-    private static String checkFilename(String filename){
-        if(!filename.endsWith(FileType.XML.getExtension())){
+    private static String checkFilename(String filename) {
+        if (!filename.endsWith(FileType.XML.getExtension())) {
             filename += FileType.XML.getExtension();
         }
         return filename;
@@ -71,18 +71,19 @@ public class JAXBUtil {
             JAXBContext context = JAXBContext.newInstance(objClass);
             Marshaller marshaller = context.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-            String fileOut = JAXB_OUT_DIR + filename;
-            marshaller.marshal(obj, new File(fileOut));
+            String filepath = JAXB_OUT_DIR + filename;
+            marshaller.marshal(obj, new File(filepath));
         } catch (JAXBException e) {
             e.printStackTrace();
         }
     }
 
-    public static Object unmarshallOne(Class<?> clazz, File xmlFile) {
+    public static Object unmarshallOne(Class<?> clazz, String filename) {
+        filename = checkFilename(filename);
         try {
             JAXBContext context = JAXBContext.newInstance(clazz);
             Unmarshaller marshaller = context.createUnmarshaller();
-            return marshaller.unmarshal(xmlFile);
+            return marshaller.unmarshal(new File(filename));
         } catch (JAXBException e) {
             e.printStackTrace();
         }
