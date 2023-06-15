@@ -1,6 +1,7 @@
 import com.laba.models.Patient;
 import com.laba.models.Person;
 import com.laba.services.MedicalRecordService;
+import com.laba.utils.SQLiteUtils;
 import com.laba.utils.xml.XMLParser;
 import com.laba.utils.xml.XMLValidator;
 import com.laba.utils.xml.jaxb.JAXBUtil;

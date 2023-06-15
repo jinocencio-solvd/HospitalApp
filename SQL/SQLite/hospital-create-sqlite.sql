@@ -1,4 +1,19 @@
+DROP TABLE IF EXISTS `prescriptions`;
+DROP TABLE IF EXISTS `medications`;
+DROP TABLE IF EXISTS `medication_types`;
+DROP TABLE IF EXISTS `medical_records`;
+DROP TABLE IF EXISTS `treatments`;
+DROP TABLE IF EXISTS `diagnosis`;
+DROP TABLE IF EXISTS `appointments`;
+DROP TABLE IF EXISTS `rooms`;
+DROP TABLE IF EXISTS `departments`;
+DROP TABLE IF EXISTS `clinicians`;
+DROP TABLE IF EXISTS `specializations`;
+DROP TABLE IF EXISTS `professions`;
+DROP TABLE IF EXISTS `staff`;
+DROP TABLE IF EXISTS `patients`;
 DROP TABLE IF EXISTS `persons`;
+
 CREATE TABLE IF NOT EXISTS `persons`
 (
     `id`         INTEGER  PRIMARY KEY AUTOINCREMENT,
@@ -7,7 +22,6 @@ CREATE TABLE IF NOT EXISTS `persons`
     `dob`        DATE     NOT NULL
 );
 
-DROP TABLE IF EXISTS `patients`;
 CREATE TABLE IF NOT EXISTS `patients`
 (
     `id`        INTEGER  PRIMARY KEY AUTOINCREMENT,
@@ -15,7 +29,6 @@ CREATE TABLE IF NOT EXISTS `patients`
     FOREIGN KEY (`person_id`) REFERENCES `persons` (`id`) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-DROP TABLE IF EXISTS `staff`;
 CREATE TABLE IF NOT EXISTS `staff`
 (
     `id`        INTEGER  PRIMARY KEY AUTOINCREMENT,
@@ -23,21 +36,18 @@ CREATE TABLE IF NOT EXISTS `staff`
     FOREIGN KEY (`person_id`) REFERENCES `persons` (`id`) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-DROP TABLE IF EXISTS `professions`;
 CREATE TABLE IF NOT EXISTS `professions`
 (
     `id`         INTEGER  PRIMARY KEY AUTOINCREMENT,
     `profession` TEXT     NULL
 );
 
-DROP TABLE IF EXISTS `specializations`;
 CREATE TABLE IF NOT EXISTS `specializations`
 (
     `id`             INTEGER  PRIMARY KEY AUTOINCREMENT,
     `specialization` TEXT     NULL
 );
 
-DROP TABLE IF EXISTS `clinicians`;
 CREATE TABLE IF NOT EXISTS `clinicians`
 (
     `id`                INTEGER  PRIMARY KEY AUTOINCREMENT,
@@ -49,14 +59,12 @@ CREATE TABLE IF NOT EXISTS `clinicians`
     FOREIGN KEY (`specialization_id`) REFERENCES `specializations` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
-DROP TABLE IF EXISTS `departments`;
 CREATE TABLE IF NOT EXISTS `departments`
 (
     `id`              INTEGER       PRIMARY KEY AUTOINCREMENT,
     `department_name` VARCHAR(100)  NOT NULL
 );
 
-DROP TABLE IF EXISTS `rooms`;
 CREATE TABLE IF NOT EXISTS `rooms`
 (
     `id`            INTEGER       PRIMARY KEY AUTOINCREMENT,
@@ -65,7 +73,6 @@ CREATE TABLE IF NOT EXISTS `rooms`
     FOREIGN KEY (`department_id`) REFERENCES `departments` (`id`) ON UPDATE CASCADE ON DELETE NO ACTION
 );
 
-DROP TABLE IF EXISTS `appointments`;
 CREATE TABLE IF NOT EXISTS `appointments`
 (
     `id`               INTEGER       PRIMARY KEY AUTOINCREMENT,
@@ -79,7 +86,6 @@ CREATE TABLE IF NOT EXISTS `appointments`
     FOREIGN KEY (`room_id`) REFERENCES `rooms` (`id`) ON UPDATE NO ACTION ON DELETE NO ACTION
 );
 
-DROP TABLE IF EXISTS `diagnosis`;
 CREATE TABLE IF NOT EXISTS `diagnosis`
 (
     `id`             INTEGER      PRIMARY KEY AUTOINCREMENT,
@@ -87,14 +93,12 @@ CREATE TABLE IF NOT EXISTS `diagnosis`
     `description`    VARCHAR(255) NOT NULL
 );
 
-DROP TABLE IF EXISTS `treatments`;
 CREATE TABLE IF NOT EXISTS `treatments`
 (
     `id`             INTEGER      PRIMARY KEY AUTOINCREMENT,
     `treatment_name` VARCHAR(100) NOT NULL
 );
 
-DROP TABLE IF EXISTS `medical_records`;
 CREATE TABLE IF NOT EXISTS `medical_records`
 (
     `id`             INTEGER       PRIMARY KEY AUTOINCREMENT,
@@ -106,14 +110,12 @@ CREATE TABLE IF NOT EXISTS `medical_records`
     FOREIGN KEY (`appointment_id`) REFERENCES `appointments` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
-DROP TABLE IF EXISTS `medication_types`;
 CREATE TABLE IF NOT EXISTS `medication_types`
 (
     `id`              INTEGER       PRIMARY KEY AUTOINCREMENT,
     `medication_type` VARCHAR(45)   NOT NULL
 );
 
-DROP TABLE IF EXISTS `medications`;
 CREATE TABLE IF NOT EXISTS `medications`
 (
     `id`                  INTEGER       PRIMARY KEY AUTOINCREMENT,
@@ -122,7 +124,6 @@ CREATE TABLE IF NOT EXISTS `medications`
     FOREIGN KEY (`medication_types_id`) REFERENCES `medication_types` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
-DROP TABLE IF EXISTS `prescriptions`;
 CREATE TABLE IF NOT EXISTS `prescriptions`
 (
     `id`                           INTEGER       PRIMARY KEY AUTOINCREMENT,

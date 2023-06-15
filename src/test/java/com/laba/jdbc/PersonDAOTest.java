@@ -3,9 +3,11 @@ package com.laba.jdbc;
 import static org.testng.Assert.*;
 
 import com.laba.models.Person;
+import com.laba.utils.SQLiteUtils;
 import java.sql.Date;
 import java.util.List;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -31,5 +33,11 @@ public class PersonDAOTest {
         Person retPerson = personDAO.getByFirstLastNameAndDob(p1.getFirstName(), p1.getLastName(),
             p1.getDob());
         assertEquals(p1, retPerson);
+    }
+
+    @AfterSuite
+    public void cleanup(){
+        SQLiteUtils.processSQLiteScript("create");
+        SQLiteUtils.processSQLiteScript("insert");
     }
 }

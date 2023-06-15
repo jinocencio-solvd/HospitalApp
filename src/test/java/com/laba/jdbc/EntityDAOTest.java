@@ -3,12 +3,14 @@ package com.laba.jdbc;
 import static org.testng.Assert.*;
 
 import com.laba.models.Person;
+import com.laba.utils.SQLiteUtils;
 import java.lang.reflect.Constructor;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -118,5 +120,11 @@ public class EntityDAOTest {
         Person p1 = new Person(id, firstName, lastName, dob);
         assertEquals(p, p1);
         assertEquals(personDAO.createModelFromMap(columnMap), p);
+    }
+
+    @AfterSuite
+    public void cleanup(){
+        SQLiteUtils.processSQLiteScript("create");
+        SQLiteUtils.processSQLiteScript("insert");
     }
 }
