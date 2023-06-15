@@ -6,7 +6,7 @@ import com.laba.models.Patient;
 import org.testng.annotations.Test;
 
 public class MedicalRecordServiceTest {
-    private static final MedicalRecordService medicalRecordService = MedicalRecordService.getInstance();
+    private static final MedicalRecordService medicalRecordService = new MedicalRecordService();
 
     @Test
     public void testGetMedicalRecordsForPatient() {

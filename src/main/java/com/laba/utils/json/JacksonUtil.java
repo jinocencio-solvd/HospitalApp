@@ -1,11 +1,12 @@
 package com.laba.utils.json;
 
-import static com.laba.utils.AppConfig.jsonOutputDir;
+import static com.laba.utils.AppConfig.EXPORT_OUT_DIR;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.laba.enums.FileType;
 import com.laba.utils.AppUtils;
 import java.io.File;
 import java.io.FileWriter;
@@ -15,14 +16,18 @@ import java.util.Map;
 
 public class JacksonUtil {
 
-    private static final String OUTPUT_DIR = jsonOutputDir;
-    private static final String FILE_EXTENSION_JSON = ".json";
-    private static Map<String, List<Map<String, String>>> hospitalDbMap = AppUtils.getHospitalDbMapFromXml();
+    public static final String JACKSON_OUT_DIR = EXPORT_OUT_DIR + "/json/";
+
+    private static String checkFilename(String filename) {
+        if (!filename.endsWith(FileType.JSON.getExtension())) {
+            filename += FileType.JSON.getExtension();
+        }
+        return filename;
+    }
 
     public static void dbMapToJson(String filename) {
-        if (!filename.endsWith(FILE_EXTENSION_JSON)) {
-            filename += FILE_EXTENSION_JSON;
-        }
+        Map<String, List<Map<String, String>>> hospitalDbMap = AppUtils.getHospitalDbMapFromXml();
+        filename = checkFilename(filename);
         ObjectMapper om = new ObjectMapper();
         om.enable(SerializationFeature.INDENT_OUTPUT);
         om.createObjectNode();
@@ -30,18 +35,18 @@ public class JacksonUtil {
         ObjectNode dbJson = om.valueToTree(hospitalDbMap);
         rootNode.set("hospital", dbJson);
         try {
-            om.writeValue(new File(OUTPUT_DIR + filename), rootNode);
+            String filepath = JACKSON_OUT_DIR + filename;
+            om.writeValue(new File(filepath), rootNode);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public static void toJsonFile(Object obj, String filename) {
-        if (!filename.endsWith(FILE_EXTENSION_JSON)) {
-            filename += FILE_EXTENSION_JSON;
-        }
+        filename = checkFilename(filename);
         String jsonString = toJsonString(obj);
-        try (FileWriter fileWriter = new FileWriter(OUTPUT_DIR + filename)) {
+        String filepath = JACKSON_OUT_DIR + filename;
+        try (FileWriter fileWriter = new FileWriter(filepath)) {
             fileWriter.write(jsonString);
         } catch (IOException e) {
             e.printStackTrace();

@@ -1,30 +1,24 @@
 package com.laba.services;
 
-import com.laba.interfaces.IEntityService;
+import com.laba.enums.FileType;
+import com.laba.interfaces.IMedicalRecordService;
 import com.laba.jdbc.DAOFactory;
 import com.laba.jdbc.MedicalRecordDAO;
 import com.laba.models.MedicalRecord;
 import com.laba.models.Patient;
+import com.laba.utils.json.JacksonUtil;
+import com.laba.utils.xml.jaxb.JAXBUtil;
+import java.io.File;
 import java.util.List;
 
-public class MedicalRecordService implements IEntityService<MedicalRecord> {
+public class MedicalRecordService implements IMedicalRecordService {
 
-    private static MedicalRecordService instance;
-    private final MedicalRecordDAO medicalRecordDAO;
+    public static MedicalRecordDAO medicalRecordDAO;
+    public static final String MEDICAL_RECORDS_DIR = "/patient_records/";
+    public static final String FILENAME_PREFIX = "medical_record_patientId_";
 
-    private MedicalRecordService() {
+    public MedicalRecordService() {
         medicalRecordDAO = DAOFactory.getJDBCDAO("medical record");
-    }
-
-    public static MedicalRecordService getInstance() {
-        if (instance == null) {
-            instance = new MedicalRecordService();
-        }
-        return instance;
-    }
-
-    public List<MedicalRecord> getMedicalRecordsForPatient(Patient p) {
-        return medicalRecordDAO.getMedicalRecordsForPatient(p);
     }
 
     @Override
@@ -50,5 +44,23 @@ public class MedicalRecordService implements IEntityService<MedicalRecord> {
     @Override
     public void update(MedicalRecord entity) {
         medicalRecordDAO.update(entity);
+    }
+
+    public void getXmlPatientMedicalRecords(Patient p) {
+        List<MedicalRecord> patientMedicalRecords = getMedicalRecordsForPatient(p);
+        p.setMedicalRecords(patientMedicalRecords);
+        String filename = FILENAME_PREFIX + p.getId()+ FileType.XML.getExtension();
+        JAXBUtil.marshallOneXmlOut(p, filename);
+    }
+
+    public void getJsonPatientMedicalRecordsFromXml(Patient p, File xmlFile) {
+        Patient patient = (Patient) JAXBUtil.unmarshallOne(p.getClass(), xmlFile);
+        String filepath = FILENAME_PREFIX + p.getId() + FileType.JSON.getExtension();
+        JacksonUtil.toJsonFile(patient, filepath);
+    }
+
+    @Override
+    public List<MedicalRecord> getMedicalRecordsForPatient(Patient p) {
+        return medicalRecordDAO.getMedicalRecordsForPatient(p);
     }
 }

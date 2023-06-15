@@ -1,7 +1,8 @@
 package com.laba.utils.xml.jaxb;
 
-import static com.laba.utils.AppConfig.xmlOutputDir;
+import static com.laba.utils.AppConfig.EXPORT_OUT_DIR;
 
+import com.laba.enums.FileType;
 import com.sun.xml.txw2.output.IndentingXMLStreamWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -9,9 +10,6 @@ import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -27,12 +25,20 @@ public class JAXBUtil {
 
     private static final Logger LOG = LogManager.getLogger(JAXBUtil.class);
     private static final Charset XML_CHARSET = StandardCharsets.UTF_8;
-    private static final String FILE_EXTENSION_XML = ".xml";
+    public static final String JAXB_OUT_DIR = EXPORT_OUT_DIR + "/xml/";
 
-    public static void marshallManyXmlOut(List<?> objList) {
+    private static String checkFilename(String filename){
+        if(!filename.endsWith(FileType.XML.getExtension())){
+            filename += FileType.XML.getExtension();
+        }
+        return filename;
+    }
+
+    public static void marshallManyXmlOut(List<?> objList, String filename) {
+        filename = checkFilename(filename);
         Class<?> objClass = objList.get(0).getClass();
         try {
-            String path = xmlOutputDir + objClass.getSimpleName() + FILE_EXTENSION_XML;
+            String path = JAXB_OUT_DIR + filename;
             OutputStream outPath = new FileOutputStream(path);
             String parentTagName = objClass.getSimpleName().toLowerCase() + "_container";
 
@@ -58,34 +64,25 @@ public class JAXBUtil {
         }
     }
 
-    private static boolean isDirectory(String pathDir) {
-        Path dir = Paths.get(pathDir);
-        return Files.isDirectory(dir);
-    }
-
-    public static void marshallOneXmlOut(Object obj, String outPutDir, String fileName) {
-        if (!fileName.endsWith(FILE_EXTENSION_XML)) {
-            fileName += FILE_EXTENSION_XML;
-        }
-        if (!isDirectory(outPutDir)) {
-            LOG.error(outPutDir + " is not a directory.");
-        }
+    public static void marshallOneXmlOut(Object obj, String filename) {
+        filename = checkFilename(filename);
         try {
             Class<?> objClass = obj.getClass();
             JAXBContext context = JAXBContext.newInstance(objClass);
             Marshaller marshaller = context.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-            marshaller.marshal(obj, new File(outPutDir + fileName));
+            String fileOut = JAXB_OUT_DIR + filename;
+            marshaller.marshal(obj, new File(fileOut));
         } catch (JAXBException e) {
             e.printStackTrace();
         }
     }
 
-    public static Object unmarshallOne(Class<?> clazz, File file) {
+    public static Object unmarshallOne(Class<?> clazz, File xmlFile) {
         try {
             JAXBContext context = JAXBContext.newInstance(clazz);
             Unmarshaller marshaller = context.createUnmarshaller();
-            return marshaller.unmarshal(file);
+            return marshaller.unmarshal(xmlFile);
         } catch (JAXBException e) {
             e.printStackTrace();
         }

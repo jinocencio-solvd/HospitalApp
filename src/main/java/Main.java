@@ -1,8 +1,6 @@
-import static com.laba.utils.AppConfig.xmlOutputDir;
-
 import com.laba.models.Patient;
 import com.laba.models.Person;
-import com.laba.utils.HospitalUtils;
+import com.laba.services.MedicalRecordService;
 import com.laba.utils.xml.XMLParser;
 import com.laba.utils.xml.XMLValidator;
 import com.laba.utils.xml.jaxb.JAXBUtil;
@@ -45,10 +43,10 @@ public class Main {
     public static void testJaxb() {
         // call marshall method
         Person p1 = new Person("Dwight", "Schrute", Date.valueOf("2000-01-01"));
-        JAXBUtil.marshallOneXmlOut(p1, xmlOutputDir, "Person.xml");
+        JAXBUtil.marshallOneXmlOut(p1, "Person.xml");
 
         // call unmarshall method
-        String path = xmlOutputDir + "Person.xml";
+        String path = JAXBUtil.JAXB_OUT_DIR + "Person.xml";
         File file = new File(path);
         Person p1Unmarshalled = (Person) JAXBUtil.unmarshallOne(Person.class, file);
         Object p1Unmarshalled2 = JAXBUtil.unmarshallOne(Person.class, file);
@@ -60,7 +58,7 @@ public class Main {
         }
     }
 
-    public static void iter3iter4Demo() {
+    public static void xmlOperationsDemo() {
         String xmlFilePath = "src/main/resources/xml/hospital.xml";
         String xsdFilePath = "src/main/resources/xml/hospitalschema.xsd";
         File xmlFile = new File(xmlFilePath);
@@ -69,12 +67,28 @@ public class Main {
         testJaxb();
     }
 
-    public static void main(String[] args) {
+    public static void processPatientMedicalRecords() {
         Patient patient = new Patient(1, 1);
-        HospitalUtils.getXmlPatientMedicalRecords(patient);
-        // --> out to export/patient_records/patient_medical_record_patientId_1.xml
-        String demoFilePath = "export/patient_records/patient_medical_record_patientId_1.xml";
-        HospitalUtils.getJsonPatientMedicalRecordsFromXml(patient, new File(demoFilePath));
-        // --> out to export/patient_medical_record_patientId_1.json
+        MedicalRecordService medicalRecordService = new MedicalRecordService();
+
+        Runnable dbToXmlOut = () -> {
+            medicalRecordService.getXmlPatientMedicalRecords(patient);
+            // --> out to export/patient_records/patient_medical_record_patientId_1.xml
+        };
+
+        Runnable xmlSerializeToJson = () -> {
+            String demoFilePath = "export/patient_records/patient_medical_record_patientId_1.xml";
+            medicalRecordService.getJsonPatientMedicalRecordsFromXml(patient,
+                new File(demoFilePath));
+            // --> out to export/patient_medical_record_patientId_1.json
+        };
+
+        dbToXmlOut.run();
+        xmlSerializeToJson.run();
+    }
+
+
+    public static void main(String[] args) {
+        processPatientMedicalRecords();
     }
 }

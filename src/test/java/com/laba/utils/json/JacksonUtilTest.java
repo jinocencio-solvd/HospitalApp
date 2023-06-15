@@ -1,6 +1,5 @@
 package com.laba.utils.json;
 
-import static com.laba.utils.AppConfig.jsonOutputDir;
 import static org.testng.Assert.assertEquals;
 import static org.testng.AssertJUnit.assertFalse;
 import static org.testng.AssertJUnit.assertTrue;
@@ -14,10 +13,12 @@ import org.testng.annotations.Test;
 
 public class JacksonUtilTest {
 
+    public static final String TEST_JSON_OUT_DIR = "/test";
+
     @Test
     public void testDbMapToJson() {
-        JacksonUtil.dbMapToJson("db");
-        assertTrue(new File("export/db.json").exists());
+        JacksonUtil.dbMapToJson(TEST_JSON_OUT_DIR+"/"+"db");
+        assertTrue(new File("export/json/test/db.json").exists());
     }
 
     @Test
@@ -38,20 +39,18 @@ public class JacksonUtilTest {
 
     @Test
     public void testToJsonFile() {
-        String filename = "testP1";
-        String outputDir = jsonOutputDir;
-        File testFile = new File(outputDir + filename);
+        String filepath = TEST_JSON_OUT_DIR + "/" + "testP1";
+        File testFile = new File(filepath);
         if (testFile.exists()) {
             testFile.delete();
         }
-
         assertFalse(testFile.exists());
         List<Person> pList = new ArrayList<>();
         Person p1 = new Person(1, "Michael1", "Scott", Date.valueOf("2000-01-01"));
         Person p2 = new Person(2, "Michael2", "Scott", Date.valueOf("2000-01-01"));
         pList.add(p1);
         pList.add(p2);
-        JacksonUtil.toJsonFile(pList, filename);
-        assertTrue(new File(outputDir + filename + ".json").exists());
+        JacksonUtil.toJsonFile(pList, filepath);
+        assertTrue(new File("export/json/test/testP1.json").exists());
     }
 };

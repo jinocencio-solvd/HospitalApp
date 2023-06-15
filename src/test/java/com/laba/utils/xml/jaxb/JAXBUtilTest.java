@@ -1,6 +1,5 @@
 package com.laba.utils.xml.jaxb;
 
-import static com.laba.utils.AppConfig.xmlOutputDir;
 import static org.testng.Assert.assertEquals;
 
 import com.laba.models.Person;
@@ -12,10 +11,12 @@ import org.testng.annotations.Test;
 
 public class JAXBUtilTest {
 
+    public static final String TEST_XML_OUT_DIR = "test/";
+
     @Test
     public void testMarshallOne() {
         Person p1 = new Person("Michael", "Scott", Date.valueOf("2000-01-01"));
-        JAXBUtil.marshallOneXmlOut(p1, xmlOutputDir, "Person.xml");
+        JAXBUtil.marshallOneXmlOut(p1, TEST_XML_OUT_DIR + "testPerson.xml");
     }
 
     @Test
@@ -25,14 +26,15 @@ public class JAXBUtilTest {
         List<Person> personList = new ArrayList<>();
         personList.add(p1);
         personList.add(p2);
-        JAXBUtil.marshallManyXmlOut(personList);
+        JAXBUtil.marshallManyXmlOut(personList, TEST_XML_OUT_DIR + "testPersonList");
     }
 
     @Test
-    public void testUnmarshallMode() {
+    public void testUnmarshall() {
         Person p1 = new Person("Michael", "Scott", Date.valueOf("2000-01-01"));
-        JAXBUtil.marshallOneXmlOut(p1, xmlOutputDir, "Person.xml");
-        File file = new File(xmlOutputDir + "Person.xml");
+        String testFile = TEST_XML_OUT_DIR + "testPerson2.xml";
+        JAXBUtil.marshallOneXmlOut(p1, testFile);
+        File file = new File("export/xml/test/testPerson2.xml");
         Person p1Unmarshalled = (Person) JAXBUtil.unmarshallOne(Person.class, file);
         Object p1Unmarshalled2 = JAXBUtil.unmarshallOne(Person.class, file);
 
