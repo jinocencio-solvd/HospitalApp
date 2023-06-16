@@ -3,10 +3,15 @@ package com.laba.services;
 import static org.testng.Assert.*;
 
 import com.laba.models.Person;
+import com.laba.utils.AppConfig;
+import com.laba.utils.SQLiteUtils;
 import java.sql.Date;
 import java.util.List;
 
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -14,6 +19,20 @@ public class PersonServiceTest {
 
     private static PersonService personService;
     private static final boolean isSingleThreaded = false;
+
+    @BeforeClass
+    public void before(){
+        if(AppConfig.ENVIRONMENT.equals("GH_WORKFLOW")){
+            SQLiteUtils.processSQLiteScript("create");
+        }
+    }
+
+    @AfterClass
+    public void after(){
+        if(AppConfig.ENVIRONMENT.equals("GH_WORKFLOW")){
+            SQLiteUtils.processSQLiteScript("insert");
+        }
+    }
 
     @BeforeMethod
     public void setUp() {
@@ -85,5 +104,4 @@ public class PersonServiceTest {
         assertEquals(retrievedPerson1, updatedRetrievedPerson1);
         assertNotEquals(updatedRetrievedPerson1, p1);
     }
-
 }

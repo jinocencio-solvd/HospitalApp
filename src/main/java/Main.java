@@ -85,7 +85,6 @@ public class Main {
         xmlSerializeToJson.run();
     }
 
-
     public static void main(String[] args) {
         processPatientMedicalRecords();
     }
