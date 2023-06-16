@@ -48,7 +48,7 @@ public class MyBatisUtil {
             xsw.setIndentStep(indentStep);
 
             generateDocumentDeclaration(xsw);
-            generateMapperTag(xsw, modelMap);
+            generateMapperElement(xsw, modelMap);
 
             xsw.close();
             LOG.info("XML file created successfully.");
@@ -57,11 +57,8 @@ public class MyBatisUtil {
         }
     }
 
-    private static void generateMapperTag(IndentingXMLStreamWriter xsw,
+    private static void generateMapperElement(IndentingXMLStreamWriter xsw,
         Map<String, String> modelMap) throws XMLStreamException {
-
-        xsw.writeStartElement("mapper");
-        xsw.writeAttribute("namespace", modelMap.get("namespace"));
 
         List<String> fieldList = modelMap.keySet()
             .stream()
@@ -76,13 +73,16 @@ public class MyBatisUtil {
             .map(str -> str.replace(fieldDelimiter, ""))
             .map(StringUtil::convertToMyBatisPlaceholder)
             .collect(Collectors.toList());
-
-        generateResultMapTag(xsw, modelMap, fieldList);
-        generateInsertTag(xsw, modelMap, colFormattedList, valFormattedList);
-        generateUpdateTag(xsw, modelMap, colFormattedList, valFormattedList);
-        generateDeleteTag(xsw, modelMap);
-        generateSelectTag(xsw, modelMap);
-        generateSelectAllTag(xsw, modelMap);
+        
+        xsw.writeStartElement("mapper");
+        xsw.writeAttribute("namespace", modelMap.get("namespace"));
+        
+        generateResultMapElement(xsw, modelMap, fieldList);
+        generateInsertElement(xsw, modelMap, colFormattedList, valFormattedList);
+        generateUpdateElement(xsw, modelMap, colFormattedList, valFormattedList);
+        generateDeleteElement(xsw, modelMap);
+        generateSelectElement(xsw, modelMap);
+        generateSelectAllElement(xsw, modelMap);
 
         xsw.writeEndElement(); // mapper
     }
@@ -98,7 +98,7 @@ public class MyBatisUtil {
         xsw.writeCharacters("\n\n");
     }
 
-    private static void generateResultMapTag(IndentingXMLStreamWriter xsw,
+    private static void generateResultMapElement(IndentingXMLStreamWriter xsw,
         Map<String, String> modelMap, List<String> fieldList) throws XMLStreamException {
 
         xsw.writeStartElement("resultMap");
@@ -116,7 +116,7 @@ public class MyBatisUtil {
         xsw.writeEndElement(); // resultMap
     }
 
-    private static void generateInsertTag(IndentingXMLStreamWriter xsw,
+    private static void generateInsertElement(IndentingXMLStreamWriter xsw,
         Map<String, String> modelMap, List<String> colFormattedList, List<String> valFormattedList)
         throws XMLStreamException {
 
@@ -134,7 +134,7 @@ public class MyBatisUtil {
         xsw.writeEndElement(); // insert
     }
 
-    private static void generateUpdateTag(IndentingXMLStreamWriter xsw,
+    private static void generateUpdateElement(IndentingXMLStreamWriter xsw,
         Map<String, String> modelMap, List<String> colFormattedList, List<String> valFormattedList)
         throws XMLStreamException {
 
@@ -158,7 +158,7 @@ public class MyBatisUtil {
     }
 
 
-    private static void generateDeleteTag(IndentingXMLStreamWriter xsw,
+    private static void generateDeleteElement(IndentingXMLStreamWriter xsw,
         Map<String, String> modelMap)
         throws XMLStreamException {
 
@@ -173,7 +173,7 @@ public class MyBatisUtil {
         xsw.writeEndElement(); // delete
     }
 
-    private static void generateSelectTag(IndentingXMLStreamWriter xsw,
+    private static void generateSelectElement(IndentingXMLStreamWriter xsw,
         Map<String, String> modelMap) throws XMLStreamException {
 
         xsw.writeStartElement("select"); // select tag
@@ -187,7 +187,7 @@ public class MyBatisUtil {
         xsw.writeEndElement(); // select
     }
 
-    private static void generateSelectAllTag(IndentingXMLStreamWriter xsw,
+    private static void generateSelectAllElement(IndentingXMLStreamWriter xsw,
         Map<String, String> modelMap) throws XMLStreamException {
 
         xsw.writeStartElement("select"); // select all tag
