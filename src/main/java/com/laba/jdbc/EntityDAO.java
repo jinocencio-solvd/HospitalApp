@@ -143,7 +143,7 @@ public abstract class EntityDAO<T> implements IEntityDAO<T> {
         entityMap.remove("id");
         Set<String> entityCols = entityMap.keySet();
         String query =
-            "INSERT INTO " + getTableName() + " " + StringUtil.formatKeySetString(entityCols)
+            "INSERT INTO " + getTableName() + " " + StringUtil.formatCollectionsString(entityCols)
                 + " VALUES ("
                 + "(?), ".repeat(entityCols.size() - 1) + "(?))";
 
