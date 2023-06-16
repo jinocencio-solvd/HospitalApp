@@ -1,6 +1,6 @@
 package com.laba.jdbc;
 
-import com.laba.interfaces.IEntityDAO;
+import com.laba.interfaces.daos.IEntityDAO;
 import com.laba.utils.ConnectionPool;
 import com.laba.utils.StringUtil;
 import java.lang.reflect.Constructor;

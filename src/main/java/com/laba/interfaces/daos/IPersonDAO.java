@@ -1,4 +1,4 @@
-package com.laba.interfaces;
+package com.laba.interfaces.daos;
 
 import com.laba.models.Person;
 import java.sql.Date;

@@ -1,4 +1,4 @@
-package com.laba.interfaces;
+package com.laba.interfaces.services;
 
 import com.laba.models.MedicalRecord;
 import com.laba.models.Patient;

@@ -1,7 +1,7 @@
 package com.laba.services;
 
 import com.laba.enums.FileType;
-import com.laba.interfaces.IMedicalRecordService;
+import com.laba.interfaces.services.IMedicalRecordService;
 import com.laba.jdbc.DAOFactory;
 import com.laba.jdbc.MedicalRecordDAO;
 import com.laba.models.MedicalRecord;

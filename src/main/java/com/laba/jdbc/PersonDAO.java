@@ -1,6 +1,6 @@
 package com.laba.jdbc;
 
-import com.laba.interfaces.IPersonDAO;
+import com.laba.interfaces.daos.IPersonDAO;
 import com.laba.models.Person;
 import com.laba.utils.ConnectionPool;
 import java.sql.Connection;

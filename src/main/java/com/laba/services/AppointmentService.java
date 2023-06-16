@@ -1,6 +1,6 @@
 package com.laba.services;
 
-import com.laba.interfaces.IEntityService;
+import com.laba.interfaces.services.IEntityService;
 import com.laba.jdbc.AppointmentDAO;
 import com.laba.jdbc.DAOFactory;
 import com.laba.models.Appointment;

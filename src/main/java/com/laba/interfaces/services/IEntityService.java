@@ -1,8 +1,8 @@
-package com.laba.interfaces;
+package com.laba.interfaces.services;
 
 import java.util.List;
 
-public interface IEntityDAO<T> {
+public interface IEntityService<T> {
 
     List<T> getAll();
 
