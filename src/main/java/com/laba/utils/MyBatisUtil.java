@@ -12,6 +12,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
 
@@ -22,6 +23,7 @@ public class MyBatisUtil {
     private static final String docDeclaration = "<!DOCTYPE mapper \n\t\t PUBLIC \"-//mybatis.org//DTD Mapper 3.0//EN\" \n\t\t \"http://mybatis.org/dtd/mybatis-3-mapper.dtd\">";
     private static final String typeDelimiter = DbMapper.modelLoc;
     private static final String indentStep = " ".repeat(4);
+    private static final String fieldDelimiter = "field_";
 
     public static void generateXml(Map<String, String> modelMap) {
         try {
@@ -52,13 +54,12 @@ public class MyBatisUtil {
                 modelMap.get("type").replace(typeDelimiter, ""));
             xsw.writeAttribute("autoMapping", "false");
 
-            String delimiter = "field_";
             List<String> fieldList = modelMap.keySet()
                 .stream()
-                .filter(key -> key.startsWith(delimiter))
+                .filter(key -> key.startsWith(fieldDelimiter))
                 .collect(Collectors.toList());
             for (String key : fieldList) {
-                String field = key.replaceAll(delimiter, "");
+                String field = key.replaceAll(fieldDelimiter, "");
                 xsw.writeEmptyElement("result");
                 xsw.writeAttribute("property", field);
                 xsw.writeAttribute("column", modelMap.get(key));
@@ -69,7 +70,8 @@ public class MyBatisUtil {
                 .map(modelMap::get)
                 .collect(Collectors.toList());
             String colFormatted = StringUtil.formatCollectionsString(colFormattedList);
-            List<String> valFormattedList = colFormattedList.stream()
+            List<String> valFormattedList = fieldList.stream()
+                .map(str -> str.replace(fieldDelimiter, ""))
                 .map(StringUtil::convertToMyBatisPlaceholder)
                 .collect(Collectors.toList());
             String valFormatted = StringUtil.formatCollectionsString(valFormattedList);
@@ -86,12 +88,18 @@ public class MyBatisUtil {
             xsw.writeEndElement(); // insert
 
             // update tag
+            List<String> colValList = IntStream.range(0, colFormattedList.size())
+                .mapToObj(i -> colFormattedList.get(i) + " = " + valFormattedList.get(i))
+                .collect(Collectors.toList());
+            String formattedColVal = String.join(", ", colValList);
             xsw.writeStartElement("update");
             xsw.writeAttribute("id", "update");
             xsw.writeAttribute("parameterType", modelMap.get("type"));
             xsw.writeCharacters("\n\t\t");
             xsw.writeCharacters(
-                ""
+                "UPDATE " + modelMap.get("table_name")
+                    + "\n\t\t SET " + formattedColVal
+                    + "\n\t\t WHERE id = #{id}"
             );
             xsw.writeCharacters("\n\t");
             xsw.writeEndElement(); // update
@@ -102,7 +110,7 @@ public class MyBatisUtil {
             xsw.writeAttribute("parameterType", "int");
             xsw.writeCharacters("\n\t\t");
             xsw.writeCharacters(
-                ""
+                "DELETE FROM " + modelMap.get("table_name") + " WHERE id = #{id}"
             );
             xsw.writeCharacters("\n\t");
             xsw.writeEndElement(); // update
@@ -113,11 +121,22 @@ public class MyBatisUtil {
             xsw.writeAttribute("parameterType", "int");
             xsw.writeCharacters("\n\t\t");
             xsw.writeCharacters(
-                ""
+                "SELECT * FROM " + modelMap.get("table_name") + " WHERE id = #{id}"
             );
             xsw.writeCharacters("\n\t");
-            xsw.writeEndElement(); // update
+            xsw.writeEndElement(); // select
 
+            // select all tag
+            xsw.writeStartElement("select");
+            xsw.writeAttribute("id", "getAll");
+            xsw.writeAttribute("resultMap",
+                modelMap.get("type").replace(fieldDelimiter, "") + "ResultMap");
+            xsw.writeCharacters("\n\t\t");
+            xsw.writeCharacters(
+                "SELECT * FROM " + modelMap.get("table_name")
+            );
+            xsw.writeCharacters("\n\t");
+            xsw.writeEndElement(); // select all
 
             xsw.writeEndElement(); // mapper
             // End writing XML

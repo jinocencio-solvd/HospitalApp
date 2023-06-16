@@ -9,20 +9,25 @@
         <result property="patientId" column="patient_id"/>
         <result property="clinicianId" column="clinician_id"/>
         <result property="roomId" column="room_id"/>
-        <result property="date" column="appointment_date"/>
-        <result property="time" column="appointment_time"/>
+        <result property="appointmentDate" column="appointment_date"/>
+        <result property="appointmentTime" column="appointment_time"/>
     </resultMap>
     <insert id="save" parameterType="com.laba.models.Appointment">
 		INSERT INTO appointments (id, patient_id, clinician_id, room_id, appointment_date, appointment_time)
-		  VALUES (#{id}, #{patient_id}, #{clinician_id}, #{room_id}, #{appointment_date}, #{appointment_time})
+		  VALUES (#{id}, #{patientId}, #{clinicianId}, #{roomId}, #{appointmentDate}, #{appointmentTime})
 	</insert>
     <update id="update" parameterType="com.laba.models.Appointment">
-		
+		UPDATE appointments
+		 SET id = #{id}, patient_id = #{patientId}, clinician_id = #{clinicianId}, room_id = #{roomId}, appointment_date = #{appointmentDate}, appointment_time = #{appointmentTime}
+		 WHERE id = #{id}
 	</update>
     <delete id="deleteById" parameterType="int">
-		
+		DELETE FROM appointments WHERE id = #{id}
 	</delete>
     <select id="getById" parameterType="int">
-		
+		SELECT * FROM appointments WHERE id = #{id}
+	</select>
+    <select id="getAll" resultMap="com.laba.models.AppointmentResultMap">
+		SELECT * FROM appointments
 	</select>
 </mapper>

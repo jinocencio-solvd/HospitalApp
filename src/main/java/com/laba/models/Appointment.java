@@ -40,34 +40,34 @@ public class Appointment {
     @XmlElement(name = "date")
     @JsonSerialize(using = DateAdapterJSON.class)
     @XmlJavaTypeAdapter(DateAdapter.class)
-    private Date date;
+    private Date appointmentDate;
 
     @JsonProperty("time")
     @XmlElement(name = "time")
     @JsonSerialize(using = TimeAdapterJSON.class)
     @XmlJavaTypeAdapter(TimeAdapter.class)
-    private Time time;
+    private Time appointmentTime;
 
     public Appointment() {
         // Empty Constructor
     }
 
-    public Appointment(int id, int patientId, int clinicianId, int roomId, Date date,
-        Time time) {
+    public Appointment(int id, int patientId, int clinicianId, int roomId, Date appointmentDate,
+        Time appointmentTime) {
         this.id = id;
         this.patientId = patientId;
         this.clinicianId = clinicianId;
         this.roomId = roomId;
-        this.date = date;
-        this.time = time;
+        this.appointmentDate = appointmentDate;
+        this.appointmentTime = appointmentTime;
     }
 
-    public Appointment(int patientId, int clinicianId, int roomId, Date date, Time time) {
+    public Appointment(int patientId, int clinicianId, int roomId, Date appointmentDate, Time appointmentTime) {
         this.patientId = patientId;
         this.clinicianId = clinicianId;
         this.roomId = roomId;
-        this.date = date;
-        this.time = time;
+        this.appointmentDate = appointmentDate;
+        this.appointmentTime = appointmentTime;
     }
 
     public int getId() {
@@ -102,20 +102,20 @@ public class Appointment {
         this.roomId = roomId;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getAppointmentDate() {
+        return appointmentDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setAppointmentDate(Date appointmentDate) {
+        this.appointmentDate = appointmentDate;
     }
 
-    public Time getTime() {
-        return time;
+    public Time getAppointmentTime() {
+        return appointmentTime;
     }
 
-    public void setTime(Time time) {
-        this.time = time;
+    public void setAppointmentTime(Time appointmentTime) {
+        this.appointmentTime = appointmentTime;
     }
 
     @Override
@@ -129,14 +129,14 @@ public class Appointment {
         Appointment that = (Appointment) o;
         return getId() == that.getId() && getPatientId() == that.getPatientId()
             && getClinicianId() == that.getClinicianId() && getRoomId() == that.getRoomId()
-            && Objects.equals(getDate(), that.getDate()) && Objects.equals(
-            getTime(), that.getTime());
+            && Objects.equals(getAppointmentDate(), that.getAppointmentDate()) && Objects.equals(
+            getAppointmentTime(), that.getAppointmentTime());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getPatientId(), getClinicianId(), getRoomId(), getDate(),
-            getTime());
+        return Objects.hash(getId(), getPatientId(), getClinicianId(), getRoomId(), getAppointmentDate(),
+            getAppointmentTime());
     }
 
     @Override
@@ -146,8 +146,8 @@ public class Appointment {
             ", patientId=" + patientId +
             ", clinicianId=" + clinicianId +
             ", roomId=" + roomId +
-            ", date=" + date +
-            ", time=" + time +
+            ", appointmentDate=" + appointmentDate +
+            ", appointmentTime=" + appointmentTime +
             '}';
     }
 }

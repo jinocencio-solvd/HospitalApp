@@ -34,7 +34,7 @@ public class DbMapper {
         appointmentPropColMap.put("field_patientId", "patient_id");
         appointmentPropColMap.put("field_clinicianId", "clinician_id");
         appointmentPropColMap.put("field_roomId", "room_id");
-        appointmentPropColMap.put("field_date", "appointment_date");
-        appointmentPropColMap.put("field_time", "appointment_time");
+        appointmentPropColMap.put("field_appointmentDate", "appointment_date");
+        appointmentPropColMap.put("field_appointmentTime", "appointment_time");
     }
 }

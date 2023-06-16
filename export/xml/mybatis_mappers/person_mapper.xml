@@ -12,15 +12,20 @@
     </resultMap>
     <insert id="save" parameterType="com.laba.models.Person">
 		INSERT INTO persons (id, first_name, last_name, dob)
-		  VALUES (#{id}, #{first_name}, #{last_name}, #{dob})
+		  VALUES (#{id}, #{firstName}, #{lastName}, #{dob})
 	</insert>
     <update id="update" parameterType="com.laba.models.Person">
-		
+		UPDATE persons
+		 SET id = #{id}, first_name = #{firstName}, last_name = #{lastName}, dob = #{dob}
+		 WHERE id = #{id}
 	</update>
     <delete id="deleteById" parameterType="int">
-		
+		DELETE FROM persons WHERE id = #{id}
 	</delete>
     <select id="getById" parameterType="int">
-		
+		SELECT * FROM persons WHERE id = #{id}
+	</select>
+    <select id="getAll" resultMap="com.laba.models.PersonResultMap">
+		SELECT * FROM persons
 	</select>
 </mapper>
