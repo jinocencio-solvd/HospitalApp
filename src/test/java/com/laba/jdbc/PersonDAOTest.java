@@ -34,10 +34,4 @@ public class PersonDAOTest {
             p1.getDob());
         assertEquals(p1, retPerson);
     }
-
-    @AfterSuite
-    public void cleanup(){
-        SQLiteUtils.processSQLiteScript("create");
-        SQLiteUtils.processSQLiteScript("insert");
-    }
 }

@@ -3,14 +3,17 @@ package com.laba.jdbc;
 import static org.testng.Assert.*;
 
 import com.laba.models.Person;
+import com.laba.utils.AppConfig;
 import com.laba.utils.SQLiteUtils;
 import java.lang.reflect.Constructor;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -28,6 +31,20 @@ public class EntityDAOTest {
     public void tearDown() {
         List<Person> getAllPerson = personDAO.getAll();
         getAllPerson.forEach((p) -> personDAO.deleteById(p.getId()));
+    }
+
+    @BeforeClass
+    public void before(){
+        if(AppConfig.ENVIRONMENT.equals("GH_WORKFLOW")){
+            SQLiteUtils.processSQLiteScript("create");
+        }
+    }
+
+    @AfterClass
+    public void after(){
+        if(AppConfig.ENVIRONMENT.equals("GH_WORKFLOW")){
+            SQLiteUtils.processSQLiteScript("insert");
+        }
     }
 
     @Test(singleThreaded = isSingleThreaded)
@@ -120,11 +137,5 @@ public class EntityDAOTest {
         Person p1 = new Person(id, firstName, lastName, dob);
         assertEquals(p, p1);
         assertEquals(personDAO.createModelFromMap(columnMap), p);
-    }
-
-    @AfterSuite
-    public void cleanup(){
-        SQLiteUtils.processSQLiteScript("create");
-        SQLiteUtils.processSQLiteScript("insert");
     }
 }
