@@ -1,4 +1,4 @@
-package com.laba.utils;
+package com.laba.utils.mybatis;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

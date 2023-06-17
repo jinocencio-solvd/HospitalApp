@@ -1,8 +1,9 @@
-package com.laba.utils;
+package com.laba.utils.mybatis;
 
 import static com.laba.utils.AppConfig.EXPORT_OUT_DIR;
 
 import com.laba.enums.FileType;
+import com.laba.utils.StringUtil;
 import com.sun.xml.txw2.output.IndentingXMLStreamWriter;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -18,9 +19,9 @@ import javax.xml.stream.XMLStreamException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class MyBatisUtil {
+public class MyBatisXmlMapperGenerator {
 
-    private static final Logger LOG = LogManager.getLogger(MyBatisUtil.class);
+    private static final Logger LOG = LogManager.getLogger(MyBatisXmlMapperGenerator.class);
 
     private static final String OUT_DIR = EXPORT_OUT_DIR + "/xml/mybatis_mappers/";
     private static final Charset XML_CHARSET = StandardCharsets.UTF_8;

@@ -1,6 +1,7 @@
 import com.laba.models.Patient;
 import com.laba.models.Person;
 import com.laba.services.MedicalRecordService;
+import com.laba.utils.mybatis.MyBatisSqlFactory;
 import com.laba.utils.xml.XMLParser;
 import com.laba.utils.xml.XMLValidator;
 import com.laba.utils.xml.jaxb.JAXBUtil;
@@ -8,12 +9,23 @@ import java.io.File;
 import java.sql.Date;
 import java.util.List;
 import java.util.Map;
+import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class Main {
 
     private static final Logger LOG = LogManager.getLogger(Main.class);
+
+    public static void main(String[] args) {
+        myBatisDemo();
+    }
+
+    public static void myBatisDemo() {
+        SqlSession session = MyBatisSqlFactory.getSession();
+        Person person = session.selectOne("com.laba.interfaces.daos.IPersonDAO.getById", 1);
+        LOG.info(person);
+    }
 
     private static void testXMLAndXSDParserValidator(File xmlFile, File xsdFile) {
         if (XMLValidator.isValidXML(xmlFile, xsdFile)) {
@@ -83,9 +95,5 @@ public class Main {
 
         dbToXmlOut.run();
         xmlSerializeToJson.run();
-    }
-
-    public static void main(String[] args) {
-        processPatientMedicalRecords();
     }
 }

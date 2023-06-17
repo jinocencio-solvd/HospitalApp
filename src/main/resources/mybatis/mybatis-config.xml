@@ -1,0 +1,25 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <properties resource="mysqlconfig.properties"/>
+    <typeAliases>
+        <typeAlias alias="Person" type="com.laba.models.Person"/>
+        <typeAlias alias="Appointment" type="com.laba.models.Appointment"/>
+    </typeAliases>
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/hospital"/>
+                <property name="username" value="${USER}"/>
+                <property name="password" value="${PASSWORD}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <mapper resource="mybatis/mappers/person-mapper.xml"/>
+    </mappers>
+</configuration>
