@@ -20,6 +20,8 @@
         </environment>
     </environments>
     <mappers>
+        <!-- xml files must have CRLF line endings. LF will not be recognized. -->
         <mapper resource="mybatis/mappers/person-mapper.xml"/>
+        <mapper resource="mybatis/mappers/appointment-mapper.xml"/>
     </mappers>
 </configuration>

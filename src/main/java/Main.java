@@ -1,3 +1,5 @@
+import com.laba.interfaces.daos.IPersonDAO;
+import com.laba.models.Appointment;
 import com.laba.models.Patient;
 import com.laba.models.Person;
 import com.laba.services.MedicalRecordService;
@@ -23,8 +25,12 @@ public class Main {
 
     public static void myBatisDemo() {
         SqlSession session = MyBatisSqlFactory.getSession();
-        Person person = session.selectOne("com.laba.interfaces.daos.IPersonDAO.getById", 1);
-        LOG.info(person);
+        Person p1 = session.selectOne("com.laba.interfaces.daos.IPersonDAO.getById", 1);
+        Person p2 = session.selectOne("com.laba.interfaces.daos.IPersonDAO.getById", 2);
+        LOG.info(p1);
+        LOG.info(p2);
+        Appointment a1 = session.selectOne("com.laba.interfaces.daos.IAppointmentDAO.getById", 1);
+        LOG.info(a1);
     }
 
     private static void testXMLAndXSDParserValidator(File xmlFile, File xsdFile) {
