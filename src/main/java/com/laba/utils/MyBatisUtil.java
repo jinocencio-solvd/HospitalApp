@@ -22,7 +22,7 @@ public class MyBatisUtil {
 
     private static final Logger LOG = LogManager.getLogger(MyBatisUtil.class);
 
-    public static final String OUT_DIR = EXPORT_OUT_DIR + "/xml/mybatis_mappers/";
+    private static final String OUT_DIR = EXPORT_OUT_DIR + "/xml/mybatis_mappers/";
     private static final Charset XML_CHARSET = StandardCharsets.UTF_8;
     private static final String typeDelimiter = DbMapper.modelLoc;
     private static final String indentStep = " ".repeat(4);
@@ -73,16 +73,21 @@ public class MyBatisUtil {
             .map(str -> str.replace(fieldDelimiter, ""))
             .map(StringUtil::convertToMyBatisPlaceholder)
             .collect(Collectors.toList());
-        
+
+        String resultMap = modelMap.get("type")
+            .replace(fieldDelimiter, "")
+            .replace(typeDelimiter, "")
+            + "ResultMap";
+
         xsw.writeStartElement("mapper");
         xsw.writeAttribute("namespace", modelMap.get("namespace"));
-        
-        generateResultMapElement(xsw, modelMap, fieldList);
+
         generateInsertElement(xsw, modelMap, colFormattedList, valFormattedList);
         generateUpdateElement(xsw, modelMap, colFormattedList, valFormattedList);
         generateDeleteElement(xsw, modelMap);
-        generateSelectElement(xsw, modelMap);
-        generateSelectAllElement(xsw, modelMap);
+        generateResultMapElement(xsw, modelMap, fieldList, resultMap);
+        generateSelectElement(xsw, modelMap, resultMap);
+        generateSelectAllElement(xsw, modelMap, resultMap);
 
         xsw.writeEndElement(); // mapper
     }
@@ -99,10 +104,10 @@ public class MyBatisUtil {
     }
 
     private static void generateResultMapElement(IndentingXMLStreamWriter xsw,
-        Map<String, String> modelMap, List<String> fieldList) throws XMLStreamException {
+        Map<String, String> modelMap, List<String> fieldList, String resultMap) throws XMLStreamException {
 
         xsw.writeStartElement("resultMap");
-        xsw.writeAttribute("id", modelMap.get("type") + "ResultMap");
+        xsw.writeAttribute("id", resultMap);
         xsw.writeAttribute("type",
             modelMap.get("type").replace(typeDelimiter, ""));
         xsw.writeAttribute("autoMapping", "false");
@@ -174,11 +179,12 @@ public class MyBatisUtil {
     }
 
     private static void generateSelectElement(IndentingXMLStreamWriter xsw,
-        Map<String, String> modelMap) throws XMLStreamException {
+        Map<String, String> modelMap, String resultMap) throws XMLStreamException {
 
         xsw.writeStartElement("select"); // select tag
         xsw.writeAttribute("id", "getById");
         xsw.writeAttribute("parameterType", "int");
+        xsw.writeAttribute("resultMap", resultMap);
         xsw.writeCharacters("\n\t\t");
         xsw.writeCharacters(
             "SELECT * FROM " + modelMap.get("table_name") + " WHERE id = #{id}"
@@ -188,12 +194,11 @@ public class MyBatisUtil {
     }
 
     private static void generateSelectAllElement(IndentingXMLStreamWriter xsw,
-        Map<String, String> modelMap) throws XMLStreamException {
+        Map<String, String> modelMap, String resultMap) throws XMLStreamException {
 
         xsw.writeStartElement("select"); // select all tag
         xsw.writeAttribute("id", "getAll");
-        xsw.writeAttribute("resultMap",
-            modelMap.get("type").replace(fieldDelimiter, "") + "ResultMap");
+        xsw.writeAttribute("resultMap", resultMap);
         xsw.writeCharacters("\n\t\t");
         xsw.writeCharacters(
             "SELECT * FROM " + modelMap.get("table_name")
