@@ -1,79 +1,95 @@
 package com.laba.jdbc;
 
-import com.laba.jdbc.mybatisDAOs.EntityMapper;
-import com.laba.jdbc.mybatisDAOs.PersonMapper;
+import com.laba.jdbc.mybatisDAOs.AppointmentMbDAO;
+import com.laba.jdbc.mybatisDAOs.ClinicianMbDAO;
+import com.laba.jdbc.mybatisDAOs.DepartmentMbDAO;
+import com.laba.jdbc.mybatisDAOs.DiagnosisMbDAO;
+import com.laba.jdbc.mybatisDAOs.EntityMbDAO;
+import com.laba.jdbc.mybatisDAOs.MedicalRecordMbDAO;
+import com.laba.jdbc.mybatisDAOs.MedicationMbDAO;
+import com.laba.jdbc.mybatisDAOs.MedicationTypeMbDAO;
+import com.laba.jdbc.mybatisDAOs.PatientMbDAO;
+import com.laba.jdbc.mybatisDAOs.PersonMbDAO;
+import com.laba.jdbc.mybatisDAOs.PrescriptionMbDAO;
+import com.laba.jdbc.mybatisDAOs.ProfessionMbDAO;
+import com.laba.jdbc.mybatisDAOs.RoomMbDAO;
+import com.laba.jdbc.mybatisDAOs.SpecializationMbDAO;
+import com.laba.jdbc.mybatisDAOs.StaffMbDAO;
+import com.laba.jdbc.mybatisDAOs.TreatmentMbDAO;
 
 public class DAOFactory {
 
-    public static <T extends EntityDAO<?>> T getJDBCDAO(String type) {
+    public static EntityDAO<?> getJDBCDAO(String type) {
         switch (type) {
             case "appointment":
-                return (T) new AppointmentDAO();
+                return new AppointmentDAO();
             case "clinician":
-                return (T) new ClinicianDAO();
+                return new ClinicianDAO();
             case "department":
-                return (T) new DepartmentDAO();
+                return new DepartmentDAO();
             case "diagnosis":
-                return (T) new DiagnosisDAO();
+                return new DiagnosisDAO();
             case "medical record":
-                return (T) new MedicalRecordDAO();
+                return new MedicalRecordDAO();
             case "medication type":
-                return (T) new MedicationDAO();
+                return new MedicationDAO();
             case "medication":
-                return (T) new MedicationTypeDAO();
+                return new MedicationTypeDAO();
             case "patient":
-                return (T) new PatientDAO();
+                return new PatientDAO();
             case "person":
-                return (T) new PersonDAO();
+                return new PersonDAO();
             case "prescription":
-                return (T) new PrescriptionDAO();
+                return new PrescriptionDAO();
             case "profession":
-                return (T) new ProfessionDAO();
+                return new ProfessionDAO();
             case "room":
-                return (T) new RoomDAO();
+                return new RoomDAO();
             case "specialization":
-                return (T) new SpecializationDAO();
+                return new SpecializationDAO();
             case "staff":
-                return (T) new StaffDAO();
+                return new StaffDAO();
             case "treatment":
-                return (T) new TreatmentDAO();
+                return new TreatmentDAO();
+            default:
+                throw new IllegalArgumentException("Invalid model input");
         }
-        return null;
     }
 
-    public static <T extends EntityMapper<?>> T getMyBatisDAO(String type) {
+    public static EntityMbDAO<?> getMyBatisDAO(String type) {
         switch (type) {
-//            case "appointment":
-//                return (T) new AppointmentDAO();
-//            case "clinician":
-//                return (T) new ClinicianDAO();
-//            case "department":
-//                return (T) new DepartmentDAO();
-//            case "diagnosis":
-//                return (T) new DiagnosisDAO();
-//            case "medical record":
-//                return (T) new MedicalRecordDAO();
-//            case "medication type":
-//                return (T) new MedicationDAO();
-//            case "medication":
-//                return (T) new MedicationTypeDAO();
-//            case "patient":
-//                return (T) new PatientDAO();
+            case "appointment":
+                return new AppointmentMbDAO();
+            case "clinician":
+                return new ClinicianMbDAO();
+            case "department":
+                return new DepartmentMbDAO();
+            case "diagnosis":
+                return new DiagnosisMbDAO();
+            case "medical record":
+                return new MedicalRecordMbDAO();
+            case "medication type":
+                return new MedicationMbDAO();
+            case "medication":
+                return new MedicationTypeMbDAO();
+            case "patient":
+                return new PatientMbDAO();
             case "person":
-                return (T) new PersonMapper();
-//            case "prescription":
-//                return (T) new PrescriptionDAO();
-//            case "profession":
-//                return (T) new ProfessionDAO();
-//            case "room":
-//                return (T) new RoomDAO();
-//            case "specialization":
-//                return (T) new SpecializationDAO();
-//            case "staff":
-//                return (T) new StaffDAO();
-//            case "treatment":
-//                return (T) new TreatmentDAO();
+                return new PersonMbDAO();
+            case "prescription":
+                return new PrescriptionMbDAO();
+            case "profession":
+                return new ProfessionMbDAO();
+            case "room":
+                return new RoomMbDAO();
+            case "specialization":
+                return new SpecializationMbDAO();
+            case "staff":
+                return new StaffMbDAO();
+            case "treatment":
+                return new TreatmentMbDAO();
+            default:
+                throw new IllegalArgumentException("Invalid model input");
         }
-        return null;
     }
 }

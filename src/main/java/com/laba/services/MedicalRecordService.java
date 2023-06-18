@@ -1,48 +1,61 @@
 package com.laba.services;
 
+import com.laba.enums.DaoType;
 import com.laba.enums.FileType;
+import com.laba.interfaces.daos.IMedicalRecordDAO;
+import com.laba.interfaces.services.IEntityService;
 import com.laba.interfaces.services.IMedicalRecordService;
-import com.laba.jdbc.DAOFactory;
 import com.laba.jdbc.MedicalRecordDAO;
+import com.laba.jdbc.DAOFactory;
+import com.laba.jdbc.mybatisDAOs.MedicalRecordMbDAO;
 import com.laba.models.MedicalRecord;
 import com.laba.models.Patient;
 import com.laba.utils.json.JacksonUtil;
 import com.laba.utils.xml.jaxb.JAXBUtil;
 import java.util.List;
 
-public class MedicalRecordService implements IMedicalRecordService {
+public class MedicalRecordService implements IEntityService<MedicalRecord>, IMedicalRecordService {
 
+    private static IMedicalRecordDAO dao;
     public static MedicalRecordDAO medicalRecordDAO;
     public static final String MEDICAL_RECORDS_DIR = "/patient_records/";
     public static final String FILENAME_PREFIX = "medical_record_patientId_";
 
-    public MedicalRecordService() {
-        medicalRecordDAO = DAOFactory.getJDBCDAO("medical record");
+    public MedicalRecordService(DaoType daoType) {
+        String model = "medical record";
+        switch (daoType) {
+            case JDBC:
+                dao = (MedicalRecordDAO) DAOFactory.getJDBCDAO(model);
+                break;
+            case MYBATIS:
+                dao = (MedicalRecordMbDAO) DAOFactory.getMyBatisDAO(model);
+                break;
+        }
     }
 
     @Override
     public List<MedicalRecord> getAll() {
-        return medicalRecordDAO.getAll();
+        return dao.getAll();
     }
 
     @Override
     public MedicalRecord getById(int id) {
-        return medicalRecordDAO.getById(id);
+        return dao.getById(id);
     }
 
     @Override
     public void deleteById(int id) {
-        medicalRecordDAO.deleteById(id);
+        dao.deleteById(id);
     }
 
     @Override
     public void save(MedicalRecord entity) {
-        medicalRecordDAO.save(entity);
+        dao.save(entity);
     }
 
     @Override
     public void update(MedicalRecord entity) {
-        medicalRecordDAO.update(entity);
+        dao.update(entity);
     }
 
     public void getXmlPatientMedicalRecords(Patient p) {

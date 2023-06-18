@@ -5,7 +5,7 @@ import com.laba.interfaces.daos.IAppointmentDAO;
 import com.laba.interfaces.services.IEntityService;
 import com.laba.jdbc.AppointmentDAO;
 import com.laba.jdbc.DAOFactory;
-import com.laba.jdbc.mybatisDAOs.AppointmentMapper;
+import com.laba.jdbc.mybatisDAOs.AppointmentMbDAO;
 import com.laba.models.Appointment;
 import java.util.List;
 
@@ -14,13 +14,13 @@ public class AppointmentService implements IEntityService<Appointment> {
     private static IAppointmentDAO dao;
 
     public AppointmentService(DaoType daoType) {
-        String model = "person";
+        String model = "appointment";
         switch (daoType) {
             case JDBC:
                 dao = (AppointmentDAO) DAOFactory.getJDBCDAO(model);
                 break;
             case MYBATIS:
-                dao = (AppointmentMapper) DAOFactory.getMyBatisDAO(model);
+                dao = (AppointmentMbDAO) DAOFactory.getMyBatisDAO(model);
                 break;
         }
     }

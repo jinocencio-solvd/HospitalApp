@@ -1,8 +1,9 @@
 package com.laba.jdbc;
 
+import com.laba.interfaces.daos.IMedicationTypeDAO;
 import com.laba.models.MedicationType;
 
-public class MedicationTypeDAO extends EntityDAO<MedicationType> {
+public class MedicationTypeDAO extends EntityDAO<MedicationType> implements IMedicationTypeDAO {
 
     @Override
     protected String getTableName() {

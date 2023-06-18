@@ -5,7 +5,7 @@ import com.laba.interfaces.daos.IPersonDAO;
 import com.laba.interfaces.services.IEntityService;
 import com.laba.jdbc.DAOFactory;
 import com.laba.jdbc.PersonDAO;
-import com.laba.jdbc.mybatisDAOs.PersonMapper;
+import com.laba.jdbc.mybatisDAOs.PersonMbDAO;
 import com.laba.models.Person;
 import java.sql.Date;
 import java.util.List;
@@ -21,7 +21,7 @@ public class PersonService implements IEntityService<Person> {
                 dao = (PersonDAO) DAOFactory.getJDBCDAO(model);
                 break;
             case MYBATIS:
-                dao = (PersonMapper) DAOFactory.getMyBatisDAO(model);
+                dao = (PersonMbDAO) DAOFactory.getMyBatisDAO(model);
                 break;
         }
     }

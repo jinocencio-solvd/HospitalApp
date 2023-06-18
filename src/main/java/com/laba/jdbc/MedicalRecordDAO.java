@@ -1,5 +1,6 @@
 package com.laba.jdbc;
 
+import com.laba.interfaces.daos.IMedicalRecordDAO;
 import com.laba.models.MedicalRecord;
 import com.laba.models.Patient;
 import com.laba.utils.ConnectionPool;
@@ -13,7 +14,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MedicalRecordDAO extends EntityDAO<MedicalRecord> {
+public class MedicalRecordDAO extends EntityDAO<MedicalRecord> implements IMedicalRecordDAO {
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 

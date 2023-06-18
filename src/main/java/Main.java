@@ -1,5 +1,4 @@
 import com.laba.enums.DaoType;
-import com.laba.jdbc.mybatisDAOs.PersonMapper;
 import com.laba.models.Patient;
 import com.laba.models.Person;
 import com.laba.services.MedicalRecordService;
@@ -25,8 +24,6 @@ public class Main {
     public static void myBatisDemo() {
         Person psave1 = new Person("p1First", "p1Last", Date.valueOf("2001-01-01"));
         List<Person> p1 = new PersonService(DaoType.MYBATIS).getAll();
-//        new PersonService(DaoType.MYBATIS).deleteById(1);
-//        new PersonService(DaoType.JDBC).deleteById(1);
         System.out.println(p1);
 
     }
@@ -84,7 +81,7 @@ public class Main {
 
     public static void processPatientMedicalRecords() {
         Patient patient = new Patient(1, 1);
-        MedicalRecordService medicalRecordService = new MedicalRecordService();
+        MedicalRecordService medicalRecordService = new MedicalRecordService(DaoType.JDBC);
 
         Runnable dbToXmlOut = () -> {
             medicalRecordService.getXmlPatientMedicalRecords(patient);

@@ -5,11 +5,10 @@ import com.laba.utils.mybatis.MyBatisSqlFactory;
 import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
-public abstract class EntityMapper<T> implements IEntityDAO<T> {
+public abstract class EntityMbDAO<T> implements IEntityDAO<T> {
 
     private static final SqlSession session = MyBatisSqlFactory.getSession();
 
-//    protected abstract String getNamespace();
     public String getNamespace(){
         return this.getClass().getInterfaces()[0].getName();
     }
