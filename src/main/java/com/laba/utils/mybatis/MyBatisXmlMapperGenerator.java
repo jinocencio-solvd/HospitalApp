@@ -23,7 +23,7 @@ public class MyBatisXmlMapperGenerator {
 
     private static final Logger LOG = LogManager.getLogger(MyBatisXmlMapperGenerator.class);
 
-    private static final String OUT_DIR = EXPORT_OUT_DIR + "/xml/mybatis-mappers/";
+    private static final String OUT_DIR = EXPORT_OUT_DIR + "/mybatis-mappers/";
     private static final Charset XML_CHARSET = StandardCharsets.UTF_8;
     private static final String typeDelimiter = DbMapper.modelLoc;
     private static final String fieldDelimiter = "field_";

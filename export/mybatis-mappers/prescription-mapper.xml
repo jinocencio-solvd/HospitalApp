@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.laba.interfaces.daos.IPrescriptionDAO">
+    <insert id="save" parameterType="com.laba.models.Prescription">
+        INSERT INTO prescriptions (id, treatment_id, medication_id, dosage, prescription_start_date,
+                                   prescription_expiration_date)
+        VALUES (#{id}, #{treatmentId}, #{medicationId}, #{dosage}, #{startDate}, #{expirationDate})
+    </insert>
+    <update id="update" parameterType="com.laba.models.Prescription">
+        UPDATE prescriptions
+        SET id                           = #{id},
+            treatment_id                 = #{treatmentId},
+            medication_id                = #{medicationId},
+            dosage                       = #{dosage},
+            prescription_start_date      = #{startDate},
+            prescription_expiration_date = #{expirationDate}
+        WHERE id = #{id}
+    </update>
+    <delete id="deleteById" parameterType="int">
+        DELETE
+        FROM prescriptions
+        WHERE id = #{id}
+    </delete>
+    <resultMap id="PrescriptionResultMap" type="Prescription" autoMapping="false">
+        <result property="id" column="id"/>
+        <result property="treatmentId" column="treatment_id"/>
+        <result property="medicationId" column="medication_id"/>
+        <result property="dosage" column="dosage"/>
+        <result property="startDate" column="prescription_start_date"/>
+        <result property="expirationDate" column="prescription_expiration_date"/>
+    </resultMap>
+    <select id="getById" parameterType="int" resultMap="PrescriptionResultMap">
+        SELECT *
+        FROM prescriptions
+        WHERE id = #{id}
+    </select>
+    <select id="getAll" resultMap="PrescriptionResultMap">
+        SELECT *
+        FROM prescriptions
+    </select>
+</mapper>

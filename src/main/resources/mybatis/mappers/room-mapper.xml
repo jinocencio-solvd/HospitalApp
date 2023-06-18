@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.laba.interfaces.daos.IRoomDAO">
+    <insert id="save" parameterType="com.laba.models.Room">
+        INSERT INTO rooms (id, room_number, department_id)
+        VALUES (#{id}, #{room_number}, #{department_id})
+    </insert>
+    <update id="update" parameterType="com.laba.models.Room">
+        UPDATE rooms
+        SET id            = #{id},
+            room_number   = #{room_number},
+            department_id = #{department_id}
+        WHERE id = #{id}
+    </update>
+    <delete id="deleteById" parameterType="int">
+        DELETE
+        FROM rooms
+        WHERE id = #{id}
+    </delete>
+    <resultMap id="RoomResultMap" type="Room" autoMapping="false">
+        <result property="id" column="id"/>
+        <result property="room_number" column="room_number"/>
+        <result property="department_id" column="department_id"/>
+    </resultMap>
+    <select id="getById" parameterType="int" resultMap="RoomResultMap">
+        SELECT *
+        FROM rooms
+        WHERE id = #{id}
+    </select>
+    <select id="getAll" resultMap="RoomResultMap">
+        SELECT *
+        FROM rooms
+    </select>
+</mapper>

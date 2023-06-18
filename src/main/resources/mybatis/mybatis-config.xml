@@ -7,6 +7,19 @@
     <typeAliases>
         <typeAlias alias="Person" type="com.laba.models.Person"/>
         <typeAlias alias="Appointment" type="com.laba.models.Appointment"/>
+        <typeAlias alias="Clinician" type="com.laba.models.Clinician"/>
+        <typeAlias alias="Department" type="com.laba.models.Department"/>
+        <typeAlias alias="Diagnosis" type="com.laba.models.Diagnosis"/>
+        <typeAlias alias="MedicalRecord" type="com.laba.models.MedicalRecord"/>
+        <typeAlias alias="Medication" type="com.laba.models.Medication"/>
+        <typeAlias alias="MedicationType" type="com.laba.models.MedicationType"/>
+        <typeAlias alias="Patient" type="com.laba.models.Patient"/>
+        <typeAlias alias="Prescription" type="com.laba.models.Prescription"/>
+        <typeAlias alias="Profession" type="com.laba.models.Profession"/>
+        <typeAlias alias="Room" type="com.laba.models.Room"/>
+        <typeAlias alias="Specialization" type="com.laba.models.Specialization"/>
+        <typeAlias alias="Staff" type="com.laba.models.Staff"/>
+        <typeAlias alias="Treatment" type="com.laba.models.Treatment"/>
     </typeAliases>
     <environments default="development">
         <environment id="development">
@@ -20,8 +33,20 @@
         </environment>
     </environments>
     <mappers>
-        <!-- xml files must have CRLF line endings. LF will not be recognized. -->
-        <mapper resource="mybatis/mappers/person-mapper.xml"/>
         <mapper resource="mybatis/mappers/appointment-mapper.xml"/>
+        <mapper resource="mybatis/mappers/clinician-mapper.xml"/>
+        <mapper resource="mybatis/mappers/department-mapper.xml"/>
+        <mapper resource="mybatis/mappers/diagnosis-mapper.xml"/>
+        <mapper resource="mybatis/mappers/medicalrecord-mapper.xml"/>
+        <mapper resource="mybatis/mappers/medication-mapper.xml"/>
+        <mapper resource="mybatis/mappers/medicationtype-mapper.xml"/>
+        <mapper resource="mybatis/mappers/patient-mapper.xml"/>
+        <mapper resource="mybatis/mappers/person-mapper.xml"/>
+        <mapper resource="mybatis/mappers/prescription-mapper.xml"/>
+        <mapper resource="mybatis/mappers/profession-mapper.xml"/>
+        <mapper resource="mybatis/mappers/room-mapper.xml"/>
+        <mapper resource="mybatis/mappers/specialization-mapper.xml"/>
+        <mapper resource="mybatis/mappers/staff-mapper.xml"/>
+        <mapper resource="mybatis/mappers/treatment-mapper.xml"/>
     </mappers>
 </configuration>
