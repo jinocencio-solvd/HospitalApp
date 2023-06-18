@@ -19,7 +19,7 @@ public class MyBatisSqlFactory {
         }
     }
 
-    public static SqlSession getSession(){
+    public static SqlSession getSession() {
         return session;
     }
 }
