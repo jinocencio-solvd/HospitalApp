@@ -1,43 +1,58 @@
 package com.laba.services;
 
+import com.laba.enums.DaoType;
+import com.laba.interfaces.daos.IPersonDAO;
 import com.laba.interfaces.services.IEntityService;
 import com.laba.jdbc.DAOFactory;
 import com.laba.jdbc.PersonDAO;
+import com.laba.jdbc.mybatisDAOs.PersonMapper;
 import com.laba.models.Person;
 import java.sql.Date;
 import java.util.List;
 
 public class PersonService implements IEntityService<Person> {
 
-    private final PersonDAO personDAO = DAOFactory.getJDBCDAO("person");
+    private static IPersonDAO dao;
+
+    public PersonService(DaoType daoType) {
+        String model = "person";
+        switch (daoType) {
+            case JDBC:
+                dao = (PersonDAO) DAOFactory.getJDBCDAO(model);
+                break;
+            case MYBATIS:
+                dao = (PersonMapper) DAOFactory.getMyBatisDAO(model);
+                break;
+        }
+    }
 
     public Person getByFirstLastNameAndDob(String firstName, String lastName, Date dob) {
-        return personDAO.getByFirstLastNameAndDob(firstName, lastName, dob);
+        return dao.getByFirstLastNameAndDob(firstName, lastName, dob);
     }
 
     @Override
     public List<Person> getAll() {
-        return personDAO.getAll();
+        return dao.getAll();
     }
 
     @Override
     public Person getById(int id) {
-        return personDAO.getById(id);
+        return dao.getById(id);
     }
 
     @Override
     public void deleteById(int id) {
-        personDAO.deleteById(id);
+        dao.deleteById(id);
     }
 
     @Override
     public void save(Person entity) {
-        personDAO.save(entity);
+        dao.save(entity);
     }
 
     @Override
     public void update(Person entity) {
-        personDAO.update(entity);
+        dao.update(entity);
     }
 
 }

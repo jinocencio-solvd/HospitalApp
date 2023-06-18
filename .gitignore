@@ -1,3 +1,4 @@
 /.idea
 /target
 /db/hospital.db
+src/main/resources/mybatis/mybatis-config-sqlite.xml

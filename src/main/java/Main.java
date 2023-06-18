@@ -1,9 +1,9 @@
-import com.laba.interfaces.daos.IPersonDAO;
-import com.laba.models.Appointment;
+import com.laba.enums.DaoType;
+import com.laba.jdbc.mybatisDAOs.PersonMapper;
 import com.laba.models.Patient;
 import com.laba.models.Person;
 import com.laba.services.MedicalRecordService;
-import com.laba.utils.mybatis.MyBatisSqlFactory;
+import com.laba.services.PersonService;
 import com.laba.utils.xml.XMLParser;
 import com.laba.utils.xml.XMLValidator;
 import com.laba.utils.xml.jaxb.JAXBUtil;
@@ -11,7 +11,6 @@ import java.io.File;
 import java.sql.Date;
 import java.util.List;
 import java.util.Map;
-import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -24,13 +23,12 @@ public class Main {
     }
 
     public static void myBatisDemo() {
-        SqlSession session = MyBatisSqlFactory.getSession();
-        Person p1 = session.selectOne("com.laba.interfaces.daos.IPersonDAO.getById", 1);
-        Person p2 = session.selectOne("com.laba.interfaces.daos.IPersonDAO.getById", 2);
-        LOG.info(p1);
-        LOG.info(p2);
-        Appointment a1 = session.selectOne("com.laba.interfaces.daos.IAppointmentDAO.getById", 1);
-        LOG.info(a1);
+        Person psave1 = new Person("p1First", "p1Last", Date.valueOf("2001-01-01"));
+        List<Person> p1 = new PersonService(DaoType.MYBATIS).getAll();
+//        new PersonService(DaoType.MYBATIS).deleteById(1);
+//        new PersonService(DaoType.JDBC).deleteById(1);
+        System.out.println(p1);
+
     }
 
     private static void testXMLAndXSDParserValidator(File xmlFile, File xsdFile) {

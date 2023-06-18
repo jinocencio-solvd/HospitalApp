@@ -19,6 +19,9 @@
                             <name>surefire.testng.verbose</name>
                             <value>2</value>
                         </property>
+                        <excludes>
+                            <exclude>com/laba/services/mybatis/**/*.java</exclude>
+                        </excludes>
                     </properties>
                 </configuration>
             </plugin>

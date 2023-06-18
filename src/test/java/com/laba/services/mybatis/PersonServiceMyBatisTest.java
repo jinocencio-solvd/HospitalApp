@@ -1,22 +1,22 @@
-package com.laba.services;
+package com.laba.services.mybatis;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotEquals;
 
 import com.laba.enums.DaoType;
 import com.laba.models.Person;
+import com.laba.services.PersonService;
 import com.laba.utils.AppConfig;
 import com.laba.utils.SQLiteUtils;
 import java.sql.Date;
 import java.util.List;
-
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class PersonServiceTest {
+public class PersonServiceMyBatisTest {
 
     private static PersonService personService;
     private static final boolean isSingleThreaded = false;
