@@ -1,8 +1,11 @@
 import com.laba.enums.DaoType;
 import com.laba.models.Patient;
 import com.laba.models.Person;
+import com.laba.models.Profession;
 import com.laba.services.MedicalRecordService;
 import com.laba.services.PersonService;
+import com.laba.services.ProfessionService;
+import com.laba.services.SpecializationService;
 import com.laba.utils.xml.XMLParser;
 import com.laba.utils.xml.XMLValidator;
 import com.laba.utils.xml.jaxb.JAXBUtil;
@@ -25,6 +28,21 @@ public class Main {
         List<Person> personList = new PersonService(DaoType.JDBC).getAll();
         List<Person> personListMyBatis = new PersonService(DaoType.MYBATIS).getAll();
         LOG.info(personList.equals(personListMyBatis));
+
+        String spec1 = new SpecializationService(DaoType.JDBC).getById(1).getSpecialization();
+        String spec1MyBatis = new SpecializationService(DaoType.MYBATIS).getById(1)
+            .getSpecialization();
+        String spec2 = new SpecializationService(DaoType.MYBATIS).getById(2).getSpecialization();
+        LOG.info(spec1MyBatis.equals(spec1));
+        LOG.info(spec1.equals("Cardiology"));
+        LOG.info(spec2.equals("Orthopedics"));
+
+        ProfessionService psMyBatis = new ProfessionService(DaoType.MYBATIS);
+        Profession prof1 = psMyBatis.getById(1);
+        LOG.info(prof1); // Physician
+        prof1.setProfession("Physician - Cardiologist");
+        psMyBatis.update(prof1);
+        LOG.info(prof1); // Physician - Cardiologist
     }
 
     private static void testXMLAndXSDParserValidator(File xmlFile, File xsdFile) {
