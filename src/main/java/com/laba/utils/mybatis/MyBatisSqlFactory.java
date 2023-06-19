@@ -12,7 +12,8 @@ public class MyBatisSqlFactory {
 
     static {
         String configFile = "mybatis/mybatis-config.xml";
-        try (InputStream stream = Resources.getResourceAsStream(configFile)) {
+        String sqliteConfigFile = "mybatis/mybatis-config-sqlite.xml";
+        try (InputStream stream = Resources.getResourceAsStream(sqliteConfigFile)) {
             session = new SqlSessionFactoryBuilder().build(stream).openSession();
         } catch (IOException e) {
             e.printStackTrace();
