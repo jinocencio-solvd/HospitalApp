@@ -21,7 +21,7 @@ public class Person {
 
     @JsonProperty("id")
     @XmlAttribute(name = "id")
-    private int id;
+    private Integer id = null;
 
     @JsonProperty("first_name")
     @XmlElement(name = "first_name")
@@ -59,7 +59,7 @@ public class Person {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

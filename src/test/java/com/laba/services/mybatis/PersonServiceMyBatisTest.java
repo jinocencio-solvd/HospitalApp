@@ -7,6 +7,7 @@ import com.laba.enums.DaoType;
 import com.laba.models.Person;
 import com.laba.services.PersonService;
 import com.laba.utils.AppConfig;
+import com.laba.utils.AppUtils;
 import com.laba.utils.SQLScriptExecutor;
 import java.sql.Date;
 import java.util.List;
@@ -34,14 +35,7 @@ public class PersonServiceMyBatisTest {
 
     @AfterClass
     public void after() {
-        if (AppConfig.ENVIRONMENT.equals("GH_WORKFLOW")) {
-            SQLScriptExecutor.processSQLiteScript("create");
-            SQLScriptExecutor.processSQLiteScript("insert");
-        }
-        if (AppConfig.ENVIRONMENT.equals("DEVELOPMENT")) {
-            SQLScriptExecutor.processMySqlScript("create");
-            SQLScriptExecutor.processMySqlScript("insert");
-        }
+        AppUtils.initializeDb();
     }
 
     @BeforeMethod

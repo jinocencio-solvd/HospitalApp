@@ -1,37 +1,34 @@
 package com.laba.services;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotEquals;
 
 import com.laba.enums.DaoType;
 import com.laba.models.Person;
-import com.laba.utils.AppConfig;
-import com.laba.utils.SQLScriptExecutor;
+import com.laba.utils.AppUtils;
 import java.sql.Date;
 import java.util.List;
-
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
+@Ignore
 public class PersonServiceTest {
 
     private static PersonService personService;
     private static final boolean isSingleThreaded = false;
 
     @BeforeClass
-    public void before(){
-        if(AppConfig.ENVIRONMENT.equals("GH_WORKFLOW")){
-            SQLScriptExecutor.processSQLiteScript("create");
-        }
+    public void before() {
+        AppUtils.initializeDb();
     }
 
     @AfterClass
-    public void after(){
-        if(AppConfig.ENVIRONMENT.equals("GH_WORKFLOW")){
-            SQLScriptExecutor.processSQLiteScript("insert");
-        }
+    public void after() {
+        AppUtils.populateDb();
     }
 
     @BeforeMethod

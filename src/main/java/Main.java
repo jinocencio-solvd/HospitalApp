@@ -26,7 +26,7 @@ public class Main {
     }
 
     public static void myBatisDemo() {
-        AppUtils.initializeDb();
+        AppUtils.populateDb();
         List<Person> personList = new PersonService(DaoType.JDBC).getAll();
         List<Person> personListMyBatis = new PersonService(DaoType.MYBATIS).getAll();
         LOG.info("Lists are equal: " + personList.equals(personListMyBatis));
@@ -41,7 +41,7 @@ public class Main {
         LOG.info("Retrieved: " + prof1); // Physician
         prof1.setProfession("Physician - Cardiologist");
         psMyBatis.update(prof1);
-        LOG.info("Updated: " + prof1); // Physician // Physician - Cardiologist
+        LOG.info("Updated: " + prof1); // Physician - Cardiologist
     }
 
     private static void testXMLAndXSDParserValidator(File xmlFile, File xsdFile) {

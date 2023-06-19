@@ -16,6 +16,15 @@ public class AppUtils {
     public static void initializeDb() {
         if (AppConfig.ENVIRONMENT.equals("GH_WORKFLOW")) {
             SQLScriptExecutor.processSQLiteScript("create");
+        }
+        if (AppConfig.ENVIRONMENT.equals("DEVELOPMENT")) {
+            SQLScriptExecutor.processMySqlScript("create");
+        }
+    }
+
+    public static void populateDb(){
+        if (AppConfig.ENVIRONMENT.equals("GH_WORKFLOW")) {
+            SQLScriptExecutor.processSQLiteScript("create");
             SQLScriptExecutor.processSQLiteScript("insert");
         }
         if (AppConfig.ENVIRONMENT.equals("DEVELOPMENT")) {

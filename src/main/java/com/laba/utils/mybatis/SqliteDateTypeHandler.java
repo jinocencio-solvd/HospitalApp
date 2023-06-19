@@ -1,14 +1,18 @@
 package com.laba.utils.mybatis;
 
 import java.sql.CallableStatement;
-import org.apache.ibatis.type.BaseTypeHandler;
-import org.apache.ibatis.type.JdbcType;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import org.apache.ibatis.type.BaseTypeHandler;
+import org.apache.ibatis.type.JdbcType;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class SqliteDateTypeHandler extends BaseTypeHandler<Date> {
+
+    private static final Logger LOG = LogManager.getLogger(SqliteDateTypeHandler.class);
 
     public boolean hasColumn(ResultSet resultSet, String columnName) {
         try {
@@ -20,14 +24,16 @@ public class SqliteDateTypeHandler extends BaseTypeHandler<Date> {
     }
 
     @Override
-    public void setNonNullParameter(PreparedStatement preparedStatement, int i, Date date, JdbcType jdbcType) throws SQLException {
+    public void setNonNullParameter(PreparedStatement preparedStatement, int i, Date date,
+        JdbcType jdbcType) throws SQLException {
+        LOG.debug("Handling SQLiteDateSetter date: " + date.toString());
         preparedStatement.setDate(i, date);
     }
 
     @Override
     public Date getNullableResult(ResultSet resultSet, String s) throws SQLException {
         String dateStr = "";
-        if(hasColumn(resultSet, "dob")){
+        if (hasColumn(resultSet, "dob")) {
             dateStr = resultSet.getString("dob");
         }
         return Date.valueOf((dateStr));
