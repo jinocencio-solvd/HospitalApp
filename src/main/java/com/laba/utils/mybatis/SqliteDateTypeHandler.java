@@ -1,5 +1,7 @@
 package com.laba.utils.mybatis;
 
+import com.laba.enums.DatabaseType;
+import com.laba.utils.AppConfig;
 import java.sql.CallableStatement;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -13,6 +15,17 @@ import org.apache.logging.log4j.Logger;
 public class SqliteDateTypeHandler extends BaseTypeHandler<Date> {
 
     private static final Logger LOG = LogManager.getLogger(SqliteDateTypeHandler.class);
+    private static DatabaseType dbType;
+
+    static {
+        if (AppConfig.ENVIRONMENT.equals("DEVELOPMENT")) {
+            dbType = DatabaseType.MYSQL;
+        }
+        if (AppConfig.ENVIRONMENT.equals("GH_WORKFLOW")) {
+            dbType = DatabaseType.SQLITE;
+        }
+    }
+
 
     public boolean hasColumn(ResultSet resultSet, String columnName) {
         try {
@@ -27,7 +40,13 @@ public class SqliteDateTypeHandler extends BaseTypeHandler<Date> {
     public void setNonNullParameter(PreparedStatement preparedStatement, int i, Date date,
         JdbcType jdbcType) throws SQLException {
         LOG.debug("Handling SQLiteDateSetter date: " + date.toString());
-        preparedStatement.setDate(i, date);
+        if (dbType == DatabaseType.SQLITE) {
+            String dateString = date.toString();
+            preparedStatement.setString(i, dateString);
+        } else {
+            preparedStatement.setDate(i, date);
+        }
+
     }
 
     @Override

@@ -1,0 +1,55 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <properties resource="sqliteconfig.properties"/>
+    <typeAliases>
+        <typeAlias alias="Person" type="com.laba.models.Person"/>
+        <typeAlias alias="Appointment" type="com.laba.models.Appointment"/>
+        <typeAlias alias="Clinician" type="com.laba.models.Clinician"/>
+        <typeAlias alias="Department" type="com.laba.models.Department"/>
+        <typeAlias alias="Diagnosis" type="com.laba.models.Diagnosis"/>
+        <typeAlias alias="MedicalRecord" type="com.laba.models.MedicalRecord"/>
+        <typeAlias alias="Medication" type="com.laba.models.Medication"/>
+        <typeAlias alias="MedicationType" type="com.laba.models.MedicationType"/>
+        <typeAlias alias="Patient" type="com.laba.models.Patient"/>
+        <typeAlias alias="Prescription" type="com.laba.models.Prescription"/>
+        <typeAlias alias="Profession" type="com.laba.models.Profession"/>
+        <typeAlias alias="Room" type="com.laba.models.Room"/>
+        <typeAlias alias="Specialization" type="com.laba.models.Specialization"/>
+        <typeAlias alias="Staff" type="com.laba.models.Staff"/>
+        <typeAlias alias="Treatment" type="com.laba.models.Treatment"/>
+    </typeAliases>
+    <typeHandlers>
+        <typeHandler handler="com.laba.utils.mybatis.SqliteDateTypeHandler"/>
+    </typeHandlers>
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="org.sqlite.JDBC"/>
+                <property name="url" value="jdbc:sqlite:db/hospital.db"/>
+                <property name="username" value="${USER}"/>
+                <property name="password" value="${PASSWORD}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <mapper resource="mybatis/mappers/appointment-mapper.xml"/>
+        <mapper resource="mybatis/mappers/clinician-mapper.xml"/>
+        <mapper resource="mybatis/mappers/department-mapper.xml"/>
+        <mapper resource="mybatis/mappers/diagnosis-mapper.xml"/>
+        <mapper resource="mybatis/mappers/medicalrecord-mapper.xml"/>
+        <mapper resource="mybatis/mappers/medication-mapper.xml"/>
+        <mapper resource="mybatis/mappers/medicationtype-mapper.xml"/>
+        <mapper resource="mybatis/mappers/patient-mapper.xml"/>
+        <mapper resource="mybatis/mappers/person-mapper.xml"/>
+        <mapper resource="mybatis/mappers/prescription-mapper.xml"/>
+        <mapper resource="mybatis/mappers/profession-mapper.xml"/>
+        <mapper resource="mybatis/mappers/room-mapper.xml"/>
+        <mapper resource="mybatis/mappers/specialization-mapper.xml"/>
+        <mapper resource="mybatis/mappers/staff-mapper.xml"/>
+        <mapper resource="mybatis/mappers/treatment-mapper.xml"/>
+    </mappers>
+</configuration>

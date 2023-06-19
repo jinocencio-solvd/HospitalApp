@@ -18,24 +18,18 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
-@Ignore
 public class PersonServiceMyBatisTest {
 
     private static PersonService personService;
 
     @BeforeClass
     public void before() {
-        if (AppConfig.ENVIRONMENT.equals("GH_WORKFLOW")) {
-            SQLScriptExecutor.processSQLiteScript("create");
-        }
-        if (AppConfig.ENVIRONMENT.equals("DEVELOPMENT")) {
-            SQLScriptExecutor.processMySqlScript("create");
-        }
+        AppUtils.initializeDb();
     }
 
     @AfterClass
     public void after() {
-        AppUtils.initializeDb();
+        AppUtils.populateDb();
     }
 
     @BeforeMethod
