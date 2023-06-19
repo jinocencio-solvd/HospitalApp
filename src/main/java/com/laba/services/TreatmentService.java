@@ -3,9 +3,9 @@ package com.laba.services;
 import com.laba.enums.DaoType;
 import com.laba.interfaces.daos.ITreatmentDAO;
 import com.laba.interfaces.services.IEntityService;
-import com.laba.jdbc.DAOFactory;
-import com.laba.jdbc.TreatmentDAO;
-import com.laba.jdbc.mybatisDAOs.TreatmentMbDAO;
+import com.laba.dal.DAOFactory;
+import com.laba.dal.jdbc.TreatmentDAO;
+import com.laba.dal.mybatisDAOs.TreatmentMbDAO;
 import com.laba.models.Treatment;
 import java.util.List;
 

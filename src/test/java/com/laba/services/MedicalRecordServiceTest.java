@@ -6,7 +6,7 @@ import com.laba.enums.DaoType;
 import com.laba.models.MedicalRecord;
 import com.laba.models.Patient;
 import com.laba.utils.AppConfig;
-import com.laba.utils.SQLiteUtils;
+import com.laba.utils.SQLScriptExecutor;
 import java.util.List;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Ignore;
@@ -21,8 +21,8 @@ public class MedicalRecordServiceTest {
     @BeforeClass
     public void setup() {
         if (AppConfig.ENVIRONMENT.equals("GH_WORKFLOW")) {
-            SQLiteUtils.processSQLiteScript("create");
-            SQLiteUtils.processSQLiteScript("insert");
+            SQLScriptExecutor.processSQLiteScript("create");
+            SQLScriptExecutor.processSQLiteScript("insert");
         }
     }
 

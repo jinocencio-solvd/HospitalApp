@@ -3,9 +3,9 @@ package com.laba.services;
 import com.laba.enums.DaoType;
 import com.laba.interfaces.daos.IAppointmentDAO;
 import com.laba.interfaces.services.IEntityService;
-import com.laba.jdbc.AppointmentDAO;
-import com.laba.jdbc.DAOFactory;
-import com.laba.jdbc.mybatisDAOs.AppointmentMbDAO;
+import com.laba.dal.jdbc.AppointmentDAO;
+import com.laba.dal.DAOFactory;
+import com.laba.dal.mybatisDAOs.AppointmentMbDAO;
 import com.laba.models.Appointment;
 import java.util.List;
 

@@ -3,9 +3,9 @@ package com.laba.services;
 import com.laba.enums.DaoType;
 import com.laba.interfaces.daos.IStaffDAO;
 import com.laba.interfaces.services.IEntityService;
-import com.laba.jdbc.DAOFactory;
-import com.laba.jdbc.StaffDAO;
-import com.laba.jdbc.mybatisDAOs.StaffMbDAO;
+import com.laba.dal.DAOFactory;
+import com.laba.dal.jdbc.StaffDAO;
+import com.laba.dal.mybatisDAOs.StaffMbDAO;
 import com.laba.models.Staff;
 import java.util.List;
 

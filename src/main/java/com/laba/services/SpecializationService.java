@@ -3,9 +3,9 @@ package com.laba.services;
 import com.laba.enums.DaoType;
 import com.laba.interfaces.daos.ISpecializationDAO;
 import com.laba.interfaces.services.IEntityService;
-import com.laba.jdbc.DAOFactory;
-import com.laba.jdbc.SpecializationDAO;
-import com.laba.jdbc.mybatisDAOs.SpecializationMbDAO;
+import com.laba.dal.DAOFactory;
+import com.laba.dal.jdbc.SpecializationDAO;
+import com.laba.dal.mybatisDAOs.SpecializationMbDAO;
 import com.laba.models.Specialization;
 import java.util.List;
 

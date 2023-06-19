@@ -3,9 +3,9 @@ package com.laba.services;
 import com.laba.enums.DaoType;
 import com.laba.interfaces.daos.IProfessionDAO;
 import com.laba.interfaces.services.IEntityService;
-import com.laba.jdbc.DAOFactory;
-import com.laba.jdbc.ProfessionDAO;
-import com.laba.jdbc.mybatisDAOs.ProfessionMbDAO;
+import com.laba.dal.DAOFactory;
+import com.laba.dal.jdbc.ProfessionDAO;
+import com.laba.dal.mybatisDAOs.ProfessionMbDAO;
 import com.laba.models.Profession;
 import java.util.List;
 

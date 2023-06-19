@@ -3,9 +3,9 @@ package com.laba.services;
 import com.laba.enums.DaoType;
 import com.laba.interfaces.daos.IRoomDAO;
 import com.laba.interfaces.services.IEntityService;
-import com.laba.jdbc.DAOFactory;
-import com.laba.jdbc.RoomDAO;
-import com.laba.jdbc.mybatisDAOs.RoomMbDAO;
+import com.laba.dal.DAOFactory;
+import com.laba.dal.jdbc.RoomDAO;
+import com.laba.dal.mybatisDAOs.RoomMbDAO;
 import com.laba.models.Room;
 import java.util.List;
 

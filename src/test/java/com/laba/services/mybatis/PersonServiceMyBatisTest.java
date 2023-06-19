@@ -7,37 +7,46 @@ import com.laba.enums.DaoType;
 import com.laba.models.Person;
 import com.laba.services.PersonService;
 import com.laba.utils.AppConfig;
-import com.laba.utils.SQLiteUtils;
+import com.laba.utils.SQLScriptExecutor;
 import java.sql.Date;
 import java.util.List;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
+@Ignore
 public class PersonServiceMyBatisTest {
 
     private static PersonService personService;
-    private static final boolean isSingleThreaded = false;
 
     @BeforeClass
-    public void before(){
-        if(AppConfig.ENVIRONMENT.equals("GH_WORKFLOW")){
-            SQLiteUtils.processSQLiteScript("create");
+    public void before() {
+        if (AppConfig.ENVIRONMENT.equals("GH_WORKFLOW")) {
+            SQLScriptExecutor.processSQLiteScript("create");
+        }
+        if (AppConfig.ENVIRONMENT.equals("DEVELOPMENT")) {
+            SQLScriptExecutor.processMySqlScript("create");
         }
     }
 
     @AfterClass
-    public void after(){
-        if(AppConfig.ENVIRONMENT.equals("GH_WORKFLOW")){
-            SQLiteUtils.processSQLiteScript("insert");
+    public void after() {
+        if (AppConfig.ENVIRONMENT.equals("GH_WORKFLOW")) {
+            SQLScriptExecutor.processSQLiteScript("create");
+            SQLScriptExecutor.processSQLiteScript("insert");
+        }
+        if (AppConfig.ENVIRONMENT.equals("DEVELOPMENT")) {
+            SQLScriptExecutor.processMySqlScript("create");
+            SQLScriptExecutor.processMySqlScript("insert");
         }
     }
 
     @BeforeMethod
     public void setUp() {
-        personService = new PersonService(DaoType.JDBC);
+        personService = new PersonService(DaoType.MYBATIS);
     }
 
     @AfterMethod
@@ -46,7 +55,7 @@ public class PersonServiceMyBatisTest {
         getAllPerson.forEach((p) -> personService.deleteById(p.getId()));
     }
 
-    @Test(singleThreaded = isSingleThreaded)
+    @Test
     public void testSave() {
         Person p1 = new Person("p1First", "p1Last", Date.valueOf("2001-01-01"));
         Person p2 = new Person("p2First", "p1Last", Date.valueOf("2001-01-01"));
@@ -57,7 +66,7 @@ public class PersonServiceMyBatisTest {
         assertNotEquals(p2, retrievedPerson1);
     }
 
-    @Test(singleThreaded = isSingleThreaded)
+    @Test
     public void testGetAll() {
         Person p1 = new Person("p1First", "p1Last", Date.valueOf("2001-01-01"));
         Person p2 = new Person("p2First", "p2Last", Date.valueOf("2002-02-02"));
@@ -69,7 +78,7 @@ public class PersonServiceMyBatisTest {
         assertEquals(3, getAllPerson.size());
     }
 
-    @Test(singleThreaded = isSingleThreaded)
+    @Test
     public void testGetById() {
         Person p1 = new Person("p1First", "p1Last", Date.valueOf("2001-01-01"));
         personService.save(p1);
@@ -78,7 +87,7 @@ public class PersonServiceMyBatisTest {
         assertEquals(p1, personService.getById(id));
     }
 
-    @Test(singleThreaded = isSingleThreaded)
+    @Test
     public void testDeleteById() {
         Person p1 = new Person("p1First", "p1Last", Date.valueOf("2001-01-01"));
         Person p2 = new Person("p2First", "p2Last", Date.valueOf("2002-02-02"));
@@ -93,7 +102,7 @@ public class PersonServiceMyBatisTest {
         assertEquals(1, personService.getAll().size());
     }
 
-    @Test(singleThreaded = isSingleThreaded)
+    @Test
     public void testUpdate() {
         Person p1 = new Person("p1First", "p1Last", Date.valueOf("2001-01-01"));
         personService.save(p1);

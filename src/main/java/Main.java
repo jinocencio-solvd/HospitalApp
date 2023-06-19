@@ -22,10 +22,9 @@ public class Main {
     }
 
     public static void myBatisDemo() {
-        Person psave1 = new Person("p1First", "p1Last", Date.valueOf("2001-01-01"));
-        List<Person> p1 = new PersonService(DaoType.MYBATIS).getAll();
-        System.out.println(p1);
-
+        List<Person> personList = new PersonService(DaoType.JDBC).getAll();
+        List<Person> personListMyBatis = new PersonService(DaoType.MYBATIS).getAll();
+        LOG.info(personList.equals(personListMyBatis));
     }
 
     private static void testXMLAndXSDParserValidator(File xmlFile, File xsdFile) {
