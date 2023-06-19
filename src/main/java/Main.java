@@ -3,6 +3,7 @@ import com.laba.models.Patient;
 import com.laba.models.Person;
 import com.laba.models.Profession;
 import com.laba.services.MedicalRecordService;
+import com.laba.services.PatientService;
 import com.laba.services.PersonService;
 import com.laba.services.ProfessionService;
 import com.laba.services.SpecializationService;
@@ -22,7 +23,9 @@ public class Main {
     private static final Logger LOG = LogManager.getLogger(Main.class);
 
     public static void main(String[] args) {
-        myBatisDemo();
+        PatientService patientService = new PatientService(DaoType.MYBATIS);
+        Patient patient = patientService.getById(1);
+        LOG.info(patient);
     }
 
     public static void myBatisDemo() {

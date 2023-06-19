@@ -22,6 +22,8 @@
     <resultMap id="PatientResultMap" type="Patient" autoMapping="false">
         <result property="id" column="id"/>
         <result property="personId" column="person_id"/>
+        <association property="person" column="person_id" javaType="Person"
+          select="com.laba.interfaces.daos.IPersonDAO.getById"/>
     </resultMap>
     <select id="getById" parameterType="int" resultMap="PatientResultMap">
         SELECT *

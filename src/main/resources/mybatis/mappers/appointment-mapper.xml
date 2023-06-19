@@ -30,7 +30,8 @@
         <result property="patientId" column="patient_id"/>
         <result property="clinicianId" column="clinician_id"/>
         <result property="roomId" column="room_id"/>
-        <result property="appointmentDate" column="appointment_date"/>
+        <result property="appointmentDate" column="appointment_date" javaType="java.sql.Date"
+          typeHandler="com.laba.utils.mybatis.SqliteDateTypeHandler"/>
         <result property="appointmentTime" column="appointment_time"/>
     </resultMap>
     <select id="getById" parameterType="int" resultMap="AppointmentResultMap">
