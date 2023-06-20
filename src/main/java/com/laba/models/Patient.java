@@ -12,11 +12,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "patient")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Patient {
+public class Patient extends Person {
 
     @JsonProperty("id")
     @XmlAttribute(name = "id")
-    private int id;
+    private Integer id;
 
     @JsonProperty("person_id")
     @XmlElement(name = "person_id")
@@ -33,11 +33,10 @@ public class Patient {
         // Default Constructor
     }
 
-    public Patient(int id, int personId) {
+    public Patient(Integer id, int personId) {
         this.id = id;
         this.personId = personId;
     }
-
 
     public Person getPerson() {
         return person;
@@ -47,15 +46,15 @@ public class Patient {
         this.person = person;
     }
 
-    public Patient(int personId) {
+    public Patient(Integer personId) {
         this.personId = personId;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

@@ -34,4 +34,9 @@
         SELECT *
         FROM patients
     </select>
+    <select id="getPatientByPersonId" parameterType="int" resultMap="PatientResultMap">
+        SELECT *
+        FROM patients
+        WHERE person_id = #{personId}
+    </select>
 </mapper>

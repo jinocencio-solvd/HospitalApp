@@ -9,4 +9,10 @@ public class PatientDAO extends EntityDAO<Patient> implements IPatientDAO {
     protected String getTableName() {
         return "patients";
     }
+
+    @Override
+    public Patient getPatientByPersonId(int personId) {
+        // TODO: impl JDBC method
+        return null;
+    }
 }

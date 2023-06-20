@@ -1,15 +1,15 @@
 package com.laba.services;
 
-import com.laba.enums.DaoType;
-import com.laba.interfaces.daos.IPatientDAO;
-import com.laba.interfaces.services.IEntityService;
 import com.laba.dal.DAOFactory;
 import com.laba.dal.jdbc.PatientDAO;
 import com.laba.dal.mybatisDAOs.PatientMbDAO;
+import com.laba.enums.DaoType;
+import com.laba.interfaces.daos.IPatientDAO;
+import com.laba.interfaces.services.IEntityService;
 import com.laba.models.Patient;
 import java.util.List;
 
-public class PatientService implements IEntityService<Patient> {
+public class PatientService implements IEntityService<Patient>, IPatientDAO {
 
     private static IPatientDAO dao;
 
@@ -48,5 +48,10 @@ public class PatientService implements IEntityService<Patient> {
     @Override
     public void update(Patient entity) {
         dao.update(entity);
+    }
+
+    @Override
+    public Patient getPatientByPersonId(int personId) {
+        return dao.getPatientByPersonId(personId);
     }
 }

@@ -23,9 +23,17 @@ public class Main {
     private static final Logger LOG = LogManager.getLogger(Main.class);
 
     public static void main(String[] args) {
+        AppUtils.populateDb();
         PatientService patientService = new PatientService(DaoType.MYBATIS);
+        PersonService personService = new PersonService(DaoType.MYBATIS);
         Patient patient = patientService.getById(1);
         LOG.info(patient);
+
+        Person futurePatient = new Person("p1Patient", "p1Last", Date.valueOf("2000-01-01"));
+        personService.save(futurePatient);
+        Patient newPatient = new Patient(null, 20);
+        patientService.save(newPatient);
+        LOG.info(patientService.getById(13));
     }
 
     public static void myBatisDemo() {

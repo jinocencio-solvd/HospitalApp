@@ -37,4 +37,11 @@
         SELECT *
         FROM persons
     </select>
+    <select id="getByFirstLastNameAndDob" parameterType="java.util.Map" resultMap="PersonResultMap">
+        SELECT *
+        FROM persons
+        WHERE first_name = #{firstName}
+          AND last_name = #{lastName}
+          AND dob = #{dob}
+    </select>
 </mapper>
