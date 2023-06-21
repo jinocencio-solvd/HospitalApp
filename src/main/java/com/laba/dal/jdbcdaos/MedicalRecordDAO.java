@@ -55,4 +55,5 @@ public class MedicalRecordDAO extends EntityDAO<MedicalRecord> implements IMedic
         // TODO: impl JDBC method
         return null;
     }
+
 }

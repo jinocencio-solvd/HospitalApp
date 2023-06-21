@@ -30,14 +30,15 @@ public abstract class EntityDAO<T> implements IEntityDAO<T> {
     }
 
     @Override
-    public void save(T entity) {
+    public void save(Object entity) {
         session.insert(getNamespace() + ".save", entity);
         session.commit();
     }
 
     @Override
-    public void update(T entity) {
+    public void update(Object entity) {
         session.update(getNamespace() + ".update", entity);
         session.commit();
     }
+
 }

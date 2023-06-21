@@ -2,50 +2,18 @@ package com.laba.services;
 
 import com.laba.enums.DaoType;
 import com.laba.interfaces.daos.IClinicianDAO;
-import com.laba.interfaces.services.IEntityService;
-import com.laba.dal.DAOFactory;
-import com.laba.dal.mybatisdaos.ClinicianDAO;
 import com.laba.models.Clinician;
-import java.util.List;
 
-public class ClinicianService implements IEntityService<Clinician> {
-
-    private static IClinicianDAO dao;
+public class ClinicianService extends EntityService<Clinician, IClinicianDAO> implements
+    IClinicianDAO {
 
     public ClinicianService(DaoType daoType) {
-        String model = "clinician";
-        switch (daoType) {
-            case JDBC:
-                dao = (com.laba.dal.jdbcdaos.ClinicianDAO) DAOFactory.getJDBCDAO(model);
-                break;
-            case MYBATIS:
-                dao = (ClinicianDAO) DAOFactory.getMyBatisDAO(model);
-                break;
-        }
+        super(daoType);
     }
 
     @Override
-    public List<Clinician> getAll() {
-        return dao.getAll();
+    protected String getModelName() {
+        return "clinician";
     }
 
-    @Override
-    public Clinician getById(int id) {
-        return dao.getById(id);
-    }
-
-    @Override
-    public void deleteById(int id) {
-        dao.deleteById(id);
-    }
-
-    @Override
-    public void save(Clinician entity) {
-        dao.save(entity);
-    }
-
-    @Override
-    public void update(Clinician entity) {
-        dao.update(entity);
-    }
 }

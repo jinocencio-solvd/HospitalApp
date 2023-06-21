@@ -2,55 +2,24 @@ package com.laba.services;
 
 import com.laba.enums.DaoType;
 import com.laba.interfaces.daos.IAppointmentDAO;
-import com.laba.interfaces.services.IEntityService;
-import com.laba.dal.DAOFactory;
-import com.laba.dal.mybatisdaos.AppointmentDAO;
 import com.laba.models.Appointment;
 import java.util.List;
 
-public class AppointmentService implements IEntityService<Appointment>, IAppointmentDAO {
-
-    private static IAppointmentDAO dao;
+public class AppointmentService extends EntityService<Appointment, IAppointmentDAO> implements
+    IAppointmentDAO {
 
     public AppointmentService(DaoType daoType) {
-        String model = "appointment";
-        switch (daoType) {
-            case JDBC:
-                dao = (com.laba.dal.jdbcdaos.AppointmentDAO) DAOFactory.getJDBCDAO(model);
-                break;
-            case MYBATIS:
-                dao = (AppointmentDAO) DAOFactory.getMyBatisDAO(model);
-                break;
-        }
+        super(daoType);
     }
 
     @Override
-    public List<Appointment> getAll() {
-        return dao.getAll();
-    }
-
-    @Override
-    public Appointment getById(int id) {
-        return dao.getById(id);
-    }
-
-    @Override
-    public void deleteById(int id) {
-        dao.deleteById(id);
-    }
-
-    @Override
-    public void save(Appointment entity) {
-        dao.save(entity);
-    }
-
-    @Override
-    public void update(Appointment entity) {
-        dao.update(entity);
+    protected String getModelName() {
+        return "appointment";
     }
 
     @Override
     public List<Appointment> getAppointmentsByPatientId(int patientId) {
         return dao.getAppointmentsByPatientId(patientId);
     }
+
 }

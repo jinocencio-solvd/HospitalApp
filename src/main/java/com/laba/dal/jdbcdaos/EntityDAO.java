@@ -51,7 +51,7 @@ public abstract class EntityDAO<T> implements IEntityDAO<T> {
         String query = "SELECT * FROM " + getTableName();
 
         Connection connection = connectionPool.getConnection();
-        try (PreparedStatement ps = connection.prepareStatement(query);) {
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 entityList.add(getEntity(rs));
@@ -275,4 +275,5 @@ public abstract class EntityDAO<T> implements IEntityDAO<T> {
             return false;
         }
     }
+
 }

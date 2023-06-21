@@ -2,50 +2,18 @@ package com.laba.services;
 
 import com.laba.enums.DaoType;
 import com.laba.interfaces.daos.IDiagnosisDAO;
-import com.laba.interfaces.services.IEntityService;
-import com.laba.dal.DAOFactory;
-import com.laba.dal.mybatisdaos.DiagnosisDAO;
 import com.laba.models.Diagnosis;
-import java.util.List;
 
-public class DiagnosisService implements IEntityService<Diagnosis> {
-
-    private static IDiagnosisDAO dao;
+public class DiagnosisService extends EntityService<Diagnosis, IDiagnosisDAO> implements
+    IDiagnosisDAO {
 
     public DiagnosisService(DaoType daoType) {
-        String model = "diagnosis";
-        switch (daoType) {
-            case JDBC:
-                dao = (com.laba.dal.jdbcdaos.DiagnosisDAO) DAOFactory.getJDBCDAO(model);
-                break;
-            case MYBATIS:
-                dao = (DiagnosisDAO) DAOFactory.getMyBatisDAO(model);
-                break;
-        }
+        super(daoType);
     }
 
     @Override
-    public List<Diagnosis> getAll() {
-        return dao.getAll();
+    protected String getModelName() {
+        return "diagnosis";
     }
 
-    @Override
-    public Diagnosis getById(int id) {
-        return dao.getById(id);
-    }
-
-    @Override
-    public void deleteById(int id) {
-        dao.deleteById(id);
-    }
-
-    @Override
-    public void save(Diagnosis entity) {
-        dao.save(entity);
-    }
-
-    @Override
-    public void update(Diagnosis entity) {
-        dao.update(entity);
-    }
 }
