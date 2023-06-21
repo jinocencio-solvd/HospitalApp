@@ -49,4 +49,10 @@ public class MedicalRecordDAO extends EntityDAO<MedicalRecord> implements IMedic
         }
         return medicalRecords;
     }
+
+    @Override
+    public List<MedicalRecord> getMedicalRecordsByAppointmentId(int appointmentId) {
+        // TODO: impl JDBC method
+        return null;
+    }
 }

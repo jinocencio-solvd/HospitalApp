@@ -10,8 +10,6 @@ import org.apache.ibatis.session.SqlSession;
 
 public class PersonMbDAO extends EntityMbDAO<Person> implements IPersonDAO {
 
-    private static final SqlSession session = MyBatisSqlFactory.getSession();
-
     @Override
     public Person getByFirstLastNameAndDob(String firstName, String lastName, Date dob) {
         Map<String, Object> parameters = new HashMap<>();

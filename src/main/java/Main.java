@@ -70,10 +70,10 @@ public class Main {
             LOG.info(listAptPatient1);
         };
 
-//        getAppointmentsByPatientId.run();
+        getAppointmentsByPatientId.run();
         getPatientByPersonId.run();
-//        myBatisAndJdbcDaoComparison.run();
-//        updateProfession.run();
+        myBatisAndJdbcDaoComparison.run();
+        updateProfession.run();
     }
 
     private static void testXMLAndXSDParserValidator(File xmlFile, File xsdFile) {

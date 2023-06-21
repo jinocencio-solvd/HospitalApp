@@ -8,8 +8,6 @@ import org.apache.ibatis.session.SqlSession;
 
 public class AppointmentMbDAO extends EntityMbDAO<Appointment> implements IAppointmentDAO {
 
-    private static final SqlSession session = MyBatisSqlFactory.getSession();
-
     @Override
     public List<Appointment> getAppointmentsByPatientId(int patientId) {
         return session.selectList(getNamespace() + ".getAppointmentsByPatientId", patientId);

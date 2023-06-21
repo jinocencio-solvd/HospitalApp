@@ -7,8 +7,6 @@ import org.apache.ibatis.session.SqlSession;
 
 public class PatientMbDAO extends EntityMbDAO<Patient> implements IPatientDAO {
 
-    private static final SqlSession session = MyBatisSqlFactory.getSession();
-
     @Override
     public Patient getPatientByPersonId(int personId) {
         return session.selectOne(getNamespace() + ".getPatientByPersonId", personId);

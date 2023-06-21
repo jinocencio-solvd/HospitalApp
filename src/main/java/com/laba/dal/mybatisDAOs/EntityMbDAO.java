@@ -7,7 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 
 public abstract class EntityMbDAO<T> implements IEntityDAO<T> {
 
-    private static final SqlSession session = MyBatisSqlFactory.getSession();
+    protected static final SqlSession session = MyBatisSqlFactory.getSession();
 
     public String getNamespace() {
         return this.getClass().getInterfaces()[0].getName();

@@ -36,4 +36,10 @@
         SELECT *
         FROM medical_records
     </select>
+    <select id="getMedicalRecordsByAppointmentId" parameterType="int"
+      resultMap="MedicalRecordResultMap">
+        SELECT *
+        FROM medical_records
+        WHERE appointment_id = #{appointmentId}
+    </select>
 </mapper>

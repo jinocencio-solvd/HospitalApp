@@ -14,7 +14,7 @@ import com.laba.utils.json.JacksonUtil;
 import com.laba.utils.xml.jaxb.JAXBUtil;
 import java.util.List;
 
-public class MedicalRecordService implements IEntityService<MedicalRecord>, IMedicalRecordService {
+public class MedicalRecordService implements IEntityService<MedicalRecord>, IMedicalRecordService, IMedicalRecordDAO {
 
     private static IMedicalRecordDAO dao;
     public static MedicalRecordDAO medicalRecordDAO;
@@ -76,5 +76,10 @@ public class MedicalRecordService implements IEntityService<MedicalRecord>, IMed
     @Override
     public List<MedicalRecord> getMedicalRecordsForPatient(Patient p) {
         return medicalRecordDAO.getMedicalRecordsForPatient(p);
+    }
+
+    @Override
+    public List<MedicalRecord> getMedicalRecordsByAppointmentId(int appointmentId) {
+        return dao.getMedicalRecordsByAppointmentId(appointmentId);
     }
 }
