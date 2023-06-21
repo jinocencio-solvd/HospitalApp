@@ -1,7 +1,9 @@
 import com.laba.enums.DaoType;
+import com.laba.models.Appointment;
 import com.laba.models.Patient;
 import com.laba.models.Person;
 import com.laba.models.Profession;
+import com.laba.services.AppointmentService;
 import com.laba.services.MedicalRecordService;
 import com.laba.services.PatientService;
 import com.laba.services.PersonService;
@@ -23,36 +25,55 @@ public class Main {
     private static final Logger LOG = LogManager.getLogger(Main.class);
 
     public static void main(String[] args) {
-        AppUtils.populateDb();
-        PatientService patientService = new PatientService(DaoType.MYBATIS);
-        PersonService personService = new PersonService(DaoType.MYBATIS);
-        Patient patient = patientService.getById(1);
-        LOG.info(patient);
-
-        Person futurePatient = new Person("p1Patient", "p1Last", Date.valueOf("2000-01-01"));
-        personService.save(futurePatient);
-        Patient newPatient = new Patient(null, 20);
-        patientService.save(newPatient);
-        LOG.info(patientService.getById(13));
+        myBatisDemo();
     }
 
     public static void myBatisDemo() {
         AppUtils.populateDb();
-        List<Person> personList = new PersonService(DaoType.JDBC).getAll();
-        List<Person> personListMyBatis = new PersonService(DaoType.MYBATIS).getAll();
-        LOG.info("Lists are equal: " + personList.equals(personListMyBatis));
 
-        String spec1 = new SpecializationService(DaoType.JDBC).getById(1).getSpecialization();
-        String spec1MyBatis = new SpecializationService(DaoType.MYBATIS).getById(1)
-            .getSpecialization();
-        LOG.info("Dao retrievals are equal: " + spec1MyBatis.equals(spec1));
+        Runnable getPatientByPersonId = () -> {
+            PatientService patientService = new PatientService(DaoType.MYBATIS);
+            PersonService personService = new PersonService(DaoType.MYBATIS);
+            Patient patient = patientService.getById(1);
+            LOG.info(patient);
 
-        ProfessionService psMyBatis = new ProfessionService(DaoType.MYBATIS);
-        Profession prof1 = psMyBatis.getById(1);
-        LOG.info("Retrieved: " + prof1); // Physician
-        prof1.setProfession("Physician - Cardiologist");
-        psMyBatis.update(prof1);
-        LOG.info("Updated: " + prof1); // Physician - Cardiologist
+            Person futurePatient = new Person("p1Patient", "p1Last", Date.valueOf("2000-01-01"));
+            personService.save(futurePatient);
+            Patient newPatient = new Patient(null, 20);
+            patientService.save(newPatient);
+            LOG.info(patientService.getById(13));
+        };
+
+        Runnable myBatisAndJdbcDaoComparison = () -> {
+            List<Person> personList = new PersonService(DaoType.JDBC).getAll();
+            List<Person> personListMyBatis = new PersonService(DaoType.MYBATIS).getAll();
+            LOG.info("Lists are equal: " + personList.equals(personListMyBatis));
+
+            String spec1 = new SpecializationService(DaoType.JDBC).getById(1).getSpecialization();
+            String spec1MyBatis = new SpecializationService(DaoType.MYBATIS).getById(1)
+                .getSpecialization();
+            LOG.info("Dao retrievals are equal: " + spec1MyBatis.equals(spec1));
+        };
+
+        Runnable updateProfession = () -> {
+            ProfessionService psMyBatis = new ProfessionService(DaoType.MYBATIS);
+            Profession prof1 = psMyBatis.getById(1);
+            LOG.info("Retrieved: " + prof1); // Physician
+            prof1.setProfession("Physician - Cardiologist");
+            psMyBatis.update(prof1);
+            LOG.info("Updated: " + prof1); // Physician - Cardiologist
+        };
+
+        Runnable getAppointmentsByPatientId = () -> {
+            AppointmentService appointmentService = new AppointmentService(DaoType.MYBATIS);
+            List<Appointment> listAptPatient1 = appointmentService.getAppointmentsByPatientId(1);
+            LOG.info(listAptPatient1);
+        };
+
+//        getAppointmentsByPatientId.run();
+        getPatientByPersonId.run();
+//        myBatisAndJdbcDaoComparison.run();
+//        updateProfession.run();
     }
 
     private static void testXMLAndXSDParserValidator(File xmlFile, File xsdFile) {

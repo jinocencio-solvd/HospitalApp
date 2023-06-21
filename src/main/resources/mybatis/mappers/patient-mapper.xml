@@ -24,6 +24,8 @@
         <result property="personId" column="person_id"/>
         <association property="person" column="person_id" javaType="Person"
           select="com.laba.interfaces.daos.IPersonDAO.getById"/>
+        <collection property="appointments" column="id" ofType="com.laba.models.Appointment"
+          select="com.laba.interfaces.daos.IAppointmentDAO.getAppointmentsByPatientId"/>
     </resultMap>
     <select id="getById" parameterType="int" resultMap="PatientResultMap">
         SELECT *

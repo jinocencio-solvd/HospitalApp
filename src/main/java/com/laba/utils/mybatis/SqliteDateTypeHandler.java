@@ -46,7 +46,6 @@ public class SqliteDateTypeHandler extends BaseTypeHandler<Date> {
         } else {
             preparedStatement.setDate(i, date);
         }
-
     }
 
     @Override
@@ -54,6 +53,9 @@ public class SqliteDateTypeHandler extends BaseTypeHandler<Date> {
         String dateStr = "";
         if (hasColumn(resultSet, "dob")) {
             dateStr = resultSet.getString("dob");
+        }
+        if (hasColumn(resultSet, "appointment_date")) {
+            dateStr = resultSet.getString("appointment_date");
         }
         return Date.valueOf((dateStr));
     }

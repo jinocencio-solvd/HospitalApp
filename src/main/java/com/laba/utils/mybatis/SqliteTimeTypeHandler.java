@@ -3,18 +3,18 @@ package com.laba.utils.mybatis;
 import com.laba.enums.DatabaseType;
 import com.laba.utils.AppConfig;
 import java.sql.CallableStatement;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class SqliteDateTypeHandler extends BaseTypeHandler<Date> {
+public class SqliteTimeTypeHandler extends BaseTypeHandler<Time> {
 
-    private static final Logger LOG = LogManager.getLogger(SqliteDateTypeHandler.class);
+    private static final Logger LOG = LogManager.getLogger(SqliteTimeTypeHandler.class);
     private static DatabaseType dbType;
 
     static {
@@ -26,7 +26,6 @@ public class SqliteDateTypeHandler extends BaseTypeHandler<Date> {
         }
     }
 
-
     public boolean hasColumn(ResultSet resultSet, String columnName) {
         try {
             resultSet.findColumn(columnName);
@@ -37,39 +36,33 @@ public class SqliteDateTypeHandler extends BaseTypeHandler<Date> {
     }
 
     @Override
-    public void setNonNullParameter(PreparedStatement preparedStatement, int i, Date date,
+    public void setNonNullParameter(PreparedStatement preparedStatement, int i, Time time,
         JdbcType jdbcType) throws SQLException {
-        LOG.debug("Handling SQLiteDateSetter date: " + date.toString());
+        LOG.debug("Handling SQLiteTimeSetter time: " + time.toString());
         if (dbType == DatabaseType.SQLITE) {
-            String dateString = date.toString();
-            preparedStatement.setString(i, dateString);
+            String timeString = time.toString();
+            preparedStatement.setString(i, timeString);
         } else {
-            preparedStatement.setDate(i, date);
+            preparedStatement.setTime(i, time);
         }
-
     }
 
     @Override
-    public Date getNullableResult(ResultSet resultSet, String s) throws SQLException {
-        String dateStr = "";
-        if (hasColumn(resultSet, "dob")) {
-            dateStr = resultSet.getString("dob");
+    public Time getNullableResult(ResultSet resultSet, String columnName) throws SQLException {
+        if (hasColumn(resultSet, columnName)) {
+            String timeStr = resultSet.getString(columnName);
+            return Time.valueOf(timeStr);
         }
-        if (hasColumn(resultSet, "appointment_date")) {
-            dateStr = resultSet.getString("appointment_date");
-        }
-        return Date.valueOf((dateStr));
+        return null;
     }
 
     @Override
-    public Date getNullableResult(ResultSet resultSet, int i) throws SQLException {
-        System.out.println(2);
-        return resultSet.getDate(i);
+    public Time getNullableResult(ResultSet resultSet, int columnIndex) throws SQLException {
+        return resultSet.getTime(columnIndex);
     }
 
     @Override
-    public Date getNullableResult(CallableStatement callableStatement, int i) throws SQLException {
-        System.out.println(3);
-        return callableStatement.getDate(i);
+    public Time getNullableResult(CallableStatement callableStatement, int columnIndex) throws SQLException {
+        return callableStatement.getTime(columnIndex);
     }
 }

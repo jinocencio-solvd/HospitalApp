@@ -62,7 +62,8 @@ public class Appointment {
         this.appointmentTime = appointmentTime;
     }
 
-    public Appointment(int patientId, int clinicianId, int roomId, Date appointmentDate, Time appointmentTime) {
+    public Appointment(int patientId, int clinicianId, int roomId, Date appointmentDate,
+        Time appointmentTime) {
         this.patientId = patientId;
         this.clinicianId = clinicianId;
         this.roomId = roomId;
@@ -135,7 +136,8 @@ public class Appointment {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getPatientId(), getClinicianId(), getRoomId(), getAppointmentDate(),
+        return Objects.hash(getId(), getPatientId(), getClinicianId(), getRoomId(),
+            getAppointmentDate(),
             getAppointmentTime());
     }
 

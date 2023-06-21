@@ -9,7 +9,7 @@ import com.laba.dal.mybatisDAOs.AppointmentMbDAO;
 import com.laba.models.Appointment;
 import java.util.List;
 
-public class AppointmentService implements IEntityService<Appointment> {
+public class AppointmentService implements IEntityService<Appointment>, IAppointmentDAO {
 
     private static IAppointmentDAO dao;
 
@@ -48,5 +48,10 @@ public class AppointmentService implements IEntityService<Appointment> {
     @Override
     public void update(Appointment entity) {
         dao.update(entity);
+    }
+
+    @Override
+    public List<Appointment> getAppointmentsByPatientId(int patientId) {
+        return dao.getAppointmentsByPatientId(patientId);
     }
 }

@@ -32,7 +32,8 @@
         <result property="roomId" column="room_id"/>
         <result property="appointmentDate" column="appointment_date" javaType="java.sql.Date"
           typeHandler="com.laba.utils.mybatis.SqliteDateTypeHandler"/>
-        <result property="appointmentTime" column="appointment_time"/>
+        <result property="appointmentTime" column="appointment_time" javaType="java.sql.Date"
+          typeHandler="com.laba.utils.mybatis.SqliteTimeTypeHandler"/>
     </resultMap>
     <select id="getById" parameterType="int" resultMap="AppointmentResultMap">
         SELECT *
@@ -42,5 +43,10 @@
     <select id="getAll" resultMap="AppointmentResultMap">
         SELECT *
         FROM appointments
+    </select>
+    <select id="getAppointmentsByPatientId" resultMap="AppointmentResultMap">
+        SELECT *
+        FROM appointments
+        WHERE appointments.patient_id = #{patientId}
     </select>
 </mapper>

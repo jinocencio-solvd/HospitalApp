@@ -27,6 +27,8 @@ public class Patient extends Person {
     @XmlElement(name = "medical_record", type = MedicalRecord.class)
     private List<MedicalRecord> medicalRecords;
 
+    private List<Appointment> appointments;
+
     private Person person;
 
     public Patient() {
@@ -74,6 +76,14 @@ public class Patient extends Person {
         this.medicalRecords = medicalRecords;
     }
 
+    public List<Appointment> getAppointments() {
+        return appointments;
+    }
+
+    public void setAppointments(List<Appointment> appointments) {
+        this.appointments = appointments;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -83,7 +93,7 @@ public class Patient extends Person {
             return false;
         }
         Patient patient = (Patient) o;
-        return getId() == patient.getId() && getPersonId() == patient.getPersonId()
+        return Objects.equals(getId(), patient.getId()) && getPersonId() == patient.getPersonId()
             && Objects.equals(getMedicalRecords(), patient.getMedicalRecords())
             && Objects.equals(getPerson(), patient.getPerson());
     }
@@ -99,6 +109,7 @@ public class Patient extends Person {
             "id=" + id +
             ", personId=" + personId +
             ", medicalRecords=" + medicalRecords +
+            ", appointments=" + appointments +
             ", person=" + person +
             '}';
     }
