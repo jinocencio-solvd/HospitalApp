@@ -28,6 +28,10 @@ public class MedicalRecord {
     @XmlElement(name = "treatment_id")
     private int treatmentId;
 
+    private Diagnosis diagnosis;
+
+    private Treatment treatment;
+
     public MedicalRecord() {
         // Default Constructor
     }
@@ -77,6 +81,22 @@ public class MedicalRecord {
         this.treatmentId = treatmentId;
     }
 
+    public Diagnosis getDiagnosis() {
+        return diagnosis;
+    }
+
+    public void setDiagnosis(Diagnosis diagnosis) {
+        this.diagnosis = diagnosis;
+    }
+
+    public Treatment getTreatment() {
+        return treatment;
+    }
+
+    public void setTreatment(Treatment treatment) {
+        this.treatment = treatment;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -103,6 +123,8 @@ public class MedicalRecord {
             ", appointmentId=" + appointmentId +
             ", diagnosisId=" + diagnosisId +
             ", treatmentId=" + treatmentId +
+            ", diagnosis=" + diagnosis +
+            ", treatment=" + treatment +
             '}';
     }
 }

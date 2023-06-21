@@ -6,12 +6,12 @@
 <mapper namespace="com.laba.interfaces.daos.ITreatmentDAO">
     <insert id="save" parameterType="com.laba.models.Treatment">
         INSERT INTO treatments (id, treatment_name)
-        VALUES (#{id}, #{treatment_name})
+        VALUES (#{id}, #{treatmentName})
     </insert>
     <update id="update" parameterType="com.laba.models.Treatment">
         UPDATE treatments
         SET id             = #{id},
-            treatment_name = #{treatment_name}
+            treatment_name = #{treatmentName}
         WHERE id = #{id}
     </update>
     <delete id="deleteById" parameterType="int">
@@ -21,7 +21,7 @@
     </delete>
     <resultMap id="TreatmentResultMap" type="Treatment" autoMapping="false">
         <result property="id" column="id"/>
-        <result property="treatment_name" column="treatment_name"/>
+        <result property="treatmentName" column="treatment_name"/>
     </resultMap>
     <select id="getById" parameterType="int" resultMap="TreatmentResultMap">
         SELECT *

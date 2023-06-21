@@ -6,13 +6,13 @@
 <mapper namespace="com.laba.interfaces.daos.IRoomDAO">
     <insert id="save" parameterType="com.laba.models.Room">
         INSERT INTO rooms (id, room_number, department_id)
-        VALUES (#{id}, #{room_number}, #{department_id})
+        VALUES (#{id}, #{roomNumber}, #{departmentId})
     </insert>
     <update id="update" parameterType="com.laba.models.Room">
         UPDATE rooms
         SET id            = #{id},
-            room_number   = #{room_number},
-            department_id = #{department_id}
+            room_number   = #{roomNumber},
+            department_id = #{departmentId}
         WHERE id = #{id}
     </update>
     <delete id="deleteById" parameterType="int">
@@ -22,8 +22,8 @@
     </delete>
     <resultMap id="RoomResultMap" type="Room" autoMapping="false">
         <result property="id" column="id"/>
-        <result property="room_number" column="room_number"/>
-        <result property="department_id" column="department_id"/>
+        <result property="roomNumber" column="room_number"/>
+        <result property="departmentId" column="department_id"/>
     </resultMap>
     <select id="getById" parameterType="int" resultMap="RoomResultMap">
         SELECT *

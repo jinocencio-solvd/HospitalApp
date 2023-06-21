@@ -34,7 +34,7 @@ public class DbMapper {
         treatmentPropColMap.put("namespace", interfaceLoc + "ITreatmentDAO");
         treatmentPropColMap.put("table_name", "treatments");
         treatmentPropColMap.put("field_id", "id");
-        treatmentPropColMap.put("field_treatment_name", "treatment_name");
+        treatmentPropColMap.put("field_treatmentName", "treatment_name");
         return treatmentPropColMap;
     }
 
@@ -44,7 +44,7 @@ public class DbMapper {
         staffPropColMap.put("namespace", interfaceLoc + "IStaffDAO");
         staffPropColMap.put("table_name", "staff");
         staffPropColMap.put("field_id", "id");
-        staffPropColMap.put("field_person_id", "person_id");
+        staffPropColMap.put("field_personId", "person_id");
         return staffPropColMap;
     }
 
@@ -64,8 +64,8 @@ public class DbMapper {
         roomPropColMap.put("namespace", interfaceLoc + "IRoomDAO");
         roomPropColMap.put("table_name", "rooms");
         roomPropColMap.put("field_id", "id");
-        roomPropColMap.put("field_room_number", "room_number");
-        roomPropColMap.put("field_department_id", "department_id");
+        roomPropColMap.put("field_roomNumber", "room_number");
+        roomPropColMap.put("field_departmentId", "department_id");
         return roomPropColMap;
     }
 

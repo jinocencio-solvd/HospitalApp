@@ -26,6 +26,10 @@
         <result property="appointmentId" column="appointment_id"/>
         <result property="diagnosisId" column="diagnosis_id"/>
         <result property="treatmentId" column="treatment_id"/>
+        <association property="diagnosis" column="diagnosis_id" javaType="Diagnosis"
+            select="com.laba.interfaces.daos.IDiagnosisDAO.getById"/>
+        <association property="treatment" column="treatment_id" javaType="Treatment"
+          select="com.laba.interfaces.daos.ITreatmentDAO.getById"/>
     </resultMap>
     <select id="getById" parameterType="int" resultMap="MedicalRecordResultMap">
         SELECT *

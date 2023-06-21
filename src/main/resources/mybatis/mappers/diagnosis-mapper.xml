@@ -5,11 +5,11 @@
 
 <mapper namespace="com.laba.interfaces.daos.IDiagnosisDAO">
     <insert id="save" parameterType="com.laba.models.Diagnosis">
-        INSERT INTO diagnoses (id, diagnosis_code, description)
+        INSERT INTO diagnosis (id, diagnosis_code, description)
         VALUES (#{id}, #{diagnosisCode}, #{description})
     </insert>
     <update id="update" parameterType="com.laba.models.Diagnosis">
-        UPDATE diagnoses
+        UPDATE diagnosis
         SET id             = #{id},
             diagnosis_code = #{diagnosisCode},
             description    = #{description}
@@ -17,7 +17,7 @@
     </update>
     <delete id="deleteById" parameterType="int">
         DELETE
-        FROM diagnoses
+        FROM diagnosis
         WHERE id = #{id}
     </delete>
     <resultMap id="DiagnosisResultMap" type="Diagnosis" autoMapping="false">
@@ -27,11 +27,11 @@
     </resultMap>
     <select id="getById" parameterType="int" resultMap="DiagnosisResultMap">
         SELECT *
-        FROM diagnoses
+        FROM diagnosis
         WHERE id = #{id}
     </select>
     <select id="getAll" resultMap="DiagnosisResultMap">
         SELECT *
-        FROM diagnoses
+        FROM diagnosis
     </select>
 </mapper>

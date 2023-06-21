@@ -6,12 +6,12 @@
 <mapper namespace="com.laba.interfaces.daos.IStaffDAO">
     <insert id="save" parameterType="com.laba.models.Staff">
         INSERT INTO staff (id, person_id)
-        VALUES (#{id}, #{person_id})
+        VALUES (#{id}, #{personId})
     </insert>
     <update id="update" parameterType="com.laba.models.Staff">
         UPDATE staff
         SET id        = #{id},
-            person_id = #{person_id}
+            person_id = #{personId}
         WHERE id = #{id}
     </update>
     <delete id="deleteById" parameterType="int">
@@ -21,7 +21,7 @@
     </delete>
     <resultMap id="StaffResultMap" type="Staff" autoMapping="false">
         <result property="id" column="id"/>
-        <result property="person_id" column="person_id"/>
+        <result property="personId" column="person_id"/>
     </resultMap>
     <select id="getById" parameterType="int" resultMap="StaffResultMap">
         SELECT *
