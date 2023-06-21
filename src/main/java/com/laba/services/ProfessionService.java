@@ -4,8 +4,7 @@ import com.laba.enums.DaoType;
 import com.laba.interfaces.daos.IProfessionDAO;
 import com.laba.interfaces.services.IEntityService;
 import com.laba.dal.DAOFactory;
-import com.laba.dal.jdbc.ProfessionDAO;
-import com.laba.dal.mybatisDAOs.ProfessionMbDAO;
+import com.laba.dal.mybatisdaos.ProfessionDAO;
 import com.laba.models.Profession;
 import java.util.List;
 
@@ -17,10 +16,10 @@ public class ProfessionService implements IEntityService<Profession> {
         String model = "profession";
         switch (daoType) {
             case JDBC:
-                dao = (ProfessionDAO) DAOFactory.getJDBCDAO(model);
+                dao = (com.laba.dal.jdbcdaos.ProfessionDAO) DAOFactory.getJDBCDAO(model);
                 break;
             case MYBATIS:
-                dao = (ProfessionMbDAO) DAOFactory.getMyBatisDAO(model);
+                dao = (ProfessionDAO) DAOFactory.getMyBatisDAO(model);
                 break;
         }
     }

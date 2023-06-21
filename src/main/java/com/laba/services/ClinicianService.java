@@ -3,9 +3,8 @@ package com.laba.services;
 import com.laba.enums.DaoType;
 import com.laba.interfaces.daos.IClinicianDAO;
 import com.laba.interfaces.services.IEntityService;
-import com.laba.dal.jdbc.ClinicianDAO;
 import com.laba.dal.DAOFactory;
-import com.laba.dal.mybatisDAOs.ClinicianMbDAO;
+import com.laba.dal.mybatisdaos.ClinicianDAO;
 import com.laba.models.Clinician;
 import java.util.List;
 
@@ -17,10 +16,10 @@ public class ClinicianService implements IEntityService<Clinician> {
         String model = "clinician";
         switch (daoType) {
             case JDBC:
-                dao = (ClinicianDAO) DAOFactory.getJDBCDAO(model);
+                dao = (com.laba.dal.jdbcdaos.ClinicianDAO) DAOFactory.getJDBCDAO(model);
                 break;
             case MYBATIS:
-                dao = (ClinicianMbDAO) DAOFactory.getMyBatisDAO(model);
+                dao = (ClinicianDAO) DAOFactory.getMyBatisDAO(model);
                 break;
         }
     }

@@ -1,109 +1,76 @@
 package com.laba.dal;
 
-import com.laba.dal.mybatisDAOs.AppointmentMbDAO;
-import com.laba.dal.mybatisDAOs.ClinicianMbDAO;
-import com.laba.dal.mybatisDAOs.DepartmentMbDAO;
-import com.laba.dal.mybatisDAOs.DiagnosisMbDAO;
-import com.laba.dal.mybatisDAOs.EntityMbDAO;
-import com.laba.dal.mybatisDAOs.MedicalRecordMbDAO;
-import com.laba.dal.mybatisDAOs.MedicationMbDAO;
-import com.laba.dal.mybatisDAOs.MedicationTypeMbDAO;
-import com.laba.dal.mybatisDAOs.PatientMbDAO;
-import com.laba.dal.mybatisDAOs.PersonMbDAO;
-import com.laba.dal.mybatisDAOs.PrescriptionMbDAO;
-import com.laba.dal.mybatisDAOs.ProfessionMbDAO;
-import com.laba.dal.mybatisDAOs.RoomMbDAO;
-import com.laba.dal.mybatisDAOs.SpecializationMbDAO;
-import com.laba.dal.mybatisDAOs.StaffMbDAO;
-import com.laba.dal.mybatisDAOs.TreatmentMbDAO;
-import com.laba.dal.jdbc.AppointmentDAO;
-import com.laba.dal.jdbc.ClinicianDAO;
-import com.laba.dal.jdbc.DepartmentDAO;
-import com.laba.dal.jdbc.DiagnosisDAO;
-import com.laba.dal.jdbc.EntityDAO;
-import com.laba.dal.jdbc.MedicalRecordDAO;
-import com.laba.dal.jdbc.MedicationDAO;
-import com.laba.dal.jdbc.MedicationTypeDAO;
-import com.laba.dal.jdbc.PatientDAO;
-import com.laba.dal.jdbc.PersonDAO;
-import com.laba.dal.jdbc.PrescriptionDAO;
-import com.laba.dal.jdbc.ProfessionDAO;
-import com.laba.dal.jdbc.RoomDAO;
-import com.laba.dal.jdbc.SpecializationDAO;
-import com.laba.dal.jdbc.StaffDAO;
-import com.laba.dal.jdbc.TreatmentDAO;
-
 public class DAOFactory {
 
-    public static EntityDAO<?> getJDBCDAO(String type) {
+    public static com.laba.dal.jdbcdaos.EntityDAO<?> getJDBCDAO(String type) {
         switch (type) {
             case "appointment":
-                return new AppointmentDAO();
+                return new com.laba.dal.jdbcdaos.AppointmentDAO();
             case "clinician":
-                return new ClinicianDAO();
+                return new com.laba.dal.jdbcdaos.ClinicianDAO();
             case "department":
-                return new DepartmentDAO();
+                return new com.laba.dal.jdbcdaos.DepartmentDAO();
             case "diagnosis":
-                return new DiagnosisDAO();
+                return new com.laba.dal.jdbcdaos.DiagnosisDAO();
             case "medical record":
-                return new MedicalRecordDAO();
+                return new com.laba.dal.jdbcdaos.MedicalRecordDAO();
             case "medication type":
-                return new MedicationDAO();
+                return new com.laba.dal.jdbcdaos.MedicationDAO();
             case "medication":
-                return new MedicationTypeDAO();
+                return new com.laba.dal.jdbcdaos.MedicationTypeDAO();
             case "patient":
-                return new PatientDAO();
+                return new com.laba.dal.jdbcdaos.PatientDAO();
             case "person":
-                return new PersonDAO();
+                return new com.laba.dal.jdbcdaos.PersonDAO();
             case "prescription":
-                return new PrescriptionDAO();
+                return new com.laba.dal.jdbcdaos.PrescriptionDAO();
             case "profession":
-                return new ProfessionDAO();
+                return new com.laba.dal.jdbcdaos.ProfessionDAO();
             case "room":
-                return new RoomDAO();
+                return new com.laba.dal.jdbcdaos.RoomDAO();
             case "specialization":
-                return new SpecializationDAO();
+                return new com.laba.dal.jdbcdaos.SpecializationDAO();
             case "staff":
-                return new StaffDAO();
+                return new com.laba.dal.jdbcdaos.StaffDAO();
             case "treatment":
-                return new TreatmentDAO();
+                return new com.laba.dal.jdbcdaos.TreatmentDAO();
             default:
                 throw new IllegalArgumentException("Invalid model input");
         }
     }
 
-    public static EntityMbDAO<?> getMyBatisDAO(String type) {
+    public static com.laba.dal.mybatisdaos.EntityDAO<?> getMyBatisDAO(String type) {
         switch (type) {
             case "appointment":
-                return new AppointmentMbDAO();
+                return new com.laba.dal.mybatisdaos.AppointmentDAO();
             case "clinician":
-                return new ClinicianMbDAO();
+                return new com.laba.dal.mybatisdaos.ClinicianDAO();
             case "department":
-                return new DepartmentMbDAO();
+                return new com.laba.dal.mybatisdaos.DepartmentDAO();
             case "diagnosis":
-                return new DiagnosisMbDAO();
+                return new com.laba.dal.mybatisdaos.DiagnosisDAO();
             case "medical record":
-                return new MedicalRecordMbDAO();
+                return new com.laba.dal.mybatisdaos.MedicalRecordDAO();
             case "medication type":
-                return new MedicationMbDAO();
+                return new com.laba.dal.mybatisdaos.MedicationDAO();
             case "medication":
-                return new MedicationTypeMbDAO();
+                return new com.laba.dal.mybatisdaos.MedicationTypeDAO();
             case "patient":
-                return new PatientMbDAO();
+                return new com.laba.dal.mybatisdaos.PatientDAO();
             case "person":
-                return new PersonMbDAO();
+                return new com.laba.dal.mybatisdaos.PersonDAO();
             case "prescription":
-                return new PrescriptionMbDAO();
+                return new com.laba.dal.mybatisdaos.PrescriptionDAO();
             case "profession":
-                return new ProfessionMbDAO();
+                return new com.laba.dal.mybatisdaos.ProfessionDAO();
             case "room":
-                return new RoomMbDAO();
+                return new com.laba.dal.mybatisdaos.RoomDAO();
             case "specialization":
-                return new SpecializationMbDAO();
+                return new com.laba.dal.mybatisdaos.SpecializationDAO();
             case "staff":
-                return new StaffMbDAO();
+                return new com.laba.dal.mybatisdaos.StaffDAO();
             case "treatment":
-                return new TreatmentMbDAO();
+                return new com.laba.dal.mybatisdaos.TreatmentDAO();
             default:
                 throw new IllegalArgumentException("Invalid model input");
         }

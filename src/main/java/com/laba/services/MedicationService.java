@@ -4,8 +4,7 @@ import com.laba.enums.DaoType;
 import com.laba.interfaces.daos.IMedicationDAO;
 import com.laba.interfaces.services.IEntityService;
 import com.laba.dal.DAOFactory;
-import com.laba.dal.jdbc.MedicationDAO;
-import com.laba.dal.mybatisDAOs.MedicationMbDAO;
+import com.laba.dal.mybatisdaos.MedicationDAO;
 import com.laba.models.Medication;
 import java.util.List;
 
@@ -17,10 +16,10 @@ public class MedicationService implements IEntityService<Medication> {
         String model = "medication";
         switch (daoType) {
             case JDBC:
-                dao = (MedicationDAO) DAOFactory.getJDBCDAO(model);
+                dao = (com.laba.dal.jdbcdaos.MedicationDAO) DAOFactory.getJDBCDAO(model);
                 break;
             case MYBATIS:
-                dao = (MedicationMbDAO) DAOFactory.getMyBatisDAO(model);
+                dao = (MedicationDAO) DAOFactory.getMyBatisDAO(model);
                 break;
         }
     }

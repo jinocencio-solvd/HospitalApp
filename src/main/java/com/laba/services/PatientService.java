@@ -1,8 +1,7 @@
 package com.laba.services;
 
 import com.laba.dal.DAOFactory;
-import com.laba.dal.jdbc.PatientDAO;
-import com.laba.dal.mybatisDAOs.PatientMbDAO;
+import com.laba.dal.mybatisdaos.PatientDAO;
 import com.laba.enums.DaoType;
 import com.laba.interfaces.daos.IPatientDAO;
 import com.laba.interfaces.services.IEntityService;
@@ -17,10 +16,10 @@ public class PatientService implements IEntityService<Patient>, IPatientDAO {
         String model = "patient";
         switch (daoType) {
             case JDBC:
-                dao = (PatientDAO) DAOFactory.getJDBCDAO(model);
+                dao = (com.laba.dal.jdbcdaos.PatientDAO) DAOFactory.getJDBCDAO(model);
                 break;
             case MYBATIS:
-                dao = (PatientMbDAO) DAOFactory.getMyBatisDAO(model);
+                dao = (PatientDAO) DAOFactory.getMyBatisDAO(model);
                 break;
         }
     }

@@ -6,8 +6,7 @@ import com.laba.interfaces.daos.IMedicalRecordDAO;
 import com.laba.interfaces.services.IEntityService;
 import com.laba.interfaces.services.IMedicalRecordService;
 import com.laba.dal.DAOFactory;
-import com.laba.dal.jdbc.MedicalRecordDAO;
-import com.laba.dal.mybatisDAOs.MedicalRecordMbDAO;
+import com.laba.dal.mybatisdaos.MedicalRecordDAO;
 import com.laba.models.MedicalRecord;
 import com.laba.models.Patient;
 import com.laba.utils.json.JacksonUtil;
@@ -17,7 +16,7 @@ import java.util.List;
 public class MedicalRecordService implements IEntityService<MedicalRecord>, IMedicalRecordService, IMedicalRecordDAO {
 
     private static IMedicalRecordDAO dao;
-    public static MedicalRecordDAO medicalRecordDAO;
+    public static com.laba.dal.jdbcdaos.MedicalRecordDAO medicalRecordDAO;
     public static final String MEDICAL_RECORDS_DIR = "/patient_records/";
     public static final String FILENAME_PREFIX = "medical_record_patientId_";
 
@@ -25,10 +24,10 @@ public class MedicalRecordService implements IEntityService<MedicalRecord>, IMed
         String model = "medical record";
         switch (daoType) {
             case JDBC:
-                dao = (MedicalRecordDAO) DAOFactory.getJDBCDAO(model);
+                dao = (com.laba.dal.jdbcdaos.MedicalRecordDAO) DAOFactory.getJDBCDAO(model);
                 break;
             case MYBATIS:
-                dao = (MedicalRecordMbDAO) DAOFactory.getMyBatisDAO(model);
+                dao = (MedicalRecordDAO) DAOFactory.getMyBatisDAO(model);
                 break;
         }
     }

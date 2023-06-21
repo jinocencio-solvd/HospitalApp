@@ -17,7 +17,7 @@ public class MedicalRecordMyBatisTest {
 
     @BeforeClass
     public void before() {
-        AppUtils.populateDb();
+        AppUtils.populateDB();
     }
 
     @BeforeMethod

@@ -4,8 +4,7 @@ import com.laba.enums.DaoType;
 import com.laba.interfaces.daos.IPersonDAO;
 import com.laba.interfaces.services.IEntityService;
 import com.laba.dal.DAOFactory;
-import com.laba.dal.jdbc.PersonDAO;
-import com.laba.dal.mybatisDAOs.PersonMbDAO;
+import com.laba.dal.mybatisdaos.PersonDAO;
 import com.laba.models.Person;
 import java.sql.Date;
 import java.util.List;
@@ -18,10 +17,10 @@ public class PersonService implements IEntityService<Person> {
         String model = "person";
         switch (daoType) {
             case JDBC:
-                dao = (PersonDAO) DAOFactory.getJDBCDAO(model);
+                dao = (com.laba.dal.jdbcdaos.PersonDAO) DAOFactory.getJDBCDAO(model);
                 break;
             case MYBATIS:
-                dao = (PersonMbDAO) DAOFactory.getMyBatisDAO(model);
+                dao = (PersonDAO) DAOFactory.getMyBatisDAO(model);
                 break;
         }
     }

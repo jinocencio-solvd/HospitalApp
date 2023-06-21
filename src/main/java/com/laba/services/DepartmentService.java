@@ -4,8 +4,7 @@ import com.laba.enums.DaoType;
 import com.laba.interfaces.daos.IDepartmentDAO;
 import com.laba.interfaces.services.IEntityService;
 import com.laba.dal.DAOFactory;
-import com.laba.dal.jdbc.DepartmentDAO;
-import com.laba.dal.mybatisDAOs.DepartmentMbDAO;
+import com.laba.dal.mybatisdaos.DepartmentDAO;
 import com.laba.models.Department;
 import java.util.List;
 
@@ -17,10 +16,10 @@ public class DepartmentService implements IEntityService<Department> {
         String model = "department";
         switch (daoType) {
             case JDBC:
-                dao = (DepartmentDAO) DAOFactory.getJDBCDAO(model);
+                dao = (com.laba.dal.jdbcdaos.DepartmentDAO) DAOFactory.getJDBCDAO(model);
                 break;
             case MYBATIS:
-                dao = (DepartmentMbDAO) DAOFactory.getMyBatisDAO(model);
+                dao = (DepartmentDAO) DAOFactory.getMyBatisDAO(model);
                 break;
         }
     }

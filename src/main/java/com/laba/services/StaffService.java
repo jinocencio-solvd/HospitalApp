@@ -4,8 +4,7 @@ import com.laba.enums.DaoType;
 import com.laba.interfaces.daos.IStaffDAO;
 import com.laba.interfaces.services.IEntityService;
 import com.laba.dal.DAOFactory;
-import com.laba.dal.jdbc.StaffDAO;
-import com.laba.dal.mybatisDAOs.StaffMbDAO;
+import com.laba.dal.mybatisdaos.StaffDAO;
 import com.laba.models.Staff;
 import java.util.List;
 
@@ -17,10 +16,10 @@ public class StaffService implements IEntityService<Staff> {
         String model = "staff";
         switch (daoType) {
             case JDBC:
-                dao = (StaffDAO) DAOFactory.getJDBCDAO(model);
+                dao = (com.laba.dal.jdbcdaos.StaffDAO) DAOFactory.getJDBCDAO(model);
                 break;
             case MYBATIS:
-                dao = (StaffMbDAO) DAOFactory.getMyBatisDAO(model);
+                dao = (StaffDAO) DAOFactory.getMyBatisDAO(model);
                 break;
         }
     }

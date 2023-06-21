@@ -6,4 +6,5 @@ import java.util.List;
 public interface IAppointmentDAO extends IEntityDAO<Appointment> {
 
     List<Appointment> getAppointmentsByPatientId(int patientId);
+
 }

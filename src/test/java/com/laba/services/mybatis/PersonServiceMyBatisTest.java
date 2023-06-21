@@ -21,12 +21,12 @@ public class PersonServiceMyBatisTest {
 
     @BeforeClass
     public void before() {
-        AppUtils.initializeDb();
+        AppUtils.initializeDB();
     }
 
     @AfterClass
     public void after() {
-        AppUtils.populateDb();
+        AppUtils.populateDB();
     }
 
     @BeforeMethod

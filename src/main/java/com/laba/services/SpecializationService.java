@@ -4,8 +4,7 @@ import com.laba.enums.DaoType;
 import com.laba.interfaces.daos.ISpecializationDAO;
 import com.laba.interfaces.services.IEntityService;
 import com.laba.dal.DAOFactory;
-import com.laba.dal.jdbc.SpecializationDAO;
-import com.laba.dal.mybatisDAOs.SpecializationMbDAO;
+import com.laba.dal.mybatisdaos.SpecializationDAO;
 import com.laba.models.Specialization;
 import java.util.List;
 
@@ -17,10 +16,10 @@ public class SpecializationService implements IEntityService<Specialization> {
         String model = "specialization";
         switch (daoType) {
             case JDBC:
-                dao = (SpecializationDAO) DAOFactory.getJDBCDAO(model);
+                dao = (com.laba.dal.jdbcdaos.SpecializationDAO) DAOFactory.getJDBCDAO(model);
                 break;
             case MYBATIS:
-                dao = (SpecializationMbDAO) DAOFactory.getMyBatisDAO(model);
+                dao = (SpecializationDAO) DAOFactory.getMyBatisDAO(model);
                 break;
         }
     }

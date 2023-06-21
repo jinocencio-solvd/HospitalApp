@@ -13,7 +13,7 @@ public class AppUtils {
         return XMLParser.domParseToMap(new File(DB_XML_PATH));
     }
 
-    public static void initializeDb() {
+    public static void initializeDB() {
         if (AppConfig.ENVIRONMENT.equals("GH_WORKFLOW")) {
             SQLScriptExecutor.processSQLiteScript("create");
         }
@@ -22,7 +22,7 @@ public class AppUtils {
         }
     }
 
-    public static void populateDb(){
+    public static void populateDB(){
         if (AppConfig.ENVIRONMENT.equals("GH_WORKFLOW")) {
             SQLScriptExecutor.processSQLiteScript("create");
             SQLScriptExecutor.processSQLiteScript("insert");

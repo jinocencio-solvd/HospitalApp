@@ -3,9 +3,8 @@ package com.laba.services;
 import com.laba.enums.DaoType;
 import com.laba.interfaces.daos.IAppointmentDAO;
 import com.laba.interfaces.services.IEntityService;
-import com.laba.dal.jdbc.AppointmentDAO;
 import com.laba.dal.DAOFactory;
-import com.laba.dal.mybatisDAOs.AppointmentMbDAO;
+import com.laba.dal.mybatisdaos.AppointmentDAO;
 import com.laba.models.Appointment;
 import java.util.List;
 
@@ -17,10 +16,10 @@ public class AppointmentService implements IEntityService<Appointment>, IAppoint
         String model = "appointment";
         switch (daoType) {
             case JDBC:
-                dao = (AppointmentDAO) DAOFactory.getJDBCDAO(model);
+                dao = (com.laba.dal.jdbcdaos.AppointmentDAO) DAOFactory.getJDBCDAO(model);
                 break;
             case MYBATIS:
-                dao = (AppointmentMbDAO) DAOFactory.getMyBatisDAO(model);
+                dao = (AppointmentDAO) DAOFactory.getMyBatisDAO(model);
                 break;
         }
     }

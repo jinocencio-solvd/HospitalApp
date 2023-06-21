@@ -29,7 +29,7 @@ public class Main {
     }
 
     public static void myBatisDemo() {
-        AppUtils.populateDb();
+        AppUtils.populateDB();
 
         Runnable getPatientByPersonId = () -> {
             PatientService patientService = new PatientService(DaoType.MYBATIS);
