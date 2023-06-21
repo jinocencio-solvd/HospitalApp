@@ -4,6 +4,16 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.laba.interfaces.daos.IAppointmentDAO">
+    <resultMap id="AppointmentResultMap" type="Appointment" autoMapping="false">
+        <result property="id" column="id"/>
+        <result property="patientId" column="patient_id"/>
+        <result property="clinicianId" column="clinician_id"/>
+        <result property="roomId" column="room_id"/>
+        <result property="appointmentDate" column="appointment_date" javaType="java.sql.Date"
+          typeHandler="com.laba.utils.mybatis.SqliteDateTypeHandler"/>
+        <result property="appointmentTime" column="appointment_time" javaType="java.sql.Date"
+          typeHandler="com.laba.utils.mybatis.SqliteTimeTypeHandler"/>
+    </resultMap>
     <insert id="save" parameterType="com.laba.models.Appointment">
         INSERT INTO appointments (id, patient_id, clinician_id, room_id, appointment_date,
                                   appointment_time)
@@ -25,16 +35,6 @@
         FROM appointments
         WHERE id = #{id}
     </delete>
-    <resultMap id="AppointmentResultMap" type="Appointment" autoMapping="false">
-        <result property="id" column="id"/>
-        <result property="patientId" column="patient_id"/>
-        <result property="clinicianId" column="clinician_id"/>
-        <result property="roomId" column="room_id"/>
-        <result property="appointmentDate" column="appointment_date" javaType="java.sql.Date"
-          typeHandler="com.laba.utils.mybatis.SqliteDateTypeHandler"/>
-        <result property="appointmentTime" column="appointment_time" javaType="java.sql.Date"
-          typeHandler="com.laba.utils.mybatis.SqliteTimeTypeHandler"/>
-    </resultMap>
     <select id="getById" parameterType="int" resultMap="AppointmentResultMap">
         SELECT *
         FROM appointments

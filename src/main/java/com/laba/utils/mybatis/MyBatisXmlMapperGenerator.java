@@ -87,10 +87,10 @@ public class MyBatisXmlMapperGenerator {
         xsw.writeStartElement("mapper");
         xsw.writeAttribute("namespace", modelMap.get("namespace"));
 
+        generateResultMapElement(xsw, modelMap, fieldList, resultMap);
         generateInsertElement(xsw, modelMap, colFormattedList, valFormattedList);
         generateUpdateElement(xsw, modelMap, colFormattedList, valFormattedList);
         generateDeleteElement(xsw, modelMap);
-        generateResultMapElement(xsw, modelMap, fieldList, resultMap);
         generateSelectElement(xsw, modelMap, resultMap);
         generateSelectAllElement(xsw, modelMap, resultMap);
 

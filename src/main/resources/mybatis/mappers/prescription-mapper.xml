@@ -4,6 +4,14 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.laba.interfaces.daos.IPrescriptionDAO">
+    <resultMap id="PrescriptionResultMap" type="Prescription" autoMapping="false">
+        <result property="id" column="id"/>
+        <result property="treatmentId" column="treatment_id"/>
+        <result property="medicationId" column="medication_id"/>
+        <result property="dosage" column="dosage"/>
+        <result property="startDate" column="prescription_start_date"/>
+        <result property="expirationDate" column="prescription_expiration_date"/>
+    </resultMap>
     <insert id="save" parameterType="com.laba.models.Prescription">
         INSERT INTO prescriptions (id, treatment_id, medication_id, dosage, prescription_start_date,
                                    prescription_expiration_date)
@@ -24,14 +32,6 @@
         FROM prescriptions
         WHERE id = #{id}
     </delete>
-    <resultMap id="PrescriptionResultMap" type="Prescription" autoMapping="false">
-        <result property="id" column="id"/>
-        <result property="treatmentId" column="treatment_id"/>
-        <result property="medicationId" column="medication_id"/>
-        <result property="dosage" column="dosage"/>
-        <result property="startDate" column="prescription_start_date"/>
-        <result property="expirationDate" column="prescription_expiration_date"/>
-    </resultMap>
     <select id="getById" parameterType="int" resultMap="PrescriptionResultMap">
         SELECT *
         FROM prescriptions

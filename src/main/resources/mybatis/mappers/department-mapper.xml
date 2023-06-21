@@ -8,6 +8,10 @@
         INSERT INTO departments (id, department_name)
         VALUES (#{id}, #{departmentName})
     </insert>
+    <resultMap id="DepartmentResultMap" type="Department" autoMapping="false">
+        <result property="id" column="id"/>
+        <result property="departmentName" column="department_name"/>
+    </resultMap>
     <update id="update" parameterType="com.laba.models.Department">
         UPDATE departments
         SET id              = #{id},
@@ -19,10 +23,6 @@
         FROM departments
         WHERE id = #{id}
     </delete>
-    <resultMap id="DepartmentResultMap" type="Department" autoMapping="false">
-        <result property="id" column="id"/>
-        <result property="departmentName" column="department_name"/>
-    </resultMap>
     <select id="getById" parameterType="int" resultMap="DepartmentResultMap">
         SELECT *
         FROM departments

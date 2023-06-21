@@ -4,6 +4,10 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.laba.interfaces.daos.IMedicationTypeDAO">
+    <resultMap id="MedicationTypeResultMap" type="MedicationType" autoMapping="false">
+        <result property="id" column="id"/>
+        <result property="medicationType" column="medication_type"/>
+    </resultMap>
     <insert id="save" parameterType="com.laba.models.MedicationType">
         INSERT INTO medication_types (id, medication_type)
         VALUES (#{id}, #{medicationType})
@@ -19,10 +23,6 @@
         FROM medication_types
         WHERE id = #{id}
     </delete>
-    <resultMap id="MedicationTypeResultMap" type="MedicationType" autoMapping="false">
-        <result property="id" column="id"/>
-        <result property="medicationType" column="medication_type"/>
-    </resultMap>
     <select id="getById" parameterType="int" resultMap="MedicationTypeResultMap">
         SELECT *
         FROM medication_types

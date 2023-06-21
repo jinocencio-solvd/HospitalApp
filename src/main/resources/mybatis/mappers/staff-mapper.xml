@@ -4,6 +4,10 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.laba.interfaces.daos.IStaffDAO">
+    <resultMap id="StaffResultMap" type="Staff" autoMapping="false">
+        <result property="id" column="id"/>
+        <result property="personId" column="person_id"/>
+    </resultMap>
     <insert id="save" parameterType="com.laba.models.Staff">
         INSERT INTO staff (id, person_id)
         VALUES (#{id}, #{personId})
@@ -19,10 +23,6 @@
         FROM staff
         WHERE id = #{id}
     </delete>
-    <resultMap id="StaffResultMap" type="Staff" autoMapping="false">
-        <result property="id" column="id"/>
-        <result property="personId" column="person_id"/>
-    </resultMap>
     <select id="getById" parameterType="int" resultMap="StaffResultMap">
         SELECT *
         FROM staff

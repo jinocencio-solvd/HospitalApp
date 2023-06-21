@@ -4,6 +4,16 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.laba.interfaces.daos.IMedicalRecordDAO">
+    <resultMap id="MedicalRecordResultMap" type="MedicalRecord" autoMapping="false">
+        <result property="id" column="id"/>
+        <result property="appointmentId" column="appointment_id"/>
+        <result property="diagnosisId" column="diagnosis_id"/>
+        <result property="treatmentId" column="treatment_id"/>
+        <association property="diagnosis" column="diagnosis_id" javaType="Diagnosis"
+          select="com.laba.interfaces.daos.IDiagnosisDAO.getById"/>
+        <association property="treatment" column="treatment_id" javaType="Treatment"
+          select="com.laba.interfaces.daos.ITreatmentDAO.getById"/>
+    </resultMap>
     <insert id="save" parameterType="com.laba.models.MedicalRecord">
         INSERT INTO medical_records (id, appointment_id, diagnosis_id, treatment_id)
         VALUES (#{id}, #{appointmentId}, #{diagnosisId}, #{treatmentId})
@@ -21,16 +31,6 @@
         FROM medical_records
         WHERE id = #{id}
     </delete>
-    <resultMap id="MedicalRecordResultMap" type="MedicalRecord" autoMapping="false">
-        <result property="id" column="id"/>
-        <result property="appointmentId" column="appointment_id"/>
-        <result property="diagnosisId" column="diagnosis_id"/>
-        <result property="treatmentId" column="treatment_id"/>
-        <association property="diagnosis" column="diagnosis_id" javaType="Diagnosis"
-            select="com.laba.interfaces.daos.IDiagnosisDAO.getById"/>
-        <association property="treatment" column="treatment_id" javaType="Treatment"
-          select="com.laba.interfaces.daos.ITreatmentDAO.getById"/>
-    </resultMap>
     <select id="getById" parameterType="int" resultMap="MedicalRecordResultMap">
         SELECT *
         FROM medical_records

@@ -4,6 +4,16 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.laba.interfaces.daos.IPatientDAO">
+    <resultMap id="PatientResultMap" type="Patient" autoMapping="false">
+        <result property="id" column="id"/>
+        <result property="personId" column="person_id"/>
+        <association property="person" column="person_id" javaType="Person"
+          select="com.laba.interfaces.daos.IPersonDAO.getById"/>
+        <collection property="appointments" column="id" ofType="com.laba.models.Appointment"
+          select="com.laba.interfaces.daos.IAppointmentDAO.getAppointmentsByPatientId"/>
+        <collection property="medicalRecords" column="id" ofType="com.laba.models.MedicalRecord"
+          select="getMedicalRecordsByPatientId"/>
+    </resultMap>
     <insert id="save" parameterType="com.laba.models.Patient">
         INSERT INTO patients (id, person_id)
         VALUES (#{id}, #{personId})
@@ -19,16 +29,6 @@
         FROM patients
         WHERE id = #{id}
     </delete>
-    <resultMap id="PatientResultMap" type="Patient" autoMapping="false">
-        <result property="id" column="id"/>
-        <result property="personId" column="person_id"/>
-        <association property="person" column="person_id" javaType="Person"
-          select="com.laba.interfaces.daos.IPersonDAO.getById"/>
-        <collection property="appointments" column="id" ofType="com.laba.models.Appointment"
-          select="com.laba.interfaces.daos.IAppointmentDAO.getAppointmentsByPatientId"/>
-        <collection property="medicalRecords" column="id" ofType="com.laba.models.MedicalRecord"
-          select="getMedicalRecordsByPatientId"/>
-    </resultMap>
     <select id="getById" parameterType="int" resultMap="PatientResultMap">
         SELECT *
         FROM patients

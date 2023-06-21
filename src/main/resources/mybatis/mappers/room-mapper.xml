@@ -4,6 +4,11 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.laba.interfaces.daos.IRoomDAO">
+    <resultMap id="RoomResultMap" type="Room" autoMapping="false">
+        <result property="id" column="id"/>
+        <result property="roomNumber" column="room_number"/>
+        <result property="departmentId" column="department_id"/>
+    </resultMap>
     <insert id="save" parameterType="com.laba.models.Room">
         INSERT INTO rooms (id, room_number, department_id)
         VALUES (#{id}, #{roomNumber}, #{departmentId})
@@ -20,11 +25,6 @@
         FROM rooms
         WHERE id = #{id}
     </delete>
-    <resultMap id="RoomResultMap" type="Room" autoMapping="false">
-        <result property="id" column="id"/>
-        <result property="roomNumber" column="room_number"/>
-        <result property="departmentId" column="department_id"/>
-    </resultMap>
     <select id="getById" parameterType="int" resultMap="RoomResultMap">
         SELECT *
         FROM rooms
