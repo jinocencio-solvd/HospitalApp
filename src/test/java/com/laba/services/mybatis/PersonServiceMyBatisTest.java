@@ -80,11 +80,12 @@ public class PersonServiceMyBatisTest {
         personService.save(p1);
         personService.save(p2);
         personService.save(p3);
+        int sizeBeforeDelete =  personService.getAll().size();
         Person retrievedPerson1 = personService.getAll().get(0);
         Person retrievedPerson2 = personService.getAll().get(1);
         personService.deleteById(retrievedPerson1.getId());
         personService.deleteById(retrievedPerson2.getId());
-        assertEquals(1, personService.getAll().size());
+        assertEquals(personService.getAll().size(), sizeBeforeDelete - 2);
     }
 
     @Test
