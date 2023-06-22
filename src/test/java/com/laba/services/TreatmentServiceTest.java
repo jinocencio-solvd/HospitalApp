@@ -3,18 +3,15 @@ package com.laba.services;
 import static org.testng.Assert.assertEquals;
 
 import com.laba.enums.DaoType;
-import com.laba.models.Patient;
-import com.laba.models.Person;
 import com.laba.utils.AppUtils;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
 
-public class PatientServiceTest {
+public class TreatmentServiceTest {
 
-    private static PatientService patientService;
-    private static PersonService personService;
+    private final TreatmentService treatmentService;
 
     @BeforeClass
     public void before() {
@@ -22,9 +19,8 @@ public class PatientServiceTest {
     }
 
     @Factory(dataProvider = "dataProvider")
-    public PatientServiceTest(DaoType daoType) {
-        patientService = new PatientService(daoType);
-        personService = new PersonService(daoType);
+    public TreatmentServiceTest(DaoType daoType) {
+        treatmentService = new TreatmentService(daoType);
     }
 
     @DataProvider(name = "dataProvider")
@@ -36,10 +32,9 @@ public class PatientServiceTest {
     }
 
     @Test
-    public void testGetPatientByPersonId() {
-        Person person = personService.getById(1);
-        Patient patient = patientService.getPatientByPersonId(person.getId());
-        assertEquals(patient.getPersonId(), person.getId());
+    public void testGetTreatmentsByPatientId() {
+        int numTreatmentsOnPatient = treatmentService.getTreatmentsByPatientId(1).size();
+        assertEquals(numTreatmentsOnPatient, 7);
     }
 
 }

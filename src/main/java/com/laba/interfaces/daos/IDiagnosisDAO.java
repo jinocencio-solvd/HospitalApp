@@ -1,8 +1,10 @@
 package com.laba.interfaces.daos;
 
 import com.laba.models.Diagnosis;
+import java.util.List;
 
 public interface IDiagnosisDAO extends IEntityDAO<Diagnosis> {
 
-    // TODO
+    List<Diagnosis> getDiagnosisByDepartmentId(int departmentId);
+
 }

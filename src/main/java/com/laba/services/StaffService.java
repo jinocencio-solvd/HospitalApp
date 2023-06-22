@@ -3,6 +3,7 @@ package com.laba.services;
 import com.laba.enums.DaoType;
 import com.laba.interfaces.daos.IStaffDAO;
 import com.laba.models.Staff;
+import java.util.List;
 
 public class StaffService extends EntityService<Staff, IStaffDAO> implements
     IStaffDAO {
@@ -14,6 +15,11 @@ public class StaffService extends EntityService<Staff, IStaffDAO> implements
     @Override
     protected String getModelName() {
         return "staff";
+    }
+
+    @Override
+    public List<Staff> getStaffByDepartmentId(int departmentId) {
+        return dao.getStaffByDepartmentId(departmentId);
     }
 
 }

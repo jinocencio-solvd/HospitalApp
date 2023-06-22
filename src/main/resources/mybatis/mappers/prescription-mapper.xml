@@ -9,13 +9,14 @@
         <result property="treatmentId" column="treatment_id"/>
         <result property="medicationId" column="medication_id"/>
         <result property="dosage" column="dosage"/>
-        <result property="startDate" column="prescription_start_date"/>
-        <result property="expirationDate" column="prescription_expiration_date"/>
+        <result property="prescriptionStartDate" column="prescription_start_date"/>
+        <result property="prescriptionExpirationDate" column="prescription_expiration_date"/>
     </resultMap>
     <insert id="save" parameterType="com.laba.models.Prescription">
         INSERT INTO prescriptions (id, treatment_id, medication_id, dosage, prescription_start_date,
                                    prescription_expiration_date)
-        VALUES (#{id}, #{treatmentId}, #{medicationId}, #{dosage}, #{startDate}, #{expirationDate})
+        VALUES (#{id}, #{treatmentId}, #{medicationId}, #{dosage}, #{prescriptionStartDate},
+                #{prescriptionExpirationDate})
     </insert>
     <update id="update" parameterType="com.laba.models.Prescription">
         UPDATE prescriptions
@@ -23,8 +24,8 @@
             treatment_id                 = #{treatmentId},
             medication_id                = #{medicationId},
             dosage                       = #{dosage},
-            prescription_start_date      = #{startDate},
-            prescription_expiration_date = #{expirationDate}
+            prescription_start_date      = #{prescriptionStartDate},
+            prescription_expiration_date = #{prescriptionExpirationDate}
         WHERE id = #{id}
     </update>
     <delete id="deleteById" parameterType="int">
@@ -40,5 +41,13 @@
     <select id="getAll" resultMap="PrescriptionResultMap">
         SELECT *
         FROM prescriptions
+    </select>
+    <select id="getPrescriptionsByPatientId" resultMap="PrescriptionResultMap">
+        SELECT *
+        FROM prescriptions
+                 JOIN medical_records mr on prescriptions.treatment_id = mr.treatment_id
+                 JOIN appointments a on a.id = mr.appointment_id
+                 JOIN patients p on p.id = a.patient_id
+        WHERE p.id = #{patientId};
     </select>
 </mapper>

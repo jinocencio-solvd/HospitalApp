@@ -32,4 +32,13 @@
         SELECT *
         FROM professions
     </select>
+    <select id="getProfessionByDepartmentId" resultMap="ProfessionResultMap">
+        SELECT *
+        FROM professions
+                 JOIN clinicians c on professions.id = c.profession_id
+                 JOIN appointments a on c.id = a.clinician_id
+                 JOIN rooms r on r.id = a.room_id
+                 JOIN departments d on d.id = r.department_id
+        WHERE d.id = #{departmentId}
+    </select>
 </mapper>

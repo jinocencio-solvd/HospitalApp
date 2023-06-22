@@ -1,4 +1,3 @@
-
 INSERT INTO persons (id, first_name, last_name, dob)
 VALUES (1, 'Michael', 'Scott', '1970-03-15'),
        (2, 'Creed', 'Bratton', '1943-02-08'),
@@ -124,16 +123,36 @@ VALUES (1, 'ToUpdate'),
        (9, 'ToUpdate'),
        (10, 'ToUpdate');
 
-UPDATE treatments SET treatment_name = 'No Treatment' WHERE id = 1;
-UPDATE treatments SET treatment_name = 'Medication' WHERE id = 2;
-UPDATE treatments SET treatment_name = 'Surgery' WHERE id = 3;
-UPDATE treatments SET treatment_name = 'Lifestyle' WHERE id = 4;
-UPDATE treatments SET treatment_name = 'Chemotherapy' WHERE id = 5;
-UPDATE treatments SET treatment_name = 'Physical Therapy' WHERE id = 6;
-UPDATE treatments SET treatment_name = 'Speech Therapy' WHERE id = 7;
-UPDATE treatments SET treatment_name = 'Dietary' WHERE id = 8;
-UPDATE treatments SET treatment_name = 'Dialysis' WHERE id = 9;
-UPDATE treatments SET treatment_name = 'Rehabilitation' WHERE id = 10;
+UPDATE treatments
+SET treatment_name = 'No Treatment'
+WHERE id = 1;
+UPDATE treatments
+SET treatment_name = 'Medication'
+WHERE id = 2;
+UPDATE treatments
+SET treatment_name = 'Surgery'
+WHERE id = 3;
+UPDATE treatments
+SET treatment_name = 'Lifestyle'
+WHERE id = 4;
+UPDATE treatments
+SET treatment_name = 'Chemotherapy'
+WHERE id = 5;
+UPDATE treatments
+SET treatment_name = 'Physical Therapy'
+WHERE id = 6;
+UPDATE treatments
+SET treatment_name = 'Speech Therapy'
+WHERE id = 7;
+UPDATE treatments
+SET treatment_name = 'Dietary'
+WHERE id = 8;
+UPDATE treatments
+SET treatment_name = 'Dialysis'
+WHERE id = 9;
+UPDATE treatments
+SET treatment_name = 'Rehabilitation'
+WHERE id = 10;
 
 
 INSERT INTO medical_records (appointment_id, diagnosis_id, treatment_id)
@@ -146,9 +165,9 @@ VALUES (1, 1, 1),
        (4, 2, 2),
        (5, 1, 1),
        (6, 2, 2),
-       (7, 1, 1),
+       (7, 3, 3),
        (8, 2, 3),
-       (9, 1, 1),
+       (9, 2, 3),
        (10, 2, 3),
        (11, 1, 1),
        (12, 2, 3);

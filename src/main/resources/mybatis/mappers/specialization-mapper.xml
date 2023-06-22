@@ -32,4 +32,10 @@
         SELECT *
         FROM specializations
     </select>
+    <select id="getSpecializationByClinicianId" resultMap="SpecializationResultMap">
+        SELECT *
+        FROM specializations
+                 JOIN clinicians c on specializations.id = c.specialization_id
+        WHERE c.id = #{clinicianId}
+    </select>
 </mapper>

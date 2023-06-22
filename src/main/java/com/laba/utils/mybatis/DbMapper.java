@@ -89,8 +89,9 @@ public class DbMapper {
         prescriptionPropColMap.put("field_treatmentId", "treatment_id");
         prescriptionPropColMap.put("field_medicationId", "medication_id");
         prescriptionPropColMap.put("field_dosage", "dosage");
-        prescriptionPropColMap.put("field_startDate", "prescription_start_date");
-        prescriptionPropColMap.put("field_expirationDate", "prescription_expiration_date");
+        prescriptionPropColMap.put("field_prescriptionStartDate", "prescription_start_date");
+        prescriptionPropColMap.put("field_prescriptionExpirationDate",
+            "prescription_expiration_date");
         return prescriptionPropColMap;
     }
 
@@ -134,7 +135,7 @@ public class DbMapper {
         medicationPropColMap.put("table_name", "medications");
         medicationPropColMap.put("field_id", "id");
         medicationPropColMap.put("field_medicationName", "medication_name");
-        medicationPropColMap.put("field_medicationTypeId", "medication_types_id");
+        medicationPropColMap.put("field_medicationTypesId", "medication_types_id");
         return medicationPropColMap;
     }
 

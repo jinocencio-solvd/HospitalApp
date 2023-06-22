@@ -33,9 +33,9 @@ public class JdbcDAOFactory extends AbstractDAOFactory {
             case "medical record":
                 return new MedicalRecordDAO();
             case "medication type":
-                return new MedicationDAO();
-            case "medication":
                 return new MedicationTypeDAO();
+            case "medication":
+                return new MedicationDAO();
             case "patient":
                 return new PatientDAO();
             case "person":

@@ -34,4 +34,10 @@
         SELECT *
         FROM rooms
     </select>
+    <select id="getRoomsByDepartmentId" resultMap="RoomResultMap">
+        SELECT *
+        FROM rooms
+                 JOIN departments d ON d.id = rooms.department_id
+        WHERE d.id = #{departmentId}
+    </select>
 </mapper>

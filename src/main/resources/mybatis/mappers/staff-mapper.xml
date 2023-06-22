@@ -32,4 +32,13 @@
         SELECT *
         FROM staff
     </select>
+    <select id="getStaffByDepartmentId" resultMap="StaffResultMap">
+        SELECT *
+        FROM staff
+                 JOIN clinicians c on staff.id = c.staff_id
+                 JOIN appointments a on c.id = a.clinician_id
+                 JOIN rooms r on r.id = a.room_id
+                 JOIN departments d on d.id = r.department_id
+        WHERE d.id = #{departmendId};
+    </select>
 </mapper>

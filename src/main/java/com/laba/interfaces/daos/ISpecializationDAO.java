@@ -4,5 +4,6 @@ import com.laba.models.Specialization;
 
 public interface ISpecializationDAO extends IEntityDAO<Specialization> {
 
-    // TODO
+    Specialization getSpecializationByClinicianId(int clinicianId);
+
 }

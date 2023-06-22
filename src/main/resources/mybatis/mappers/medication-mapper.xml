@@ -7,17 +7,17 @@
     <resultMap id="MedicationResultMap" type="Medication" autoMapping="false">
         <result property="id" column="id"/>
         <result property="medicationName" column="medication_name"/>
-        <result property="medicationTypeId" column="medication_types_id"/>
+        <result property="medicationTypesId" column="medication_types_id"/>
     </resultMap>
     <insert id="save" parameterType="com.laba.models.Medication">
         INSERT INTO medications (id, medication_name, medication_types_id)
-        VALUES (#{id}, #{medicationName}, #{medicationTypeId})
+        VALUES (#{id}, #{medicationName}, #{medicationTypesId})
     </insert>
     <update id="update" parameterType="com.laba.models.Medication">
         UPDATE medications
         SET id                  = #{id},
             medication_name     = #{medicationName},
-            medication_types_id = #{medicationTypeId}
+            medication_types_id = #{medicationTypesId}
         WHERE id = #{id}
     </update>
     <delete id="deleteById" parameterType="int">
@@ -33,5 +33,15 @@
     <select id="getAll" resultMap="MedicationResultMap">
         SELECT *
         FROM medications
+    </select>
+    <select id="getMedicationsByPatientId" resultMap="MedicationResultMap">
+        SELECT DISTINCT m.*
+        FROM medications m
+                 JOIN prescriptions p ON m.id = p.medication_id
+                 JOIN treatments t ON p.treatment_id = t.id
+                 JOIN medical_records mr ON t.id = mr.treatment_id
+                 JOIN appointments a ON mr.appointment_id = a.id
+                 JOIN patients pt ON a.patient_id = pt.id
+        WHERE pt.id = #{patientId}
     </select>
 </mapper>

@@ -8,6 +8,7 @@ import com.laba.models.Person;
 import com.laba.utils.AppUtils;
 import java.sql.Date;
 import java.util.List;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
@@ -21,6 +22,11 @@ public class PersonServiceTest {
     @BeforeClass
     public void before() {
         AppUtils.initializeDB();
+    }
+
+    @AfterClass
+    public void after() {
+        AppUtils.populateDB();
     }
 
     @Factory(dataProvider = "dataProvider")
@@ -105,10 +111,11 @@ public class PersonServiceTest {
 
     @Test
     public void testGetByFirstLastNameAndDob() {
-        AppUtils.populateDB();
+        Person p1 = new Person("p1First", "p1Last", Date.valueOf("2001-01-01"));
+        personService.save(p1);
         Person person = personService.getById(1);
-        Person retPerson = personService.getByFirstLastNameAndDob(person.getFirstName(),
-            person.getLastName(), person.getDob());
+        Person retPerson = personService.getByFirstLastNameAndDob(p1.getFirstName(),
+            p1.getLastName(), p1.getDob());
         assertEquals(person, retPerson);
     }
 

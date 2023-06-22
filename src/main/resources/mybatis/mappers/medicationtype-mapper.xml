@@ -32,4 +32,14 @@
         SELECT *
         FROM medication_types
     </select>
+    <select id="getMedicationTypesByClinicianId" resultMap="MedicationTypeResultMap">
+        SELECT *
+        FROM medication_types
+                 JOIN medications m on medication_types.id = m.medication_types_id
+                 JOIN prescriptions p on m.id = p.medication_id
+                 JOIN medical_records mr on p.treatment_id = mr.treatment_id
+                 JOIN appointments a on a.id = mr.appointment_id
+                 JOIN clinicians c on c.id = a.clinician_id
+        WHERE c.id = #{clinicianId}
+    </select>
 </mapper>

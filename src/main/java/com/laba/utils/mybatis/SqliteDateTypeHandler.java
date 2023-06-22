@@ -7,6 +7,8 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.List;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.logging.log4j.LogManager;
@@ -16,6 +18,8 @@ public class SqliteDateTypeHandler extends BaseTypeHandler<Date> {
 
     private static final Logger LOG = LogManager.getLogger(SqliteDateTypeHandler.class);
     private static DatabaseType dbType;
+    private static final List<String> dateTypeColumnNames = Arrays.asList("dob", "appointment_date",
+        "prescription_start_date", "prescription_expiration_date");
 
     static {
         if (AppConfig.ENVIRONMENT.equals("DEVELOPMENT")) {
@@ -51,11 +55,11 @@ public class SqliteDateTypeHandler extends BaseTypeHandler<Date> {
     @Override
     public Date getNullableResult(ResultSet resultSet, String s) throws SQLException {
         String dateStr = "";
-        if (hasColumn(resultSet, "dob")) {
-            dateStr = resultSet.getString("dob");
-        }
-        if (hasColumn(resultSet, "appointment_date")) {
-            dateStr = resultSet.getString("appointment_date");
+        for (String dateTypeColumnName : dateTypeColumnNames) {
+            if (hasColumn(resultSet, dateTypeColumnName)) {
+                dateStr = resultSet.getString(dateTypeColumnName);
+                break;
+            }
         }
         return Date.valueOf((dateStr));
     }
@@ -71,4 +75,5 @@ public class SqliteDateTypeHandler extends BaseTypeHandler<Date> {
         System.out.println(3);
         return callableStatement.getDate(i);
     }
+
 }

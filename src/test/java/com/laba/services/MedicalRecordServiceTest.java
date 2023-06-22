@@ -5,9 +5,7 @@ import static org.testng.Assert.assertEquals;
 import com.laba.enums.DaoType;
 import com.laba.models.MedicalRecord;
 import com.laba.models.Patient;
-import com.laba.utils.AppUtils;
 import java.util.List;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
@@ -15,11 +13,6 @@ import org.testng.annotations.Test;
 public class MedicalRecordServiceTest {
 
     private static MedicalRecordService medicalRecordService;
-
-    @BeforeClass
-    public void before() {
-        AppUtils.populateDB();
-    }
 
     @Factory(dataProvider = "dataProvider")
     public MedicalRecordServiceTest(DaoType daoType) {

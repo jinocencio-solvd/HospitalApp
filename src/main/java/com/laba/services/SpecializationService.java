@@ -17,4 +17,9 @@ public class SpecializationService extends
         return "specialization";
     }
 
+    @Override
+    public Specialization getSpecializationByClinicianId(int clinicianId) {
+        return dao.getSpecializationByClinicianId(clinicianId);
+    }
+
 }
