@@ -1,6 +1,9 @@
 package com.laba.services;
 
-import com.laba.dal.DAOFactory;
+import static com.laba.enums.DaoType.JDBC;
+import static com.laba.enums.DaoType.MYBATIS;
+
+import com.laba.dal.daofactories.DAOFactoryGenerator;
 import com.laba.enums.DaoType;
 import com.laba.interfaces.daos.IEntityDAO;
 import com.laba.interfaces.services.IEntityService;
@@ -16,10 +19,10 @@ public abstract class EntityService<T, D extends IEntityDAO<T>> implements IEnti
         String model = getModelName();
         switch (daoType) {
             case JDBC:
-                dao = (D) DAOFactory.getJDBCDAO(model);
+                dao = (D) DAOFactoryGenerator.getFactory(JDBC).getDAO(model);
                 break;
             case MYBATIS:
-                dao = (D) DAOFactory.getMyBatisDAO(model);
+                dao = (D) DAOFactoryGenerator.getFactory(MYBATIS).getDAO(model);
                 break;
         }
     }
