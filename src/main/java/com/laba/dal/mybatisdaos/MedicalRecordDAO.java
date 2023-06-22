@@ -9,14 +9,13 @@ public class MedicalRecordDAO extends EntityDAO<MedicalRecord> implements IMedic
 
     @Override
     public List<MedicalRecord> getMedicalRecordsByAppointmentId(int appointmentId) {
-        return session.selectList(getNamespace() + ".getMedicalRecordsByAppointmentId",
-            appointmentId);
+        return session.getMapper(IMedicalRecordDAO.class)
+            .getMedicalRecordsByAppointmentId(appointmentId);
     }
 
     @Override
     public List<MedicalRecord> getMedicalRecordsForPatient(Patient p) {
-        // TODO
-        return null;
+        return session.getMapper(IMedicalRecordDAO.class).getMedicalRecordsForPatient(p);
     }
 
 }

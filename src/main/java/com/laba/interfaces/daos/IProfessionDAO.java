@@ -5,4 +5,5 @@ import com.laba.models.Profession;
 
 public interface IProfessionDAO extends IEntityDAO<Profession> {
 
+    // TODO
 }

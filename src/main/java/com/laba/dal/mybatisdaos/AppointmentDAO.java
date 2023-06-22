@@ -8,6 +8,6 @@ public class AppointmentDAO extends EntityDAO<Appointment> implements IAppointme
 
     @Override
     public List<Appointment> getAppointmentsByPatientId(int patientId) {
-        return session.selectList(getNamespace() + ".getAppointmentsByPatientId", patientId);
+        return session.getMapper(IAppointmentDAO.class).getAppointmentsByPatientId(patientId);
     }
 }

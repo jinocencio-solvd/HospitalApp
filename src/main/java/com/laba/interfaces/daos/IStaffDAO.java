@@ -4,4 +4,5 @@ import com.laba.models.Staff;
 
 public interface IStaffDAO extends IEntityDAO<Staff> {
 
+    // TODO
 }

@@ -36,4 +36,11 @@
         SELECT *
         FROM clinicians
     </select>
+    <select id="getCliniciansByDepartmentId" resultMap="ClinicianResultMap">
+        SELECT * FROM clinicians
+                          JOIN appointments a on clinicians.id = a.clinician_id
+                          JOIN rooms r on r.id = a.room_id
+                          JOIN departments d on d.id = r.department_id
+        WHERE d.id = #{departmentId}
+    </select>
 </mapper>

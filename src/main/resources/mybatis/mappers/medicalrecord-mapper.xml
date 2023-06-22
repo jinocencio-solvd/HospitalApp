@@ -46,4 +46,12 @@
         FROM medical_records
         WHERE appointment_id = #{appointmentId}
     </select>
+    <select id="getMedicalRecordsForPatient" parameterType="com.laba.models.Person"
+        resultMap="MedicalRecordResultMap">
+        SELECT *
+        FROM  medical_records
+        JOIN appointments a on a.id = medical_records.appointment_id
+        JOIN patients p on p.id = a.patient_id
+         WHERE p.id = ${id}
+    </select>
 </mapper>

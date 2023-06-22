@@ -13,7 +13,8 @@ public class AppointmentDAO extends EntityDAO<Appointment> implements IAppointme
 
     @Override
     public List<Appointment> getAppointmentsByPatientId(int patientId) {
-        // TODO: impl JDBC meethod
-        return null;
+        String query = "SELECT * FROM " + getTableName() + " WHERE patient_id = " + patientId;
+        return retrieveEntities(query);
     }
+
 }

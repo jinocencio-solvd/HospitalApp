@@ -37,7 +37,7 @@ public abstract class EntityDAO<T> implements IEntityDAO<T> {
         }
     }
 
-    private void rollbackConnection(Connection connection) {
+    protected void rollbackConnection(Connection connection) {
         try {
             connection.rollback();
         } catch (SQLException e) {
@@ -45,10 +45,8 @@ public abstract class EntityDAO<T> implements IEntityDAO<T> {
         }
     }
 
-    @Override
-    public List<T> getAll() {
+    protected List<T> retrieveEntities(String query) {
         List<T> entityList = new ArrayList<>();
-        String query = "SELECT * FROM " + getTableName();
 
         Connection connection = connectionPool.getConnection();
         try (PreparedStatement ps = connection.prepareStatement(query)) {
@@ -65,7 +63,29 @@ public abstract class EntityDAO<T> implements IEntityDAO<T> {
         return entityList;
     }
 
-    private T getEntity(ResultSet rs) throws SQLException {
+    protected T retrieveEntity(String query, T entity) {
+        Connection connection = connectionPool.getConnection();
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                entity = getEntity(rs);
+            }
+        } catch (SQLException e) {
+            rollbackConnection(connection);
+            e.printStackTrace();
+        } finally {
+            connectionPool.releaseConnection(connection);
+        }
+        return entity;
+    }
+
+    @Override
+    public List<T> getAll() {
+        String query = "SELECT * FROM " + getTableName();
+        return retrieveEntities(query);
+    }
+
+    protected T getEntity(ResultSet rs) throws SQLException {
         Map<String, String> columnMap = new HashMap<>();
 
         ResultSetMetaData metaData = rs.getMetaData();

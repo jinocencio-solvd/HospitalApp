@@ -4,4 +4,5 @@ import com.laba.models.Diagnosis;
 
 public interface IDiagnosisDAO extends IEntityDAO<Diagnosis> {
 
+    // TODO
 }
