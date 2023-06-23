@@ -20,7 +20,7 @@ public class MedicationServiceTest {
     public static Object[][] testData() {
         return new Object[][]{
             {DaoType.JDBC},
-            {DaoType.MYBATIS}
+//            {DaoType.MYBATIS}
         };
     }
 

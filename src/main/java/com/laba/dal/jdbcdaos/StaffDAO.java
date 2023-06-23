@@ -12,6 +12,13 @@ public class StaffDAO extends EntityDAO<Staff> implements IStaffDAO {
     }
 
     @Override
+    public Staff getStaffByPersonId(int personId) {
+        Staff staff = new Staff();
+        String query = "SELECT * FROM " + getTableName() + " WHERE person_id = " + personId;
+        return retrieveEntity(query, staff) ;
+    }
+
+    @Override
     public List<Staff> getStaffByDepartmentId(int departmentId) {
         String query = "SELECT *\n"
             + "FROM staff\n"

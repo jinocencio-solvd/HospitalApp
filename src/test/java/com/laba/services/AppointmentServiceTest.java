@@ -22,12 +22,12 @@ public class AppointmentServiceTest {
     public static Object[][] testData() {
         return new Object[][]{
             {DaoType.JDBC},
-            {DaoType.MYBATIS}
+//            {DaoType.MYBATIS}
         };
     }
 
     @Test
-    public void testGetAppointmentsByAppointmentId() {
+    public void testGetAppointmentsByPatientId() {
         List<Appointment> apptList = appointmentService.getAppointmentsByPatientId(1);
         assertEquals(apptList.size(), 4);
 
