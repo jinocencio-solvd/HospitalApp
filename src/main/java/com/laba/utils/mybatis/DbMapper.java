@@ -18,7 +18,7 @@ public class DbMapper {
 //        propColMap.put("medical_record", populateMedicalRecordMap());
 //        propColMap.put("medication", populateMedicationMap());
 //        propColMap.put("medication_type", populateMedicationTypeMap());
-//        propColMap.put("patient", populatePatientMap());
+        propColMap.put("patient", populatePatientMap());
 //        propColMap.put("prescription", populatePrescriptionMap());
 //        propColMap.put("profession", populateProfessionMap());
 //        propColMap.put("room", populateRoomMap());

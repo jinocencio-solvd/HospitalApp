@@ -42,12 +42,12 @@
         FROM patients
         WHERE person_id = #{personId}
     </select>
-    <select id="getMedicalRecordsByPatientId" parameterType="int"
-      resultMap="com.laba.interfaces.daos.IMedicalRecordDAO.MedicalRecordResultMap">
-        SELECT mr.*
-        FROM medical_records mr
-                 JOIN appointments a on a.id = mr.appointment_id
-                 JOIN patients p on p.id = a.patient_id
-        WHERE p.id = #{id}
-    </select>
+<!--    <select id="getMedicalRecordsByPatientId" parameterType="int"-->
+<!--      resultMap="com.laba.interfaces.daos.IMedicalRecordDAO.MedicalRecordResultMap">-->
+<!--        SELECT mr.*-->
+<!--        FROM medical_records mr-->
+<!--                 JOIN appointments a on a.id = mr.appointment_id-->
+<!--                 JOIN patients p on p.id = a.patient_id-->
+<!--        WHERE p.id = #{id}-->
+<!--    </select>-->
 </mapper>

@@ -6,9 +6,8 @@
 <mapper namespace="com.laba.interfaces.daos.IMedicalRecordDAO">
     <resultMap id="MedicalRecordResultMap" type="MedicalRecord" autoMapping="false">
         <result property="id" column="id"/>
-        <result property="appointmentId" column="appointment_id"/>
-        <result property="diagnosisId" column="diagnosis_id"/>
-        <result property="treatmentId" column="treatment_id"/>
+        <association property="appointment" column="appointment_id" javaType="Appointment"
+          select="com.laba.interfaces.daos.IAppointmentDAO.getById"/>
         <association property="diagnosis" column="diagnosis_id" javaType="Diagnosis"
           select="com.laba.interfaces.daos.IDiagnosisDAO.getById"/>
         <association property="treatment" column="treatment_id" javaType="Treatment"
@@ -16,14 +15,14 @@
     </resultMap>
     <insert id="save" parameterType="com.laba.models.MedicalRecord">
         INSERT INTO medical_records (id, appointment_id, diagnosis_id, treatment_id)
-        VALUES (#{id}, #{appointmentId}, #{diagnosisId}, #{treatmentId})
+        VALUES (#{id}, #{appointment.id}, #{diagnosis.id}, #{treatment.id})
     </insert>
     <update id="update" parameterType="com.laba.models.MedicalRecord">
         UPDATE medical_records
         SET id             = #{id},
-            appointment_id = #{appointmentId},
-            diagnosis_id   = #{diagnosisId},
-            treatment_id   = #{treatmentId}
+            appointment_id = #{appointment.id},
+            diagnosis_id   = #{diagnosis.id},
+            treatment_id   = #{treatment.id}
         WHERE id = #{id}
     </update>
     <delete id="deleteById" parameterType="int">
@@ -40,11 +39,11 @@
         SELECT *
         FROM medical_records
     </select>
-    <select id="getMedicalRecordsByAppointmentId" parameterType="int"
+    <select id="getMedicalRecordsByAppointment" parameterType="int"
       resultMap="MedicalRecordResultMap">
         SELECT *
         FROM medical_records
-        WHERE appointment_id = #{appointmentId}
+        WHERE appointment_id = #{appointment.id}
     </select>
     <select id="getMedicalRecordsForPatient" parameterType="com.laba.models.Person"
         resultMap="MedicalRecordResultMap">

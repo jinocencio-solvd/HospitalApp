@@ -5,7 +5,6 @@
 <configuration>
     <properties resource="sqliteconfig.properties"/>
     <typeAliases>
-        <typeAlias alias="Person" type="com.laba.models.Person"/>
         <typeAlias alias="Appointment" type="com.laba.models.Appointment"/>
         <typeAlias alias="Clinician" type="com.laba.models.Clinician"/>
         <typeAlias alias="Department" type="com.laba.models.Department"/>
@@ -13,6 +12,7 @@
         <typeAlias alias="MedicalRecord" type="com.laba.models.MedicalRecord"/>
         <typeAlias alias="Medication" type="com.laba.models.Medication"/>
         <typeAlias alias="MedicationType" type="com.laba.models.MedicationType"/>
+        <typeAlias alias="Person" type="com.laba.models.Person"/>
         <typeAlias alias="Patient" type="com.laba.models.Patient"/>
         <typeAlias alias="Prescription" type="com.laba.models.Prescription"/>
         <typeAlias alias="Profession" type="com.laba.models.Profession"/>
@@ -23,6 +23,7 @@
     </typeAliases>
     <typeHandlers>
         <typeHandler handler="com.laba.utils.mybatis.SqliteDateTypeHandler"/>
+        <typeHandler handler="com.laba.utils.mybatis.SqliteTimeTypeHandler"/>
     </typeHandlers>
     <environments default="development">
         <environment id="development">

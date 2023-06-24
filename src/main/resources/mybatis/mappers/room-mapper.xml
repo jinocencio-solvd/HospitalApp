@@ -7,17 +7,18 @@
     <resultMap id="RoomResultMap" type="Room" autoMapping="false">
         <result property="id" column="id"/>
         <result property="roomNumber" column="room_number"/>
-        <result property="departmentId" column="department_id"/>
+        <association property="department" column="department_id" javaType="Department"
+          select="com.laba.interfaces.daos.IDepartmentDAO.getById"/>
     </resultMap>
     <insert id="save" parameterType="com.laba.models.Room">
         INSERT INTO rooms (id, room_number, department_id)
-        VALUES (#{id}, #{roomNumber}, #{departmentId})
+        VALUES (#{id}, #{roomNumber}, #{department.id})
     </insert>
     <update id="update" parameterType="com.laba.models.Room">
         UPDATE rooms
         SET id            = #{id},
             room_number   = #{roomNumber},
-            department_id = #{departmentId}
+            department_id = #{department.id}
         WHERE id = #{id}
     </update>
     <delete id="deleteById" parameterType="int">
@@ -38,6 +39,6 @@
         SELECT *
         FROM rooms
                  JOIN departments d ON d.id = rooms.department_id
-        WHERE d.id = #{departmentId}
+        WHERE d.id = #{department.id}
     </select>
 </mapper>

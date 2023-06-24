@@ -6,23 +6,25 @@
 <mapper namespace="com.laba.interfaces.daos.IPrescriptionDAO">
     <resultMap id="PrescriptionResultMap" type="Prescription" autoMapping="false">
         <result property="id" column="id"/>
-        <result property="treatmentId" column="treatment_id"/>
-        <result property="medicationId" column="medication_id"/>
         <result property="dosage" column="dosage"/>
         <result property="prescriptionStartDate" column="prescription_start_date"/>
         <result property="prescriptionExpirationDate" column="prescription_expiration_date"/>
+        <association property="treatment" column="treatment_id" javaType="Treatment"
+            select="com.laba.interfaces.daos.ITreatmentDAO.getById"/>
+        <association property="medication" column="medication_id" javaType="Medication"
+          select="com.laba.interfaces.daos.IMedicationDAO.getById"/>
     </resultMap>
     <insert id="save" parameterType="com.laba.models.Prescription">
         INSERT INTO prescriptions (id, treatment_id, medication_id, dosage, prescription_start_date,
                                    prescription_expiration_date)
-        VALUES (#{id}, #{treatmentId}, #{medicationId}, #{dosage}, #{prescriptionStartDate},
+        VALUES (#{id}, #{treatment.id}, #{medication.id}, #{dosage}, #{prescriptionStartDate},
                 #{prescriptionExpirationDate})
     </insert>
     <update id="update" parameterType="com.laba.models.Prescription">
         UPDATE prescriptions
         SET id                           = #{id},
-            treatment_id                 = #{treatmentId},
-            medication_id                = #{medicationId},
+            treatment_id                 = #{treatment.id},
+            medication_id                = #{medication.id},
             dosage                       = #{dosage},
             prescription_start_date      = #{prescriptionStartDate},
             prescription_expiration_date = #{prescriptionExpirationDate}
