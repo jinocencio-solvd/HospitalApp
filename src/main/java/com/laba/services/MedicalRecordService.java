@@ -33,14 +33,14 @@ public class MedicalRecordService extends EntityService<MedicalRecord, IMedicalR
     public List<MedicalRecord> getMedicalRecordsForPatient(Patient p) {
         return dao.getMedicalRecordsForPatient(p);
     }
-// TODO:
-//    public void getXmlPatientMedicalRecords(Patient p) {
-//        List<MedicalRecord> patientMedicalRecords = getMedicalRecordsForPatient(p);
-//        p.setMedicalRecords(patientMedicalRecords);
-//        String filepath =
-//            MEDICAL_RECORDS_DIR + FILENAME_PREFIX + p.getId() + FileType.XML.getExtension();
-//        JAXBUtil.marshallOneXmlOut(p, filepath);
-//    }
+
+    public void getXmlPatientMedicalRecords(Patient p) {
+        List<MedicalRecord> patientMedicalRecords = getMedicalRecordsForPatient(p);
+        p.setMedicalRecords(patientMedicalRecords);
+        String filepath =
+            MEDICAL_RECORDS_DIR + FILENAME_PREFIX + p.getId() + FileType.XML.getExtension();
+        JAXBUtil.marshallOneXmlOut(p, filepath);
+    }
 
     public void getJsonPatientMedicalRecordsFromXml(Patient p, String filepath) {
         Patient patient = (Patient) JAXBUtil.unmarshallOne(p.getClass(), filepath);

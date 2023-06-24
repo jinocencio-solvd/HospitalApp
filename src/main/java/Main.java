@@ -125,7 +125,7 @@ public class Main {
         MedicalRecordService medicalRecordService = new MedicalRecordService(DaoType.JDBC);
 
         Runnable dbToXmlOut = () -> {
-            medicalRecordService.getMedicalRecordsForPatient(patient);
+            medicalRecordService.getXmlPatientMedicalRecords(patient);
             // --> out to export/xml/patient_records/medical_record_patientId_1.xml
         };
 

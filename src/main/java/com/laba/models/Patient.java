@@ -1,10 +1,12 @@
 package com.laba.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "patient")
@@ -14,6 +16,11 @@ public class Patient {
     @JsonProperty("id")
     @XmlAttribute(name = "id")
     private Integer id;
+
+    @JsonProperty("medical_records")
+    @XmlElementWrapper(name = "medical_records")
+    @XmlElement(name = "medical_record", type = MedicalRecord.class)
+    private List<MedicalRecord> medicalRecords;
 
     @JsonProperty("person")
     @XmlElement(name = "person", type = Person.class)
@@ -37,6 +44,14 @@ public class Patient {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public List<MedicalRecord> getMedicalRecords() {
+        return medicalRecords;
+    }
+
+    public void setMedicalRecords(List<MedicalRecord> medicalRecords) {
+        this.medicalRecords = medicalRecords;
     }
 
     @Override
