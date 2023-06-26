@@ -17,11 +17,6 @@ public class Patient {
     @XmlAttribute(name = "id")
     private Integer id;
 
-    @JsonProperty("medical_records")
-    @XmlElementWrapper(name = "medical_records")
-    @XmlElement(name = "medical_record", type = MedicalRecord.class)
-    private List<MedicalRecord> medicalRecords;
-
     @JsonProperty("person")
     @XmlElement(name = "person", type = Person.class)
     private Person person;
@@ -44,14 +39,6 @@ public class Patient {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public List<MedicalRecord> getMedicalRecords() {
-        return medicalRecords;
-    }
-
-    public void setMedicalRecords(List<MedicalRecord> medicalRecords) {
-        this.medicalRecords = medicalRecords;
     }
 
     @Override

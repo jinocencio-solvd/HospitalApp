@@ -25,7 +25,11 @@ public class Main {
     private static final Logger LOG = LogManager.getLogger(Main.class);
 
     public static void main(String[] args) {
-        myBatisDemo();
+        DaoType daoType = DaoType.MYBATIS;
+        PatientService patientService = new PatientService(daoType);
+        Patient patient = patientService.getPatientByPersonId(1);
+
+
     }
 
     public static void myBatisDemo() {
@@ -135,7 +139,7 @@ public class Main {
             // --> out to export/patient_medical_record_patientId_1.json
         };
 
-        dbToXmlOut.run();
+//        dbToXmlOut.run();
         xmlSerializeToJson.run();
     }
 

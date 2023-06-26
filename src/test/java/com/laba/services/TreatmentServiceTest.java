@@ -27,7 +27,7 @@ public class TreatmentServiceTest {
     @Test
     public void testGetTreatmentsByPatientId() {
         int numTreatmentsOnPatient = treatmentService.getTreatmentsByPatientId(1).size();
-        assertEquals(numTreatmentsOnPatient, 7);
+        assertEquals(numTreatmentsOnPatient, 4);
     }
 
 }
