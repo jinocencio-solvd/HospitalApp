@@ -16,8 +16,8 @@ public abstract class EntityController<T, D extends EntityView<T>> implements IE
     }
 
     @Override
-    public void generateSystemOutView() {
-        view.systemOutView(model.toString());
+    public void generateLogOutView() {
+        view.logOutView(model.toString());
     }
 
     @Override

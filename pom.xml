@@ -20,6 +20,10 @@
                             <value>2</value>
                         </property>
                     </properties>
+                    <excludes>
+                        <exclude>com/laba/view/*</exclude>
+                        <exclude>com/laba/controllers/*</exclude>
+                    </excludes>
                 </configuration>
             </plugin>
         </plugins>

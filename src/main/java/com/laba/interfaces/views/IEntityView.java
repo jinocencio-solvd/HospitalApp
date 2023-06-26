@@ -2,7 +2,7 @@ package com.laba.interfaces.views;
 
 public interface IEntityView<T> {
 
-    void systemOutView(String data);
+    void logOutView(String data);
 
     void jsonApiView(String data);
 
