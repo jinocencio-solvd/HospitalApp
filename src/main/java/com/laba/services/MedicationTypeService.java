@@ -1,37 +1,26 @@
 package com.laba.services;
 
-import com.laba.interfaces.IEntityService;
-import com.laba.jdbc.DAOFactory;
-import com.laba.jdbc.MedicationTypeDAO;
+import com.laba.enums.DaoType;
+import com.laba.interfaces.daos.IMedicationTypeDAO;
 import com.laba.models.MedicationType;
 import java.util.List;
 
-public class MedicationTypeService implements IEntityService<MedicationType> {
+public class MedicationTypeService extends
+    EntityService<MedicationType, IMedicationTypeDAO> implements
+    IMedicationTypeDAO {
 
-    private final MedicationTypeDAO medicationTypeDAO = DAOFactory.getJDBCDAO("medication type");
-
-    @Override
-    public List<MedicationType> getAll() {
-        return medicationTypeDAO.getAll();
+    public MedicationTypeService(DaoType daoType) {
+        super(daoType);
     }
 
     @Override
-    public MedicationType getById(int id) {
-        return medicationTypeDAO.getById(id);
+    protected String getModelName() {
+        return "medication type";
     }
 
     @Override
-    public void deleteById(int id) {
-        medicationTypeDAO.deleteById(id);
+    public List<MedicationType> getMedicationTypesByClinicianId(int clinicianId) {
+        return dao.getMedicationTypesByClinicianId(clinicianId);
     }
 
-    @Override
-    public void save(MedicationType entity) {
-        medicationTypeDAO.save(entity);
-    }
-
-    @Override
-    public void update(MedicationType entity) {
-        medicationTypeDAO.update(entity);
-    }
 }

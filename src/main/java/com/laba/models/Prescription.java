@@ -17,16 +17,17 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Prescription {
 
+    @JsonProperty("id")
     @XmlAttribute(name = "id")
-    private int prescriptionId;
+    private int id;
 
-    @JsonProperty("treatment_id")
-    @XmlElement(name = "treatment_id")
-    private int treatmentId;
+    @JsonProperty("treatment")
+    @XmlElement(name = "treatment", type = Treatment.class)
+    private Treatment treatment;
 
-    @JsonProperty("medication_id")
-    @XmlElement(name = "medication_id")
-    private int medicationId;
+    @JsonProperty("medication")
+    @XmlElement(name = "medication", type = Medication.class)
+    private Medication medication;
 
     @JsonProperty("dosage")
     @XmlElement(name = "dosage")
@@ -34,67 +35,66 @@ public class Prescription {
 
     @JsonProperty("prescription_start_date")
     @XmlElement(name = "prescription_start_date")
-
     @JsonSerialize(using = DateAdapterJSON.class)
     @XmlJavaTypeAdapter(DateAdapter.class)
-    private Date startDate;
+    private Date prescriptionStartDate;
 
     @JsonProperty("prescription_expiration_date")
     @XmlElement(name = "prescription_expiration_date")
     @JsonSerialize(using = DateAdapterJSON.class)
     @XmlJavaTypeAdapter(DateAdapter.class)
-    private Date expirationDate;
+    private Date prescriptionExpirationDate;
 
     public Prescription() {
         // Default Constructor
     }
 
-
-    public Prescription(int prescriptionId, int treatmentId, int medicationId, String dosage,
-        Date startDate, Date expirationDate) {
-        this.prescriptionId = prescriptionId;
-        this.treatmentId = treatmentId;
-        this.medicationId = medicationId;
-        this.dosage = dosage;
-        this.startDate = startDate;
-        this.expirationDate = expirationDate;
+    public int getId() {
+        return id;
     }
 
-    public Prescription(int treatmentId, int medicationId, String dosage, Date startDate,
-        Date expirationDate) {
-        this.treatmentId = treatmentId;
-        this.medicationId = medicationId;
-        this.dosage = dosage;
-        this.startDate = startDate;
-        this.expirationDate = expirationDate;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public int getPrescriptionId() {
-        return prescriptionId;
+    public Treatment getTreatment() {
+        return treatment;
     }
 
-    public void setPrescriptionId(int prescriptionId) {
-        this.prescriptionId = prescriptionId;
+    public void setTreatment(Treatment treatment) {
+        this.treatment = treatment;
     }
 
-    public int getTreatmentId() {
-        return treatmentId;
+    public Medication getMedication() {
+        return medication;
     }
 
-    public void setTreatmentId(int treatmentId) {
-        this.treatmentId = treatmentId;
-    }
-
-    public int getMedicationId() {
-        return medicationId;
-    }
-
-    public void setMedicationId(int medicationId) {
-        this.medicationId = medicationId;
+    public void setMedication(Medication medication) {
+        this.medication = medication;
     }
 
     public String getDosage() {
         return dosage;
+    }
+
+    public void setDosage(String dosage) {
+        this.dosage = dosage;
+    }
+
+    public Date getPrescriptionStartDate() {
+        return prescriptionStartDate;
+    }
+
+    public void setPrescriptionStartDate(Date prescriptionStartDate) {
+        this.prescriptionStartDate = prescriptionStartDate;
+    }
+
+    public Date getPrescriptionExpirationDate() {
+        return prescriptionExpirationDate;
+    }
+
+    public void setPrescriptionExpirationDate(Date prescriptionExpirationDate) {
+        this.prescriptionExpirationDate = prescriptionExpirationDate;
     }
 
     @Override
@@ -106,50 +106,29 @@ public class Prescription {
             return false;
         }
         Prescription that = (Prescription) o;
-        return getPrescriptionId() == that.getPrescriptionId()
-            && getTreatmentId() == that.getTreatmentId()
-            && getMedicationId() == that.getMedicationId()
-            && Objects.equals(getDosage(), that.getDosage()) && Objects.equals(
-            getStartDate(), that.getStartDate()) && Objects.equals(getExpirationDate(),
-            that.getExpirationDate());
+        return getId() == that.getId()
+            && Objects.equals(getTreatment(), that.getTreatment())
+            && Objects.equals(getMedication(), that.getMedication())
+            && Objects.equals(getDosage(), that.getDosage())
+            && Objects.equals(getPrescriptionStartDate(), that.getPrescriptionStartDate())
+            && Objects.equals(getPrescriptionExpirationDate(), that.getPrescriptionExpirationDate());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getPrescriptionId(), getTreatmentId(), getMedicationId(), getDosage(),
-            getStartDate(), getExpirationDate());
-    }
-
-    public void setDosage(String dosage) {
-        this.dosage = dosage;
-    }
-
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Date getExpirationDate() {
-        return expirationDate;
-    }
-
-    public void setExpirationDate(Date expirationDate) {
-        this.expirationDate = expirationDate;
+        return Objects.hash(getId(), getTreatment(), getMedication(), getDosage(),
+            getPrescriptionStartDate(), getPrescriptionExpirationDate());
     }
 
     @Override
     public String toString() {
         return "Prescription{" +
-            "prescriptionId=" + prescriptionId +
-            ", treatmentId=" + treatmentId +
-            ", medicationId=" + medicationId +
+            "id=" + id +
+            ", treatment=" + treatment +
+            ", medication=" + medication +
             ", dosage='" + dosage + '\'' +
-            ", startDate=" + startDate +
-            ", expirationDate=" + expirationDate +
+            ", prescriptionStartDate=" + prescriptionStartDate +
+            ", prescriptionExpirationDate=" + prescriptionExpirationDate +
             '}';
     }
 }
-

@@ -1,37 +1,25 @@
 package com.laba.services;
 
-import com.laba.interfaces.IEntityService;
-import com.laba.jdbc.DAOFactory;
-import com.laba.jdbc.PrescriptionDAO;
+import com.laba.enums.DaoType;
+import com.laba.interfaces.daos.IPrescriptionDAO;
 import com.laba.models.Prescription;
 import java.util.List;
 
-public class PrescriptionService implements IEntityService<Prescription> {
+public class PrescriptionService extends EntityService<Prescription, IPrescriptionDAO> implements
+    IPrescriptionDAO {
 
-    private final PrescriptionDAO prescriptionDAO = DAOFactory.getJDBCDAO("prescription");
-
-    @Override
-    public List<Prescription> getAll() {
-        return prescriptionDAO.getAll();
+    public PrescriptionService(DaoType daoType) {
+        super(daoType);
     }
 
     @Override
-    public Prescription getById(int id) {
-        return prescriptionDAO.getById(id);
+    protected String getModelName() {
+        return "prescription";
     }
 
     @Override
-    public void deleteById(int id) {
-        prescriptionDAO.deleteById(id);
+    public List<Prescription> getPrescriptionsByPatientId(int patientId) {
+        return dao.getPrescriptionsByPatientId(patientId);
     }
 
-    @Override
-    public void save(Prescription entity) {
-        prescriptionDAO.save(entity);
-    }
-
-    @Override
-    public void update(Prescription entity) {
-        prescriptionDAO.update(entity);
-    }
 }

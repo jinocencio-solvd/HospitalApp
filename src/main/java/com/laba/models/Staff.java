@@ -16,21 +16,12 @@ public class Staff {
     @XmlAttribute(name = "id")
     private int id;
 
-    @JsonProperty("person_id")
-    @XmlElement(name = "person_id")
-    private int personId;
+    @JsonProperty("person")
+    @XmlElement(name = "person", type = Person.class)
+    private Person person;
 
     public Staff() {
         // Default Constructor
-    }
-
-    public Staff(int id, int personId) {
-        this.id = id;
-        this.personId = personId;
-    }
-
-    public Staff(int personId) {
-        this.personId = personId;
     }
 
     public int getId() {
@@ -41,12 +32,12 @@ public class Staff {
         this.id = id;
     }
 
-    public int getPersonId() {
-        return personId;
+    public Person getPerson() {
+        return person;
     }
 
-    public void setPersonId(int personId) {
-        this.personId = personId;
+    public void setPerson(Person person) {
+        this.person = person;
     }
 
     @Override
@@ -58,19 +49,20 @@ public class Staff {
             return false;
         }
         Staff staff = (Staff) o;
-        return getId() == staff.getId() && getPersonId() == staff.getPersonId();
+        return getId() == staff.getId() && Objects.equals(person, staff.person);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getPersonId());
+        return Objects.hash(getId(), person);
     }
 
     @Override
     public String toString() {
         return "Staff{" +
             "id=" + id +
-            ", personId=" + personId +
+            ", person=" + person +
             '}';
     }
+
 }

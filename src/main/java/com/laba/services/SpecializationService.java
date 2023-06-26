@@ -1,37 +1,25 @@
 package com.laba.services;
 
-import com.laba.interfaces.IEntityService;
-import com.laba.jdbc.DAOFactory;
-import com.laba.jdbc.SpecializationDAO;
+import com.laba.enums.DaoType;
+import com.laba.interfaces.daos.ISpecializationDAO;
 import com.laba.models.Specialization;
-import java.util.List;
 
-public class SpecializationService implements IEntityService<Specialization> {
+public class SpecializationService extends
+    EntityService<Specialization, ISpecializationDAO> implements
+    ISpecializationDAO {
 
-    private final SpecializationDAO specializationDAO = DAOFactory.getJDBCDAO("specialization");
-
-    @Override
-    public List<Specialization> getAll() {
-        return specializationDAO.getAll();
+    public SpecializationService(DaoType daoType) {
+        super(daoType);
     }
 
     @Override
-    public Specialization getById(int id) {
-        return specializationDAO.getById(id);
+    protected String getModelName() {
+        return "specialization";
     }
 
     @Override
-    public void deleteById(int id) {
-        specializationDAO.deleteById(id);
+    public Specialization getSpecializationByClinicianId(int clinicianId) {
+        return dao.getSpecializationByClinicianId(clinicianId);
     }
 
-    @Override
-    public void save(Specialization entity) {
-        specializationDAO.save(entity);
-    }
-
-    @Override
-    public void update(Specialization entity) {
-        specializationDAO.update(entity);
-    }
 }

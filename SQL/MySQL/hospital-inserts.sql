@@ -1,6 +1,5 @@
 USE hospital;
 
--- Insert data into table persons
 INSERT INTO persons (id, first_name, last_name, dob)
 VALUES (1, 'Michael', 'Scott', '1970-03-15'),
        (2, 'Creed', 'Bratton', '1943-02-08'),
@@ -22,7 +21,6 @@ VALUES (1, 'Michael', 'Scott', '1970-03-15'),
        (18, 'Chandler', 'Bing', '1967-04-08'),
        (19, 'Ross', 'Geller', '1966-10-18');
 
--- Insert data into table patients
 INSERT INTO patients (person_id)
 VALUES (1),
        (2),
@@ -37,7 +35,6 @@ VALUES (1),
        (11),
        (12);
 
--- Insert data into table staff
 INSERT INTO staff (person_id)
 VALUES (13),
        (14),
@@ -47,21 +44,18 @@ VALUES (13),
        (18),
        (19);
 
--- Insert data into table specializations
 INSERT INTO specializations (specialization)
 VALUES ('Cardiology'),
        ('Orthopedics'),
        ('General Medicine'),
        ('Infectious Diseases');
 
--- Insert data into table professions
 INSERT INTO professions (profession)
 VALUES ('Physician'),
        ('Nurse'),
        ('Therapist'),
        ('Administration');
 
--- Insert data into table clinicians
 INSERT INTO clinicians (staff_id, specialization_id, profession_id)
 VALUES (1, 1, 1),
        (2, 2, 1),
@@ -71,13 +65,11 @@ VALUES (1, 1, 1),
        (6, 2, 2),
        (7, 3, 3);
 
--- Insert data into table departments
 INSERT INTO departments (department_name)
 VALUES ('Cardiology'),
        ('Orthopedics'),
        ('Outpatient');
 
--- Insert data into table rooms
 INSERT INTO rooms (room_number, department_id)
 VALUES ('101', 1),
        ('102', 1),
@@ -89,7 +81,6 @@ VALUES ('101', 1),
        ('302', 3),
        ('303', 3);
 
--- Insert data into table appointments
 INSERT INTO appointments (patient_id, clinician_id, room_id, appointment_date, appointment_time)
 VALUES (1, 1, 1, '2023-06-01', '09:00:00'),
        (1, 1, 3, '2023-06-03', '09:00:00'),
@@ -107,37 +98,23 @@ VALUES (1, 1, 1, '2023-06-01', '09:00:00'),
        (11, 4, 2, '2023-06-11', '10:00:00'),
        (12, 5, 3, '2023-06-12', '12:30:00');
 
--- Insert data into table diagnosis
 INSERT INTO diagnosis (diagnosis_code, description)
 VALUES ('D001', 'Non-Diagnosable'),
        ('D001', 'Hypertension'),
        ('D002', 'Fractured leg');
 
--- Insert data into table treatments
 INSERT INTO treatments (id, treatment_name)
-VALUES (1, 'ToUpdate'),
-       (2, 'ToUpdate'),
-       (3, 'ToUpdate'),
-       (4, 'ToUpdate'),
-       (5, 'ToUpdate'),
-       (6, 'ToUpdate'),
-       (7, 'ToUpdate'),
-       (8, 'ToUpdate'),
-       (9, 'ToUpdate'),
-       (10, 'ToUpdate');
+VALUES (1, 'No Treatment'),
+       (2, 'Medication'),
+       (3, 'Surgery'),
+       (4, 'Lifestyle'),
+       (5, 'Chemotherapy'),
+       (6, 'Physical Therapy'),
+       (7, 'Speech Therapy'),
+       (8, 'Dietary'),
+       (9, 'Dialysis'),
+       (10, 'Rehabilitation');
 
-UPDATE treatments SET treatment_name = 'No Treatment'  WHERE id = 1;
-UPDATE treatments SET treatment_name = 'Medication' WHERE id = 2;
-UPDATE treatments SET treatment_name = 'Surgery' WHERE id = 3;
-UPDATE treatments SET treatment_name = 'Lifestyle' WHERE id = 4;
-UPDATE treatments SET treatment_name = 'Chemotherapy' WHERE id = 5;
-UPDATE treatments SET treatment_name = 'Physical Therapy' WHERE id = 6;
-UPDATE treatments SET treatment_name = 'Speech Therapy' WHERE id = 7;
-UPDATE treatments SET treatment_name = 'Dietary' WHERE id = 8;
-UPDATE treatments SET treatment_name = 'Dialysis' WHERE id = 9;
-UPDATE treatments SET treatment_name = 'Rehabilitation' WHERE id = 10;
-
--- Insert data into table medical_records
 INSERT INTO medical_records (appointment_id, diagnosis_id, treatment_id)
 VALUES (1, 1, 1),
        (1, 1, 1),
@@ -155,60 +132,19 @@ VALUES (1, 1, 1),
        (11, 1, 1),
        (12, 2, 3);
 
--- Insert data into table medication_types
 INSERT INTO medication_types (medication_type)
 VALUES ('NSAIDs'),
        ('Antibiotics'),
        ('Analgesics'),
        ('Vaccines');
 
--- Insert data into table medications
 INSERT INTO medications (medication_name, medication_types_id)
 VALUES ('Aspirin', 1),
        ('Ibuprofen', 1),
        ('Amoxicillin', 2),
        ('Influenza Vaccine', 4);
 
--- Insert data into table prescriptions
 INSERT INTO prescriptions (treatment_id, medication_id, dosage, prescription_start_date,
                            prescription_expiration_date)
 VALUES (1, 1, '1 tablet daily', '2023-06-01', '2023-06-30'),
        (1, 2, '2 tablets twice a day', '2023-06-01', '2023-06-30');
-
-INSERT INTO prescriptions (id,treatment_id, medication_id, dosage, prescription_start_date,
-                           prescription_expiration_date)
-VALUES (3,1, 1, '1 tablet daily', '2023-06-01', '2023-06-30'),
-       (4,1, 2, '2 tablets twice a day', '2023-06-01', '2023-06-30'),
-       (5,1, 2, '2 tablets twice a day', '2023-06-01', '2023-06-30'),
-       (6,1, 2, '2 tablets twice a day', '2023-06-01', '2023-06-30'),
-       (7,1, 2, '2 tablets twice a day', '2023-06-01', '2023-06-30'),
-       (8,1, 2, '2 tablets twice a day', '2023-06-01', '2023-06-30'),
-       (9,1, 2, '2 tablets twice a day', '2023-06-01', '2023-06-30'),
-       (10,1, 2, '2 tablets twice a day', '2023-06-01', '2023-06-30'),
-       (11,1, 2, '2 tablets twice a day', '2023-06-01', '2023-06-30'),
-       (12,1, 2, '2 tablets twice a day', '2023-06-01', '2023-06-30'),
-       (13,1, 2, '2 tablets twice a day', '2023-06-01', '2023-06-30')
-;
-
-DELETE FROM prescriptions WHERE id = 3;
-DELETE FROM prescriptions WHERE id = 4;
-DELETE FROM prescriptions WHERE id = 5;
-DELETE FROM prescriptions WHERE id = 6;
-DELETE FROM prescriptions WHERE id = 7;
-DELETE FROM prescriptions WHERE id = 8;
-DELETE FROM prescriptions WHERE id = 9;
-DELETE FROM prescriptions WHERE id = 10;
-DELETE FROM prescriptions WHERE id = 11;
-DELETE FROM prescriptions WHERE id = 12;
-DELETE FROM prescriptions WHERE id = 13;
-
-ALTER TABLE prescriptions ADD COLUMN toDelete1 VARCHAR(100);
-ALTER TABLE prescriptions ADD COLUMN toDelete2 VARCHAR(100);
-ALTER TABLE prescriptions ADD COLUMN toDelete3 VARCHAR(100);
-ALTER TABLE prescriptions ADD COLUMN toDelete4 VARCHAR(100);
-ALTER TABLE prescriptions ADD COLUMN toDelete5 VARCHAR(100);
-ALTER TABLE prescriptions DROP COLUMN toDelete1;
-ALTER TABLE prescriptions DROP COLUMN toDelete2;
-ALTER TABLE prescriptions DROP COLUMN toDelete3;
-ALTER TABLE prescriptions DROP COLUMN toDelete4;
-ALTER TABLE prescriptions DROP COLUMN toDelete5;

@@ -15,44 +15,35 @@ public class Patient {
 
     @JsonProperty("id")
     @XmlAttribute(name = "id")
-    private int id;
-
-    @JsonProperty("person_id")
-    @XmlElement(name = "person_id")
-    private int personId;
+    private Integer id;
 
     @JsonProperty("medical_records")
     @XmlElementWrapper(name = "medical_records")
     @XmlElement(name = "medical_record", type = MedicalRecord.class)
     private List<MedicalRecord> medicalRecords;
 
+    @JsonProperty("person")
+    @XmlElement(name = "person", type = Person.class)
+    private Person person;
+
     public Patient() {
         // Default Constructor
     }
 
-    public Patient(int id, int personId) {
-        this.id = id;
-        this.personId = personId;
+    public Person getPerson() {
+        return person;
     }
 
-    public Patient(int personId) {
-        this.personId = personId;
+    public void setPerson(Person person) {
+        this.person = person;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
-    }
-
-    public int getPersonId() {
-        return personId;
-    }
-
-    public void setPersonId(int personId) {
-        this.personId = personId;
     }
 
     public List<MedicalRecord> getMedicalRecords() {
@@ -62,4 +53,13 @@ public class Patient {
     public void setMedicalRecords(List<MedicalRecord> medicalRecords) {
         this.medicalRecords = medicalRecords;
     }
+
+    @Override
+    public String toString() {
+        return "Patient{" +
+            "id=" + id +
+            ", person=" + person +
+            '}';
+    }
+
 }

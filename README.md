@@ -22,6 +22,25 @@ employing automatic testing, we can catch issues early in the development proces
 our code is always working as expected. This helps to maintain the quality of the code and make sure
 that the project is stable and reliable.
 
+## Iter-5
+
+### Task
+
+Requirements
+
+- Add MyBatis DAOs to the existing hierarchy with the same requirements. Choose any XML or interface
+  mapping.
+    - MyBatis DAOs are located in `com/laba/dal/mybatisDAOs` and include all daos for the hierarchy.
+    - XML mapping was used are located at `src/main/resources/mybatis/mappers`.
+        - Mappers were generated using XML writer `MyBatisXmlMapperGenerator.java` and `DBMapper`
+          both found in the directory `utils/mybatis/`.
+- Switch service classes to MyBatis.
+    - The service layer classes were modified to accept a DaoType enum parameter, allowing them to
+      utilize either `DaoType.JDBC` or `DaoType.MYBATIS`. This enhancement enables the switching between
+      different DAO implementations and each DAO implementation is associated with its respective DAO
+      interface through type declarations.
+        - DAOs for MyBatis are located in the directory `com/laba/dal/mybatisDAOs`.
+
 ## Iter-4
 
 ### Task

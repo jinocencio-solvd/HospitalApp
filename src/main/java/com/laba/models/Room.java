@@ -19,23 +19,23 @@ public class Room {
     @XmlElement(name = "room_number")
     private String roomNumber;
 
-    @JsonProperty("department_id")
-    @XmlElement(name = "department_id")
-    private int departmentId;
+    @JsonProperty("department")
+    @XmlElement(name = "department")
+    private Department department;
 
     public Room() {
         // Default Constructor
     }
 
-    public Room(int id, String roomNumber, int departmentId) {
+    public Room(int id, String roomNumber, Department department) {
         this.id = id;
         this.roomNumber = roomNumber;
-        this.departmentId = departmentId;
+        this.department = department;
     }
 
-    public Room(String roomNumber, int departmentId) {
+    public Room(String roomNumber, Department department) {
         this.roomNumber = roomNumber;
-        this.departmentId = departmentId;
+        this.department = department;
     }
 
     public int getId() {
@@ -54,12 +54,12 @@ public class Room {
         this.roomNumber = roomNumber;
     }
 
-    public int getDepartmentId() {
-        return departmentId;
+    public Department getDepartment() {
+        return department;
     }
 
-    public void setDepartmentId(int departmentId) {
-        this.departmentId = departmentId;
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 
     @Override
@@ -71,13 +71,13 @@ public class Room {
             return false;
         }
         Room room = (Room) o;
-        return getId() == room.getId() && getDepartmentId() == room.getDepartmentId()
-            && Objects.equals(getRoomNumber(), room.getRoomNumber());
+        return getId() == room.getId() && Objects.equals(getRoomNumber(), room.getRoomNumber())
+            && Objects.equals(getDepartment(), room.getDepartment());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getRoomNumber(), getDepartmentId());
+        return Objects.hash(getId(), getRoomNumber(), getDepartment());
     }
 
     @Override
@@ -85,7 +85,7 @@ public class Room {
         return "Room{" +
             "id=" + id +
             ", roomNumber='" + roomNumber + '\'' +
-            ", departmentId=" + departmentId +
+            ", department=" + department +
             '}';
     }
 }

@@ -1,3 +1,4 @@
 /.idea
 /target
 /db/hospital.db
+/export/mybatis-mappers

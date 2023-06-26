@@ -1,37 +1,25 @@
 package com.laba.services;
 
-import com.laba.interfaces.IEntityService;
-import com.laba.jdbc.AppointmentDAO;
-import com.laba.jdbc.DAOFactory;
+import com.laba.enums.DaoType;
+import com.laba.interfaces.daos.IAppointmentDAO;
 import com.laba.models.Appointment;
 import java.util.List;
 
-public class AppointmentService implements IEntityService<Appointment> {
+public class AppointmentService extends EntityService<Appointment, IAppointmentDAO> implements
+    IAppointmentDAO {
 
-    private final AppointmentDAO appointmentDAO = DAOFactory.getJDBCDAO("appointment");
-
-    @Override
-    public List<Appointment> getAll() {
-        return appointmentDAO.getAll();
+    public AppointmentService(DaoType daoType) {
+        super(daoType);
     }
 
     @Override
-    public Appointment getById(int id) {
-        return appointmentDAO.getById(id);
+    protected String getModelName() {
+        return "appointment";
     }
 
     @Override
-    public void deleteById(int id) {
-        appointmentDAO.deleteById(id);
+    public List<Appointment> getAppointmentsByPatientId(int patientId) {
+        return dao.getAppointmentsByPatientId(patientId);
     }
 
-    @Override
-    public void save(Appointment entity) {
-        appointmentDAO.save(entity);
-    }
-
-    @Override
-    public void update(Appointment entity) {
-        appointmentDAO.update(entity);
-    }
 }

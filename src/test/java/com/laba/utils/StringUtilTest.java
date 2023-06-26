@@ -2,7 +2,9 @@ package com.laba.utils;
 
 import static org.testng.Assert.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import org.testng.annotations.Test;
 
@@ -22,6 +24,15 @@ public class StringUtilTest {
         for (char i = 'a'; i <= 'e'; i++) {
             set.add(String.valueOf(i));
         }
-        assertEquals("(a, b, c, d, e)", StringUtil.formatKeySetString(set));
+        assertEquals("(a, b, c, d, e)", StringUtil.formatCollectionsString(set));
+    }
+
+    @Test
+    public void testFormatListString2() {
+        List<String> list = new ArrayList<>();
+        for (char i = 'a'; i <= 'e'; i++) {
+            list.add(String.valueOf(i));
+        }
+        assertEquals("(a, b, c, d, e)", StringUtil.formatCollectionsString(list));
     }
 }

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.laba.interfaces.daos.IStaffDAO">
+    <resultMap id="StaffResultMap" type="Staff" autoMapping="false">
+        <result property="id" column="id"/>
+        <association property="person" column="person_id" javaType="Person"
+          select="com.laba.interfaces.daos.IPersonDAO.getById"/>
+    </resultMap>
+    <insert id="save" parameterType="com.laba.models.Staff">
+        INSERT INTO staff (id, person_id)
+        VALUES (#{id}, #{personId})
+    </insert>
+    <update id="update" parameterType="com.laba.models.Staff">
+        UPDATE staff
+        SET id        = #{id},
+            person_id = #{personId}
+        WHERE id = #{id}
+    </update>
+    <delete id="deleteById" parameterType="int">
+        DELETE
+        FROM staff
+        WHERE id = #{id}
+    </delete>
+    <select id="getById" parameterType="int" resultMap="StaffResultMap">
+        SELECT *
+        FROM staff
+        WHERE id = #{id}
+    </select>
+    <select id="getAll" resultMap="StaffResultMap">
+        SELECT *
+        FROM staff
+    </select>
+    <select id="getStaffByPersonId" resultMap="StaffResultMap">
+        SELECT *
+        FROM staff
+        WHERE person_id = #{personId}
+    </select>
+    <select id="getStaffByDepartmentId" resultMap="StaffResultMap">
+        SELECT *
+        FROM staff
+                 JOIN clinicians c on staff.id = c.staff_id
+                 JOIN appointments a on c.id = a.clinician_id
+                 JOIN rooms r on r.id = a.room_id
+                 JOIN departments d on d.id = r.department_id
+        WHERE d.id = #{departmendId};
+    </select>
+</mapper>

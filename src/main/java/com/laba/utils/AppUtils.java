@@ -12,4 +12,24 @@ public class AppUtils {
     public static Map<String, List<Map<String, String>>> getHospitalDbMapFromXml() {
         return XMLParser.domParseToMap(new File(DB_XML_PATH));
     }
+
+    public static void initializeDB() {
+        if (AppConfig.ENVIRONMENT.equals("GH_WORKFLOW")) {
+            SQLScriptExecutor.processSQLiteScript("create");
+        }
+        if (AppConfig.ENVIRONMENT.equals("DEVELOPMENT")) {
+            SQLScriptExecutor.processMySqlScript("create");
+        }
+    }
+
+    public static void populateDB(){
+        if (AppConfig.ENVIRONMENT.equals("GH_WORKFLOW")) {
+            SQLScriptExecutor.processSQLiteScript("create");
+            SQLScriptExecutor.processSQLiteScript("insert");
+        }
+        if (AppConfig.ENVIRONMENT.equals("DEVELOPMENT")) {
+            SQLScriptExecutor.processMySqlScript("create");
+            SQLScriptExecutor.processMySqlScript("insert");
+        }
+    }
 }

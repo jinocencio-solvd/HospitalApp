@@ -1,37 +1,25 @@
 package com.laba.services;
 
-import com.laba.interfaces.IEntityService;
-import com.laba.jdbc.DAOFactory;
-import com.laba.jdbc.DepartmentDAO;
+import com.laba.enums.DaoType;
+import com.laba.interfaces.daos.IDepartmentDAO;
 import com.laba.models.Department;
 import java.util.List;
 
-public class DepartmentService implements IEntityService<Department> {
+public class DepartmentService extends EntityService<Department, IDepartmentDAO> implements
+    IDepartmentDAO {
 
-    private final DepartmentDAO departmentDAO = DAOFactory.getJDBCDAO("department");
-
-    @Override
-    public List<Department> getAll() {
-        return departmentDAO.getAll();
+    public DepartmentService(DaoType daoType) {
+        super(daoType);
     }
 
     @Override
-    public Department getById(int id) {
-        return departmentDAO.getById(id);
+    protected String getModelName() {
+        return "department";
     }
 
     @Override
-    public void deleteById(int id) {
-        departmentDAO.deleteById(id);
+    public List<Department> getDepartmentsByClinicianId(int clinicianId) {
+        return dao.getDepartmentsByClinicianId(clinicianId);
     }
 
-    @Override
-    public void save(Department entity) {
-        departmentDAO.save(entity);
-    }
-
-    @Override
-    public void update(Department entity) {
-        departmentDAO.update(entity);
-    }
 }

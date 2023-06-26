@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.laba.interfaces.daos.IMedicalRecordDAO">
+    <resultMap id="MedicalRecordResultMap" type="MedicalRecord" autoMapping="false">
+        <result property="id" column="id"/>
+        <association property="appointment" column="appointment_id" javaType="Appointment"
+          select="com.laba.interfaces.daos.IAppointmentDAO.getById"/>
+        <association property="diagnosis" column="diagnosis_id" javaType="Diagnosis"
+          select="com.laba.interfaces.daos.IDiagnosisDAO.getById"/>
+        <association property="treatment" column="treatment_id" javaType="Treatment"
+          select="com.laba.interfaces.daos.ITreatmentDAO.getById"/>
+    </resultMap>
+    <insert id="save" parameterType="com.laba.models.MedicalRecord">
+        INSERT INTO medical_records (id, appointment_id, diagnosis_id, treatment_id)
+        VALUES (#{id}, #{appointment.id}, #{diagnosis.id}, #{treatment.id})
+    </insert>
+    <update id="update" parameterType="com.laba.models.MedicalRecord">
+        UPDATE medical_records
+        SET id             = #{id},
+            appointment_id = #{appointment.id},
+            diagnosis_id   = #{diagnosis.id},
+            treatment_id   = #{treatment.id}
+        WHERE id = #{id}
+    </update>
+    <delete id="deleteById" parameterType="int">
+        DELETE
+        FROM medical_records
+        WHERE id = #{id}
+    </delete>
+    <select id="getById" parameterType="int" resultMap="MedicalRecordResultMap">
+        SELECT *
+        FROM medical_records
+        WHERE id = #{id}
+    </select>
+    <select id="getAll" resultMap="MedicalRecordResultMap">
+        SELECT *
+        FROM medical_records
+    </select>
+    <select id="getMedicalRecordsByAppointment" parameterType="int"
+      resultMap="MedicalRecordResultMap">
+        SELECT *
+        FROM medical_records
+        WHERE appointment_id = #{appointment.id}
+    </select>
+    <select id="getMedicalRecordsForPatient" parameterType="com.laba.models.Person"
+        resultMap="MedicalRecordResultMap">
+        SELECT *
+        FROM  medical_records
+        JOIN appointments a on a.id = medical_records.appointment_id
+        JOIN patients p on p.id = a.patient_id
+         WHERE p.id = ${id}
+    </select>
+</mapper>

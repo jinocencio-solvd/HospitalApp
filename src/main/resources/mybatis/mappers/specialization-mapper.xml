@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.laba.interfaces.daos.ISpecializationDAO">
+    <resultMap id="SpecializationResultMap" type="Specialization" autoMapping="false">
+        <result property="id" column="id"/>
+        <result property="specialization" column="specialization"/>
+    </resultMap>
+    <insert id="save" parameterType="com.laba.models.Specialization">
+        INSERT INTO specializations (id, specialization)
+        VALUES (#{id}, #{specialization})
+    </insert>
+    <update id="update" parameterType="com.laba.models.Specialization">
+        UPDATE specializations
+        SET id             = #{id},
+            specialization = #{specialization}
+        WHERE id = #{id}
+    </update>
+    <delete id="deleteById" parameterType="int">
+        DELETE
+        FROM specializations
+        WHERE id = #{id}
+    </delete>
+    <select id="getById" parameterType="int" resultMap="SpecializationResultMap">
+        SELECT *
+        FROM specializations
+        WHERE id = #{id}
+    </select>
+    <select id="getAll" resultMap="SpecializationResultMap">
+        SELECT *
+        FROM specializations
+    </select>
+    <select id="getSpecializationByClinicianId" resultMap="SpecializationResultMap">
+        SELECT *
+        FROM specializations
+                 JOIN clinicians c on specializations.id = c.specialization_id
+        WHERE c.id = #{clinicianId}
+    </select>
+</mapper>

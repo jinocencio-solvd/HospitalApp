@@ -1,5 +1,6 @@
 package com.laba.utils;
 
+import java.util.Collection;
 import java.util.Set;
 import org.apache.commons.text.CaseUtils;
 
@@ -13,10 +14,14 @@ public class StringUtil {
         return getOrSet + snakeCaseToCamelCase(columnName);
     }
 
-    public static String formatKeySetString(Set<String> keySet) {
+    public static String formatCollectionsString(Collection<String> keySet) {
         return keySet.toString()
             .replace("[", "(")
             .replace("]", ")");
+    }
+
+    public static String convertToMyBatisPlaceholder(String input) {
+        return "#{" + input + "}";
     }
 
     public static String camelToSnakeCase(String camelStr) {

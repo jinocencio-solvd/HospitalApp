@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.laba.interfaces.daos.IDiagnosisDAO">
+    <resultMap id="DiagnosisResultMap" type="Diagnosis" autoMapping="false">
+        <result property="id" column="id"/>
+        <result property="diagnosisCode" column="diagnosis_code"/>
+        <result property="description" column="description"/>
+    </resultMap>
+    <insert id="save" parameterType="com.laba.models.Diagnosis">
+        INSERT INTO diagnosis (id, diagnosis_code, description)
+        VALUES (#{id}, #{diagnosisCode}, #{description})
+    </insert>
+    <update id="update" parameterType="com.laba.models.Diagnosis">
+        UPDATE diagnosis
+        SET id             = #{id},
+            diagnosis_code = #{diagnosisCode},
+            description    = #{description}
+        WHERE id = #{id}
+    </update>
+    <delete id="deleteById" parameterType="int">
+        DELETE
+        FROM diagnosis
+        WHERE id = #{id}
+    </delete>
+    <select id="getById" parameterType="int" resultMap="DiagnosisResultMap">
+        SELECT *
+        FROM diagnosis
+        WHERE id = #{id}
+    </select>
+    <select id="getAll" resultMap="DiagnosisResultMap">
+        SELECT *
+        FROM diagnosis
+    </select>
+    <select id="getDiagnosisByDepartmentId" resultMap="DiagnosisResultMap">
+        SELECT *
+        FROM diagnosis
+                 JOIN medical_records mr on diagnosis.id = mr.diagnosis_id
+                 JOIN appointments a on a.id = mr.appointment_id
+                 JOIN rooms r on r.id = a.room_id
+                 JOIN departments d on d.id = r.department_id
+        WHERE d.id = #{departmentId}
+    </select>
+</mapper>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.laba.interfaces.daos.IAppointmentDAO">
+    <resultMap id="AppointmentResultMap" type="Appointment" autoMapping="false">
+        <result property="id" column="id"/>
+        <result property="appointmentDate" column="appointment_date" javaType="java.sql.Date"
+          typeHandler="com.laba.utils.mybatis.SqliteDateTypeHandler"/>
+        <result property="appointmentTime" column="appointment_time" javaType="java.sql.Date"
+          typeHandler="com.laba.utils.mybatis.SqliteTimeTypeHandler"/>
+        <association property="patient" column="patient_id" javaType="Patient"
+          select="com.laba.interfaces.daos.IPatientDAO.getById"/>
+        <association property="clinician" column="clinician_id" javaType="Clinician"
+          select="com.laba.interfaces.daos.IClinicianDAO.getById"/>
+        <association property="room" column="room_id" javaType="Room"
+          select="com.laba.interfaces.daos.IRoomDAO.getById"/>
+    </resultMap>
+    <insert id="save" parameterType="com.laba.models.Appointment">
+        INSERT INTO appointments (id, patient_id, clinician_id, room_id, appointment_date,
+                                  appointment_time)
+        VALUES (#{id}, #{patient.id}, #{clinician.id}, #{room.id}, #{appointmentDate},
+                #{appointmentTime})
+    </insert>
+    <update id="update" parameterType="com.laba.models.Appointment">
+        UPDATE appointments
+        SET id               = #{id},
+            patient_id       = #{patient.id},
+            clinician_id     = #{clinician.id},
+            room_id          = #{room.id},
+            appointment_date = #{appointmentDate},
+            appointment_time = #{appointmentTime}
+        WHERE id = #{id}
+    </update>
+    <delete id="deleteById" parameterType="int">
+        DELETE
+        FROM appointments
+        WHERE id = #{id}
+    </delete>
+    <select id="getById" parameterType="int" resultMap="AppointmentResultMap">
+        SELECT *
+        FROM appointments
+        WHERE id = #{id}
+    </select>
+    <select id="getAll" resultMap="AppointmentResultMap">
+        SELECT *
+        FROM appointments
+    </select>
+    <select id="getAppointmentsByPatientId" resultMap="AppointmentResultMap">
+        SELECT *
+        FROM appointments
+        WHERE appointments.patient_id = #{patient.id}
+    </select>
+</mapper>

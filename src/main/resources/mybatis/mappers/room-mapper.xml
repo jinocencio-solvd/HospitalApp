@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.laba.interfaces.daos.IRoomDAO">
+    <resultMap id="RoomResultMap" type="Room" autoMapping="false">
+        <result property="id" column="id"/>
+        <result property="roomNumber" column="room_number"/>
+        <association property="department" column="department_id" javaType="Department"
+          select="com.laba.interfaces.daos.IDepartmentDAO.getById"/>
+    </resultMap>
+    <insert id="save" parameterType="com.laba.models.Room">
+        INSERT INTO rooms (id, room_number, department_id)
+        VALUES (#{id}, #{roomNumber}, #{department.id})
+    </insert>
+    <update id="update" parameterType="com.laba.models.Room">
+        UPDATE rooms
+        SET id            = #{id},
+            room_number   = #{roomNumber},
+            department_id = #{department.id}
+        WHERE id = #{id}
+    </update>
+    <delete id="deleteById" parameterType="int">
+        DELETE
+        FROM rooms
+        WHERE id = #{id}
+    </delete>
+    <select id="getById" parameterType="int" resultMap="RoomResultMap">
+        SELECT *
+        FROM rooms
+        WHERE id = #{id}
+    </select>
+    <select id="getAll" resultMap="RoomResultMap">
+        SELECT *
+        FROM rooms
+    </select>
+    <select id="getRoomsByDepartmentId" resultMap="RoomResultMap">
+        SELECT *
+        FROM rooms
+                 JOIN departments d ON d.id = rooms.department_id
+        WHERE d.id = #{department.id}
+    </select>
+</mapper>

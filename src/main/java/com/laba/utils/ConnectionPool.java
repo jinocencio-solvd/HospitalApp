@@ -21,6 +21,7 @@ public class ConnectionPool {
     private final int maxPoolSize = 5;
     private final Queue<Connection> connectionPool = new ArrayDeque<>(maxPoolSize);
     private final List<Connection> usedConnections = new ArrayList<>();
+    private final Object lock = new Object();
 
     public ConnectionPool() {
         for (int i = 0; i < maxPoolSize; i++) {
@@ -44,35 +45,43 @@ public class ConnectionPool {
         }
     }
 
-    public synchronized Connection getConnection() {
-        if (connectionPool.isEmpty()) {
-            if (usedConnections.size() < maxPoolSize) {
-                connectionPool.offer(createConnection());
-            } else {
-                throw new RuntimeException("Maximum pool size reached, no available connections.");
+    public Connection getConnection() {
+        synchronized (lock) {
+            if (connectionPool.isEmpty()) {
+                if (usedConnections.size() < maxPoolSize) {
+                    connectionPool.offer(createConnection());
+                } else {
+                    throw new RuntimeException(
+                        "Maximum pool size reached, no available connections.");
+                }
             }
+            Connection connection = connectionPool.poll();
+            usedConnections.add(connection);
+            LOG.debug("Connection called: " + connection);
+            return connection;
         }
-        Connection connection = connectionPool.poll();
-        usedConnections.add(connection);
-        LOG.debug("Connection called:" + connection);
-        return connection;
     }
 
-    public synchronized void releaseConnection(Connection connection) {
-        LOG.debug("Connection to remove:" + connection);
-        try {
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
+    public void releaseConnection(Connection connection) {
+        synchronized (lock) {
+            LOG.debug("Connection to release: " + connection);
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            usedConnections.remove(connection);
         }
-        usedConnections.remove(connection);
     }
 
-    public synchronized void closeAllConnections() throws SQLException {
-        for (Connection connection : connectionPool) {
-            connection.close();
+    public void closeAllConnections() throws SQLException {
+        synchronized (lock) {
+            for (Connection connection : connectionPool) {
+                connection.close();
+            }
+            connectionPool.clear();
+            usedConnections.clear();
         }
-        connectionPool.clear();
-        usedConnections.clear();
     }
+
 }

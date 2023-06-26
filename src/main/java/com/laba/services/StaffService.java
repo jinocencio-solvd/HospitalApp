@@ -1,37 +1,29 @@
 package com.laba.services;
 
-import com.laba.interfaces.IEntityService;
-import com.laba.jdbc.DAOFactory;
-import com.laba.jdbc.StaffDAO;
+import com.laba.enums.DaoType;
+import com.laba.interfaces.daos.IStaffDAO;
 import com.laba.models.Staff;
 import java.util.List;
 
-public class StaffService implements IEntityService<Staff> {
+public class StaffService extends EntityService<Staff, IStaffDAO> implements IStaffDAO {
 
-    private final StaffDAO staffDAO = DAOFactory.getJDBCDAO("staff");
-
-    @Override
-    public List<Staff> getAll() {
-        return staffDAO.getAll();
+    public StaffService(DaoType daoType) {
+        super(daoType);
     }
 
     @Override
-    public Staff getById(int id) {
-        return staffDAO.getById(id);
+    protected String getModelName() {
+        return "staff";
     }
 
     @Override
-    public void deleteById(int id) {
-        staffDAO.deleteById(id);
+    public Staff getStaffByPersonId(int personId) {
+        return dao.getStaffByPersonId(personId);
     }
 
     @Override
-    public void save(Staff entity) {
-        staffDAO.save(entity);
+    public List<Staff> getStaffByDepartmentId(int departmentId) {
+        return dao.getStaffByDepartmentId(departmentId);
     }
 
-    @Override
-    public void update(Staff entity) {
-        staffDAO.update(entity);
-    }
 }

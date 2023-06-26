@@ -20,23 +20,12 @@ public class Medication {
     @XmlElement(name = "medication_name")
     private String medicationName;
 
-    @JsonProperty("medication_types_id")
-    @XmlElement(name = "medication_types_id")
-    private int medicationTypeId;
+    @JsonProperty("medication_types")
+    @XmlElement(name = "medication_types", type = MedicationType.class)
+    private MedicationType medicationType;
 
     public Medication() {
         // Default Constructor
-    }
-
-    public Medication(int id, String medicationName, int medicationTypeId) {
-        this.id = id;
-        this.medicationName = medicationName;
-        this.medicationTypeId = medicationTypeId;
-    }
-
-    public Medication(String medicationName, int medicationTypeId) {
-        this.medicationName = medicationName;
-        this.medicationTypeId = medicationTypeId;
     }
 
     public int getId() {
@@ -55,12 +44,12 @@ public class Medication {
         this.medicationName = medicationName;
     }
 
-    public int getMedicationTypeId() {
-        return medicationTypeId;
+    public MedicationType getMedicationType() {
+        return medicationType;
     }
 
-    public void setMedicationTypeId(int medicationTypeId) {
-        this.medicationTypeId = medicationTypeId;
+    public void setMedicationType(MedicationType medicationType) {
+        this.medicationType = medicationType;
     }
 
     @Override
@@ -72,13 +61,13 @@ public class Medication {
             return false;
         }
         Medication that = (Medication) o;
-        return getId() == that.getId() && getMedicationTypeId() == that.getMedicationTypeId()
-            && Objects.equals(getMedicationName(), that.getMedicationName());
+        return getId() == that.getId() && Objects.equals(getMedicationName(), that.getMedicationName())
+            && Objects.equals(getMedicationType(), that.getMedicationType());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getMedicationName(), getMedicationTypeId());
+        return Objects.hash(getId(), getMedicationName(), getMedicationType());
     }
 
     @Override
@@ -86,7 +75,7 @@ public class Medication {
         return "Medication{" +
             "id=" + id +
             ", medicationName='" + medicationName + '\'' +
-            ", medicationTypeId=" + medicationTypeId +
+            ", medicationType=" + medicationType +
             '}';
     }
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<person id="0">
+<person>
     <first_name>Michael</first_name>
     <last_name>Scott</last_name>
     <dob>2000-01-01</dob>

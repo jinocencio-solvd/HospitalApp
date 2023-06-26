@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.laba.interfaces.daos.ITreatmentDAO">
+    <resultMap id="TreatmentResultMap" type="Treatment" autoMapping="false">
+        <result property="id" column="id"/>
+        <result property="treatmentName" column="treatment_name"/>
+    </resultMap>
+    <insert id="save" parameterType="com.laba.models.Treatment">
+        INSERT INTO treatments (id, treatment_name)
+        VALUES (#{id}, #{treatmentName})
+    </insert>
+    <update id="update" parameterType="com.laba.models.Treatment">
+        UPDATE treatments
+        SET id             = #{id},
+            treatment_name = #{treatmentName}
+        WHERE id = #{id}
+    </update>
+    <delete id="deleteById" parameterType="int">
+        DELETE
+        FROM treatments
+        WHERE id = #{id}
+    </delete>
+    <select id="getById" parameterType="int" resultMap="TreatmentResultMap">
+        SELECT *
+        FROM treatments
+        WHERE id = #{id}
+    </select>
+    <select id="getAll" resultMap="TreatmentResultMap">
+        SELECT *
+        FROM treatments
+    </select>
+    <select id="getTreatmentsByPatientId" resultMap="TreatmentResultMap">
+        SELECT *
+        FROM treatments
+                 JOIN medical_records mr on treatments.id = mr.treatment_id
+                 JOIN appointments a on a.id = mr.appointment_id
+                 JOIN patients p on p.id = a.patient_id
+        WHERE p.id = #{patientId}
+    </select>
+</mapper>

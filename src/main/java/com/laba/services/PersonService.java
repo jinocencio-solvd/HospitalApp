@@ -1,43 +1,24 @@
 package com.laba.services;
 
-import com.laba.interfaces.IEntityService;
-import com.laba.jdbc.DAOFactory;
-import com.laba.jdbc.PersonDAO;
+import com.laba.enums.DaoType;
+import com.laba.interfaces.daos.IPersonDAO;
 import com.laba.models.Person;
 import java.sql.Date;
-import java.util.List;
 
-public class PersonService implements IEntityService<Person> {
+public class PersonService extends EntityService<Person, IPersonDAO> implements IPersonDAO {
 
-    private final PersonDAO personDAO = DAOFactory.getJDBCDAO("person");
+    public PersonService(DaoType daoType) {
+        super(daoType);
+    }
 
+    @Override
+    protected String getModelName() {
+        return "person";
+    }
+
+    @Override
     public Person getByFirstLastNameAndDob(String firstName, String lastName, Date dob) {
-        return personDAO.getByFirstLastNameAndDob(firstName, lastName, dob);
-    }
-
-    @Override
-    public List<Person> getAll() {
-        return personDAO.getAll();
-    }
-
-    @Override
-    public Person getById(int id) {
-        return personDAO.getById(id);
-    }
-
-    @Override
-    public void deleteById(int id) {
-        personDAO.deleteById(id);
-    }
-
-    @Override
-    public void save(Person entity) {
-        personDAO.save(entity);
-    }
-
-    @Override
-    public void update(Person entity) {
-        personDAO.update(entity);
+        return dao.getByFirstLastNameAndDob(firstName, lastName, dob);
     }
 
 }

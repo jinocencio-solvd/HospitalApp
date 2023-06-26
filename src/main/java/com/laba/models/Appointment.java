@@ -24,50 +24,33 @@ public class Appointment {
     @XmlAttribute(name = "id")
     private int id;
 
-    @JsonProperty("patient_id")
-    @XmlElement(name = "patient_id")
-    private int patientId;
+    @JsonProperty("patient")
+    @XmlElement(name = "patient", type = Patient.class)
+    private Patient patient;
 
-    @JsonProperty("clinician_id")
-    @XmlElement(name = "clinician_id")
-    private int clinicianId;
 
-    @JsonProperty("room_id")
-    @XmlElement(name = "room_id")
-    private int roomId;
+    @JsonProperty("clinician")
+    @XmlElement(name = "clinician", type = Clinician.class)
+    private Clinician clinician;
+
+    @JsonProperty("room")
+    @XmlElement(name = "room", type = Room.class)
+    private Room room;
 
     @JsonProperty("date")
     @XmlElement(name = "date")
     @JsonSerialize(using = DateAdapterJSON.class)
     @XmlJavaTypeAdapter(DateAdapter.class)
-    private Date date;
+    private Date appointmentDate;
 
     @JsonProperty("time")
     @XmlElement(name = "time")
     @JsonSerialize(using = TimeAdapterJSON.class)
     @XmlJavaTypeAdapter(TimeAdapter.class)
-    private Time time;
+    private Time appointmentTime;
 
     public Appointment() {
         // Empty Constructor
-    }
-
-    public Appointment(int id, int patientId, int clinicianId, int roomId, Date date,
-        Time time) {
-        this.id = id;
-        this.patientId = patientId;
-        this.clinicianId = clinicianId;
-        this.roomId = roomId;
-        this.date = date;
-        this.time = time;
-    }
-
-    public Appointment(int patientId, int clinicianId, int roomId, Date date, Time time) {
-        this.patientId = patientId;
-        this.clinicianId = clinicianId;
-        this.roomId = roomId;
-        this.date = date;
-        this.time = time;
     }
 
     public int getId() {
@@ -78,44 +61,45 @@ public class Appointment {
         this.id = id;
     }
 
-    public int getPatientId() {
-        return patientId;
+
+    public Patient getPatient() {
+        return patient;
     }
 
-    public void setPatientId(int patientId) {
-        this.patientId = patientId;
+    public void setPatient(Patient patient) {
+        this.patient = patient;
     }
 
-    public int getClinicianId() {
-        return clinicianId;
+    public Clinician getClinician() {
+        return clinician;
     }
 
-    public void setClinicianId(int clinicianId) {
-        this.clinicianId = clinicianId;
+    public void setClinician(Clinician clinician) {
+        this.clinician = clinician;
     }
 
-    public int getRoomId() {
-        return roomId;
+    public Room getRoom() {
+        return room;
     }
 
-    public void setRoomId(int roomId) {
-        this.roomId = roomId;
+    public void setRoom(Room room) {
+        this.room = room;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getAppointmentDate() {
+        return appointmentDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setAppointmentDate(Date appointmentDate) {
+        this.appointmentDate = appointmentDate;
     }
 
-    public Time getTime() {
-        return time;
+    public Time getAppointmentTime() {
+        return appointmentTime;
     }
 
-    public void setTime(Time time) {
-        this.time = time;
+    public void setAppointmentTime(Time appointmentTime) {
+        this.appointmentTime = appointmentTime;
     }
 
     @Override
@@ -127,27 +111,29 @@ public class Appointment {
             return false;
         }
         Appointment that = (Appointment) o;
-        return getId() == that.getId() && getPatientId() == that.getPatientId()
-            && getClinicianId() == that.getClinicianId() && getRoomId() == that.getRoomId()
-            && Objects.equals(getDate(), that.getDate()) && Objects.equals(
-            getTime(), that.getTime());
+        return getId() == that.getId() && Objects.equals(getPatient(), that.getPatient())
+            && Objects.equals(getClinician(), that.getClinician())
+            && Objects.equals(getRoom(), that.getRoom()) && Objects.equals(
+            getAppointmentDate(), that.getAppointmentDate()) && Objects.equals(
+            getAppointmentTime(), that.getAppointmentTime());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getPatientId(), getClinicianId(), getRoomId(), getDate(),
-            getTime());
+        return Objects.hash(getId(), getPatient(), getClinician(), getRoom(), getAppointmentDate(),
+            getAppointmentTime());
     }
 
     @Override
     public String toString() {
         return "Appointment{" +
             "id=" + id +
-            ", patientId=" + patientId +
-            ", clinicianId=" + clinicianId +
-            ", roomId=" + roomId +
-            ", date=" + date +
-            ", time=" + time +
+            ", patient=" + patient +
+            ", clinician=" + clinician +
+            ", room=" + room +
+            ", appointmentDate=" + appointmentDate +
+            ", appointmentTime=" + appointmentTime +
             '}';
     }
+
 }

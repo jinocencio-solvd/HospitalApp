@@ -1,37 +1,23 @@
 package com.laba.services;
 
-import com.laba.interfaces.IEntityService;
-import com.laba.jdbc.DAOFactory;
-import com.laba.jdbc.PatientDAO;
+import com.laba.enums.DaoType;
+import com.laba.interfaces.daos.IPatientDAO;
 import com.laba.models.Patient;
-import java.util.List;
 
-public class PatientService implements IEntityService<Patient> {
+public class PatientService extends EntityService<Patient, IPatientDAO> implements IPatientDAO {
 
-    private final PatientDAO patientDAO = DAOFactory.getJDBCDAO("patient");
-
-    @Override
-    public List<Patient> getAll() {
-        return patientDAO.getAll();
+    public PatientService(DaoType daoType) {
+        super(daoType);
     }
 
     @Override
-    public Patient getById(int id) {
-        return patientDAO.getById(id);
+    protected String getModelName() {
+        return "patient";
     }
 
     @Override
-    public void deleteById(int id) {
-        patientDAO.deleteById(id);
+    public Patient getPatientByPersonId(int personId) {
+        return dao.getPatientByPersonId(personId);
     }
 
-    @Override
-    public void save(Patient entity) {
-        patientDAO.save(entity);
-    }
-
-    @Override
-    public void update(Patient entity) {
-        patientDAO.update(entity);
-    }
 }

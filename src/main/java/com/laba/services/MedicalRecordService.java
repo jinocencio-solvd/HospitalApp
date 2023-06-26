@@ -1,48 +1,37 @@
 package com.laba.services;
 
+import com.laba.enums.DaoType;
 import com.laba.enums.FileType;
-import com.laba.interfaces.IMedicalRecordService;
-import com.laba.jdbc.DAOFactory;
-import com.laba.jdbc.MedicalRecordDAO;
+import com.laba.interfaces.daos.IMedicalRecordDAO;
 import com.laba.models.MedicalRecord;
 import com.laba.models.Patient;
 import com.laba.utils.json.JacksonUtil;
 import com.laba.utils.xml.jaxb.JAXBUtil;
 import java.util.List;
 
-public class MedicalRecordService implements IMedicalRecordService {
+public class MedicalRecordService extends EntityService<MedicalRecord, IMedicalRecordDAO> implements
+    IMedicalRecordDAO {
 
-    public static MedicalRecordDAO medicalRecordDAO;
     public static final String MEDICAL_RECORDS_DIR = "/patient_records/";
     public static final String FILENAME_PREFIX = "medical_record_patientId_";
 
-    public MedicalRecordService() {
-        medicalRecordDAO = DAOFactory.getJDBCDAO("medical record");
+    public MedicalRecordService(DaoType daoType) {
+        super(daoType);
     }
 
     @Override
-    public List<MedicalRecord> getAll() {
-        return medicalRecordDAO.getAll();
+    protected String getModelName() {
+        return "medical record";
     }
 
     @Override
-    public MedicalRecord getById(int id) {
-        return medicalRecordDAO.getById(id);
+    public List<MedicalRecord> getMedicalRecordsByAppointmentId(int appointmentId) {
+        return dao.getMedicalRecordsByAppointmentId(appointmentId);
     }
 
     @Override
-    public void deleteById(int id) {
-        medicalRecordDAO.deleteById(id);
-    }
-
-    @Override
-    public void save(MedicalRecord entity) {
-        medicalRecordDAO.save(entity);
-    }
-
-    @Override
-    public void update(MedicalRecord entity) {
-        medicalRecordDAO.update(entity);
+    public List<MedicalRecord> getMedicalRecordsForPatient(Patient p) {
+        return dao.getMedicalRecordsForPatient(p);
     }
 
     public void getXmlPatientMedicalRecords(Patient p) {
@@ -60,8 +49,4 @@ public class MedicalRecordService implements IMedicalRecordService {
         JacksonUtil.toJsonFile(patient, filepathJson);
     }
 
-    @Override
-    public List<MedicalRecord> getMedicalRecordsForPatient(Patient p) {
-        return medicalRecordDAO.getMedicalRecordsForPatient(p);
-    }
 }

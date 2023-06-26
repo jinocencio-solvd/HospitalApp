@@ -1,37 +1,25 @@
 package com.laba.services;
 
-import com.laba.interfaces.IEntityService;
-import com.laba.jdbc.DAOFactory;
-import com.laba.jdbc.ProfessionDAO;
+import com.laba.enums.DaoType;
+import com.laba.interfaces.daos.IProfessionDAO;
 import com.laba.models.Profession;
 import java.util.List;
 
-public class ProfessionService implements IEntityService<Profession> {
+public class ProfessionService extends EntityService<Profession, IProfessionDAO> implements
+    IProfessionDAO {
 
-    private final ProfessionDAO professionDAO = DAOFactory.getJDBCDAO("profession");
-
-    @Override
-    public List<Profession> getAll() {
-        return professionDAO.getAll();
+    public ProfessionService(DaoType daoType) {
+        super(daoType);
     }
 
     @Override
-    public Profession getById(int id) {
-        return professionDAO.getById(id);
+    protected String getModelName() {
+        return "profession";
     }
 
     @Override
-    public void deleteById(int id) {
-        professionDAO.deleteById(id);
+    public List<Profession> getProfessionByDepartmentId(int departmentId) {
+        return dao.getProfessionByDepartmentId(departmentId);
     }
 
-    @Override
-    public void save(Profession entity) {
-        professionDAO.save(entity);
-    }
-
-    @Override
-    public void update(Profession entity) {
-        professionDAO.update(entity);
-    }
 }
