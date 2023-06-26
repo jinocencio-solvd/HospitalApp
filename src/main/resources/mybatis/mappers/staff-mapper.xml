@@ -6,7 +6,8 @@
 <mapper namespace="com.laba.interfaces.daos.IStaffDAO">
     <resultMap id="StaffResultMap" type="Staff" autoMapping="false">
         <result property="id" column="id"/>
-        <result property="personId" column="person_id"/>
+        <association property="person" column="person_id" javaType="Person"
+          select="com.laba.interfaces.daos.IPersonDAO.getById"/>
     </resultMap>
     <insert id="save" parameterType="com.laba.models.Staff">
         INSERT INTO staff (id, person_id)
@@ -31,6 +32,11 @@
     <select id="getAll" resultMap="StaffResultMap">
         SELECT *
         FROM staff
+    </select>
+    <select id="getStaffByPersonId" resultMap="StaffResultMap">
+        SELECT *
+        FROM staff
+        WHERE person_id = #{personId}
     </select>
     <select id="getStaffByDepartmentId" resultMap="StaffResultMap">
         SELECT *

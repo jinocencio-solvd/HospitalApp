@@ -95,7 +95,9 @@ public abstract class EntityDAO<T> implements IEntityDAO<T> {
             String columnName = metaData.getColumnName(i);
             columnMap.put(columnName, rs.getString(columnName));
         }
-        return createModelFromMap(columnMap);
+        T entity = createModelFromMap(columnMap);
+        entity = JdbcModelAssociations.associateModel(entity, rs);
+        return entity;
     }
 
     @Override

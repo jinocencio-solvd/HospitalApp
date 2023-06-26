@@ -6,20 +6,23 @@
 <mapper namespace="com.laba.interfaces.daos.IClinicianDAO">
     <resultMap id="ClinicianResultMap" type="Clinician" autoMapping="false">
         <result property="id" column="id"/>
-        <result property="staffId" column="staff_id"/>
-        <result property="professionId" column="profession_id"/>
-        <result property="specializationId" column="specialization_id"/>
+        <association property="staff" column="staff_id" javaType="Staff"
+          select="com.laba.interfaces.daos.IStaffDAO.getById"/>
+        <association property="profession" column="profession_id" javaType="Profession"
+          select="com.laba.interfaces.daos.IProfessionDAO.getById"/>
+        <association property="specialization" column="specialization_id" javaType="Specialization"
+          select="com.laba.interfaces.daos.ISpecializationDAO.getById"/>
     </resultMap>
     <insert id="save" parameterType="com.laba.models.Clinician">
         INSERT INTO clinicians (id, staff_id, profession_id, specialization_id)
-        VALUES (#{id}, #{staffId}, #{professionId}, #{specializationId})
+        VALUES (#{id}, #{staff.id}, #{profession.id}, #{specialization.id})
     </insert>
     <update id="update" parameterType="com.laba.models.Clinician">
         UPDATE clinicians
         SET id                = #{id},
-            staff_id          = #{staffId},
-            profession_id     = #{professionId},
-            specialization_id = #{specializationId}
+            staff_id          = #{staff.id},
+            profession_id     = #{profession.id},
+            specialization_id = #{specialization.id}
         WHERE id = #{id}
     </update>
     <delete id="deleteById" parameterType="int">

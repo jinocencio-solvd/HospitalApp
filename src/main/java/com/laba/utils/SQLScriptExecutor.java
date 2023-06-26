@@ -3,7 +3,6 @@ package com.laba.utils;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.Statement;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,10 +10,8 @@ import org.apache.logging.log4j.Logger;
 public class SQLScriptExecutor {
 
     private static final Logger LOG = LogManager.getLogger(SQLScriptExecutor.class);
-    private static final String sqliteUrl = "jdbc:sqlite:./db/hospital.db";
-    private static final String mySqlUrl = "jdbc:mysql://localhost:3306/hospital?user=root&password=password";
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         SQLScriptExecutor.processMySqlScript("create");
     }
 
@@ -28,7 +25,7 @@ public class SQLScriptExecutor {
                 script = "./SQL/SQLite/hospital-insert-sqlite.sql";
                 break;
         }
-        runSQLScript(script, sqliteUrl);
+        runSQLScript(script);
     }
 
     public static void processMySqlScript(String action) {
@@ -41,22 +38,18 @@ public class SQLScriptExecutor {
                 script = "./SQL/MySQL/hospital-inserts.sql";
                 break;
         }
-        runSQLScript(script, mySqlUrl);
+        runSQLScript(script);
     }
 
-    private static void runSQLScript(String filepath, String dbUrl) {
-        try {
-            // Establish a connection to the database
-            Connection connection = DriverManager.getConnection(dbUrl);
-
-            // Create a statement
+    private static void runSQLScript(String filepath) {
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        try (Connection connection = connectionPool.getConnection();
             Statement statement = connection.createStatement();
-
-            // Read the SQL file
-            BufferedReader reader = new BufferedReader(new FileReader(filepath));
+            BufferedReader reader = new BufferedReader(new FileReader(filepath))
+        ) {
+            connection.setAutoCommit(false);  // Start a transaction
             StringBuilder sqlScript = new StringBuilder();
             String line;
-
             while ((line = reader.readLine()) != null) {
                 // Append each line to the SQL script
                 sqlScript.append(line);
@@ -67,14 +60,13 @@ public class SQLScriptExecutor {
                     sqlScript.setLength(0);  // Clear the script
                 }
             }
-            // Close resources
-            reader.close();
-            statement.close();
-            connection.close();
+            connection.commit();  // Commit the transaction
+            connection.setAutoCommit(true);  // Enable auto-commit
             LOG.info("Script: " + filepath + " created successfully");
         } catch (Exception e) {
             e.printStackTrace();
             LOG.error("Script Failed: " + filepath);
         }
     }
+
 }

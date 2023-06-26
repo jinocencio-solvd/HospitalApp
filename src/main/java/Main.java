@@ -33,15 +33,8 @@ public class Main {
 
         Runnable getPatientByPersonId = () -> {
             PatientService patientService = new PatientService(DaoType.MYBATIS);
-            PersonService personService = new PersonService(DaoType.MYBATIS);
             Patient patient = patientService.getById(1);
             LOG.info(patient);
-
-            Person futurePatient = new Person("p1Patient", "p1Last", Date.valueOf("2000-01-01"));
-            personService.save(futurePatient);
-            Patient newPatient = new Patient(null, 20);
-            patientService.save(newPatient);
-            LOG.info(patientService.getById(13));
         };
 
         Runnable myBatisAndJdbcDaoComparison = () -> {
@@ -128,7 +121,7 @@ public class Main {
     }
 
     public static void processPatientMedicalRecords() {
-        Patient patient = new Patient(1, 1);
+        Patient patient = new PatientService(DaoType.JDBC).getPatientByPersonId(1);
         MedicalRecordService medicalRecordService = new MedicalRecordService(DaoType.JDBC);
 
         Runnable dbToXmlOut = () -> {
@@ -145,4 +138,5 @@ public class Main {
         dbToXmlOut.run();
         xmlSerializeToJson.run();
     }
+
 }

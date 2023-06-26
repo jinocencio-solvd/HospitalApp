@@ -4,9 +4,7 @@ import static org.testng.AssertJUnit.assertEquals;
 
 import com.laba.enums.DaoType;
 import com.laba.models.Appointment;
-import com.laba.utils.AppUtils;
 import java.util.List;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
@@ -14,11 +12,6 @@ import org.testng.annotations.Test;
 public class AppointmentServiceTest {
 
     private final AppointmentService appointmentService;
-
-    @BeforeClass
-    public void before() {
-        AppUtils.populateDB();
-    }
 
     @Factory(dataProvider = "dataProvider")
     public AppointmentServiceTest(DaoType daoType) {
@@ -34,7 +27,7 @@ public class AppointmentServiceTest {
     }
 
     @Test
-    public void testGetAppointmentsByAppointmentId() {
+    public void testGetAppointmentsByPatientId() {
         List<Appointment> apptList = appointmentService.getAppointmentsByPatientId(1);
         assertEquals(apptList.size(), 4);
 

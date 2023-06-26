@@ -6,22 +6,17 @@
 <mapper namespace="com.laba.interfaces.daos.IPatientDAO">
     <resultMap id="PatientResultMap" type="Patient" autoMapping="false">
         <result property="id" column="id"/>
-        <result property="personId" column="person_id"/>
         <association property="person" column="person_id" javaType="Person"
           select="com.laba.interfaces.daos.IPersonDAO.getById"/>
-        <collection property="appointments" column="id" ofType="com.laba.models.Appointment"
-          select="com.laba.interfaces.daos.IAppointmentDAO.getAppointmentsByPatientId"/>
-        <collection property="medicalRecords" column="id" ofType="com.laba.models.MedicalRecord"
-          select="getMedicalRecordsByPatientId"/>
     </resultMap>
     <insert id="save" parameterType="com.laba.models.Patient">
         INSERT INTO patients (id, person_id)
-        VALUES (#{id}, #{personId})
+        VALUES (#{id}, #{person.id})
     </insert>
     <update id="update" parameterType="com.laba.models.Patient">
         UPDATE patients
         SET id        = #{id},
-            person_id = #{personId}
+            person_id = #{person.id}
         WHERE id = #{id}
     </update>
     <delete id="deleteById" parameterType="int">
@@ -42,13 +37,5 @@
         SELECT *
         FROM patients
         WHERE person_id = #{personId}
-    </select>
-    <select id="getMedicalRecordsByPatientId" parameterType="int"
-      resultMap="com.laba.interfaces.daos.IMedicalRecordDAO.MedicalRecordResultMap">
-        SELECT mr.*
-        FROM medical_records mr
-                 JOIN appointments a on a.id = mr.appointment_id
-                 JOIN patients p on p.id = a.patient_id
-        WHERE p.id = #{id}
     </select>
 </mapper>

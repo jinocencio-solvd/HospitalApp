@@ -7,17 +7,18 @@
     <resultMap id="MedicationResultMap" type="Medication" autoMapping="false">
         <result property="id" column="id"/>
         <result property="medicationName" column="medication_name"/>
-        <result property="medicationTypesId" column="medication_types_id"/>
+        <association property="medicationType" column="medication_types_id" javaType="MedicationType"
+          select="com.laba.interfaces.daos.IMedicationTypeDAO.getById"/>
     </resultMap>
     <insert id="save" parameterType="com.laba.models.Medication">
         INSERT INTO medications (id, medication_name, medication_types_id)
-        VALUES (#{id}, #{medicationName}, #{medicationTypesId})
+        VALUES (#{id}, #{medicationName}, #{medicationType.id})
     </insert>
     <update id="update" parameterType="com.laba.models.Medication">
         UPDATE medications
         SET id                  = #{id},
             medication_name     = #{medicationName},
-            medication_types_id = #{medicationTypesId}
+            medication_types_id = #{medicationType.id}
         WHERE id = #{id}
     </update>
     <delete id="deleteById" parameterType="int">
