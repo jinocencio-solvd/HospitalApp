@@ -22,6 +22,38 @@ employing automatic testing, we can catch issues early in the development proces
 our code is always working as expected. This helps to maintain the quality of the code and make sure
 that the project is stable and reliable.
 
+## Iter-6
+
+### Task
+
+Requirements
+
+- Add Factory, Abstract Factory, Builder, Listener, Facade, Decorator, Proxy, Strategy, MVC patterns
+  to your current project. (confirm assignments with your mentors)
+    - The `models/DecoratedPatient` class acts as a decorator for the `Patient` class, extending its
+      functionality by adding the ability to store and retrieve a list of medical records.
+    - Building on top of `models/DecoratedPatient`, adherence to the MVC design pattern realized in
+      implementing Model (`Patient`, `DecoratedPatient`, `MedicalRecord`), View (`EntityView`
+      , `DecoratedPatientView`), and Controller (`EntityController`, `DecoratedPatientController`)
+      components.
+- Refactor code for the current project to satisfy SOLID principles.
+    - Single Responsibility Principle
+        - Examples found in all DAOs, Controllers, Service classes have single responsibilities
+    - Open/Closed Principle
+        - Use of interfaces like `IEntityService` and abstracted classes like `EntityDAO` allows for
+          easy extension of functionality without modifying existing code.
+    - Liskov Substitution Principle
+        - Adherence to interfaces like `IEntityDAO` used in `AbstractDAOFactory` to allow for return
+          of either MYBATIS or jdbc dao types.
+    - Interface Segregation Principle
+        - Methods enforced by interfaces are specific and focused while cohesive to the underlying
+          package structure.
+    - Dependency Inversion Principle
+        - The high-level Service layer is loosely coupled to underlying DAO layer and allows for
+          flexibility in switching database access. Additionally, Abstract classes like `IEntityDAO`
+          and `IEntityService` are largely used as the underlying implementation which also
+          encourages loose coupling and the ability to switch implementations.
+
 ## Iter-5
 
 ### Task
@@ -36,9 +68,9 @@ Requirements
           both found in the directory `utils/mybatis/`.
 - Switch service classes to MyBatis.
     - The service layer classes were modified to accept a DaoType enum parameter, allowing them to
-      utilize either `DaoType.JDBC` or `DaoType.MYBATIS`. This enhancement enables the switching between
-      different DAO implementations and each DAO implementation is associated with its respective DAO
-      interface through type declarations.
+      utilize either `DaoType.JDBC` or `DaoType.MYBATIS`. This enhancement enables the switching
+      between different DAO implementations and each DAO implementation is associated with its
+      respective DAO interface through type declarations.
         - DAOs for MyBatis are located in the directory `com/laba/dal/mybatisDAOs`.
 
 ## Iter-4
