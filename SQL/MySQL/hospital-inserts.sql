@@ -117,17 +117,14 @@ VALUES (1, 'No Treatment'),
 
 INSERT INTO medical_records (appointment_id, diagnosis_id, treatment_id)
 VALUES (1, 1, 1),
-       (1, 1, 1),
-       (1, 1, 1),
-       (1, 1, 1),
        (2, 2, 2),
-       (3, 1, 1),
-       (4, 2, 2),
+       (3, 2, 2),
+       (4, 2, 4),
        (5, 1, 1),
        (6, 2, 2),
-       (7, 1, 1),
+       (7, 3, 3),
        (8, 2, 3),
-       (9, 1, 1),
+       (9, 2, 3),
        (10, 2, 3),
        (11, 1, 1),
        (12, 2, 3);
@@ -144,7 +141,9 @@ VALUES ('Aspirin', 1),
        ('Amoxicillin', 2),
        ('Influenza Vaccine', 4);
 
-INSERT INTO prescriptions (treatment_id, medication_id, dosage, prescription_start_date,
+INSERT INTO prescriptions (id, treatment_id, medication_id, dosage, prescription_start_date,
                            prescription_expiration_date)
-VALUES (1, 1, '1 tablet daily', '2023-06-01', '2023-06-30'),
-       (1, 2, '2 tablets twice a day', '2023-06-01', '2023-06-30');
+VALUES (1, 1, 1, '1 tablet daily', '2023-06-01', '2023-06-30'),
+       (2, 2, 2, '2 tablets twice a day', '2023-06-01', '2023-06-30'),
+       (3, 1, 1, '1 tablet daily', '2023-06-01', '2023-06-30'),
+       (4, 1, 2, '2 tablets twice a day', '2023-06-01', '2023-06-30');

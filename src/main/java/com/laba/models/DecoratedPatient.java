@@ -2,7 +2,6 @@ package com.laba.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 
@@ -27,10 +26,13 @@ public class DecoratedPatient {
         this.medicalRecords = medicalRecords;
     }
 
+    public Patient getPatient() {
+        return patient;
+    }
+
     public List<MedicalRecord> getMedicalRecords() {
         return medicalRecords;
     }
-
 
     @Override
     public String toString() {

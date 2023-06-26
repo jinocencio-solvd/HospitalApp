@@ -1,4 +1,4 @@
-package com.laba.controllers.controller;
+package com.laba.controllers;
 
 import static org.testng.AssertJUnit.assertEquals;
 
