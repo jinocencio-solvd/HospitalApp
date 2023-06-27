@@ -3,6 +3,7 @@ package com.laba.services;
 import com.laba.enums.DaoType;
 import com.laba.enums.FileType;
 import com.laba.interfaces.daos.IMedicalRecordDAO;
+import com.laba.models.DecoratedPatient;
 import com.laba.models.MedicalRecord;
 import com.laba.models.Patient;
 import com.laba.utils.json.JacksonUtil;
@@ -36,10 +37,11 @@ public class MedicalRecordService extends EntityService<MedicalRecord, IMedicalR
 
     public void getXmlPatientMedicalRecords(Patient p) {
         List<MedicalRecord> patientMedicalRecords = getMedicalRecordsForPatient(p);
-        p.setMedicalRecords(patientMedicalRecords);
+        DecoratedPatient decoratedPatient = new DecoratedPatient(p);
+        decoratedPatient.setMedicalRecords(patientMedicalRecords);
         String filepath =
             MEDICAL_RECORDS_DIR + FILENAME_PREFIX + p.getId() + FileType.XML.getExtension();
-        JAXBUtil.marshallOneXmlOut(p, filepath);
+        JAXBUtil.marshallOneXmlOut(decoratedPatient, filepath);
     }
 
     public void getJsonPatientMedicalRecordsFromXml(Patient p, String filepath) {

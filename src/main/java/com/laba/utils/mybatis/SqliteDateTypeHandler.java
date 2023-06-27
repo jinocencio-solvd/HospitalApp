@@ -66,13 +66,11 @@ public class SqliteDateTypeHandler extends BaseTypeHandler<Date> {
 
     @Override
     public Date getNullableResult(ResultSet resultSet, int i) throws SQLException {
-        System.out.println(2);
         return resultSet.getDate(i);
     }
 
     @Override
     public Date getNullableResult(CallableStatement callableStatement, int i) throws SQLException {
-        System.out.println(3);
         return callableStatement.getDate(i);
     }
 

@@ -12,7 +12,7 @@ public class SQLScriptExecutor {
     private static final Logger LOG = LogManager.getLogger(SQLScriptExecutor.class);
 
     public static void main(String[] args) {
-        SQLScriptExecutor.processMySqlScript("create");
+        AppUtils.populateDB();
     }
 
     public static void processSQLiteScript(String action) {

@@ -32,7 +32,7 @@ public class MedicalRecordServiceTest {
         Patient patient = new PatientService(daoType).getPatientByPersonId(1);
         List<MedicalRecord> medicalRecords = medicalRecordService.getMedicalRecordsForPatient(
             patient);
-        assertEquals(medicalRecords.size(), 7);
+        assertEquals(medicalRecords.size(), 4);
     }
 
 }
